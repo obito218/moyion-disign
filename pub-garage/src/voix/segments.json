@@ -1,0 +1,14 @@
+[
+  {"id": "01", "pause": 0.6, "texte": "Vous êtes sous une voiture."},
+  {"id": "02", "pause": 0.7, "texte": "Le téléphone *sonne*."},
+  {"id": "03", "pause": 0.7, "texte": "Vous ne pouvez pas *décrocher*."},
+  {"id": "04", "pause": 0.9, "texte": "Le client, lui, appelle le *garage d'en face*."},
+  {"id": "05", "pause": 1.1, "texte": "Avec ce système, le client reçoit tout de suite un *SMS*."},
+  {"id": "06", "pause": 1.0, "texte": "Il clique sur le lien *WhatsApp* et écrit sa demande."},
+  {"id": "07", "pause": 0.9, "texte": "Une *assistante* lui répond et propose un *créneau*."},
+  {"id": "08", "pause": 1.5, "texte": "Et vous, vous recevez une *fiche*."},
+  {"id": "09", "pause": 0.4, "texte": "Le *nom du client*, la *panne*, le *créneau*.", "prononciation": "Le nom du client. | La panne. | Le créneau."},
+  {"id": "10", "pause": 1.1, "texte": "Les appels manqués redeviennent des *rendez-vous*."},
+  {"id": "11", "pause": 1.2, "texte": "*30 jours* pour essayer, *gratuitement*.", "prononciation": "Trente jours pour essayer, gratuitement.", "sousTitre": false},
+  {"id": "12", "pause": 0.45, "texte": "*Sans engagement.*", "sousTitre": false}
+]

@@ -1,0 +1,146 @@
+{
+  "10": {
+    "duree": 2.487,
+    "debutParole": 0.04,
+    "finParole": 2.45,
+    "morceaux": [
+      [
+        0.04,
+        2.45
+      ]
+    ]
+  },
+  "11": {
+    "duree": 2.051,
+    "debutParole": 0.04,
+    "finParole": 2.02,
+    "morceaux": [
+      [
+        0.04,
+        2.02
+      ]
+    ]
+  },
+  "12": {
+    "duree": 1.085,
+    "debutParole": 0.04,
+    "finParole": 1.05,
+    "morceaux": [
+      [
+        0.04,
+        1.05
+      ]
+    ]
+  },
+  "01": {
+    "duree": 1.487,
+    "debutParole": 0.04,
+    "finParole": 1.45,
+    "morceaux": [
+      [
+        0.04,
+        1.45
+      ]
+    ]
+  },
+  "02": {
+    "duree": 1.307,
+    "debutParole": 0.04,
+    "finParole": 1.27,
+    "morceaux": [
+      [
+        0.04,
+        1.27
+      ]
+    ]
+  },
+  "03": {
+    "duree": 1.66,
+    "debutParole": 0.04,
+    "finParole": 1.63,
+    "morceaux": [
+      [
+        0.04,
+        1.63
+      ]
+    ]
+  },
+  "04": {
+    "duree": 2.562,
+    "debutParole": 0.04,
+    "finParole": 2.52,
+    "morceaux": [
+      [
+        0.04,
+        0.87
+      ],
+      [
+        1.03,
+        2.52
+      ]
+    ]
+  },
+  "05": {
+    "duree": 3.592,
+    "debutParole": 0.04,
+    "finParole": 3.56,
+    "morceaux": [
+      [
+        0.04,
+        3.56
+      ]
+    ]
+  },
+  "06": {
+    "duree": 2.908,
+    "debutParole": 0.04,
+    "finParole": 2.87,
+    "morceaux": [
+      [
+        0.04,
+        2.87
+      ]
+    ]
+  },
+  "07": {
+    "duree": 2.637,
+    "debutParole": 0.04,
+    "finParole": 2.6,
+    "morceaux": [
+      [
+        0.04,
+        2.6
+      ]
+    ]
+  },
+  "08": {
+    "duree": 1.702,
+    "debutParole": 0.04,
+    "finParole": 1.67,
+    "morceaux": [
+      [
+        0.04,
+        1.67
+      ]
+    ]
+  },
+  "09": {
+    "duree": 3.531,
+    "debutParole": 0.04,
+    "finParole": 3.49,
+    "morceaux": [
+      [
+        0.04,
+        1.1
+      ],
+      [
+        1.47,
+        2.33
+      ],
+      [
+        2.71,
+        3.49
+      ]
+    ]
+  }
+}

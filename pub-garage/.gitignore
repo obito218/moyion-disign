@@ -1,0 +1,6 @@
+node_modules/
+.venv/
+kokoro-multi-lang-v1_0/
+*.tar.bz2
+out/*
+!out/pub-garage.mp4
