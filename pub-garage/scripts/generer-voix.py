@@ -23,7 +23,9 @@ import soundfile as sf
 
 RACINE = Path(__file__).resolve().parent.parent
 SEGMENTS = RACINE / "src" / "voix" / "segments.json"
+SOURCE = RACINE / "src" / "voix" / "source.json"
 SORTIE = RACINE / "public" / "voix"
+CREDIT = "Voix de synthèse : Kokoro, voix ff_siwis (données SIWIS, CC BY 4.0)"
 VOIX_FF_SIWIS = 30  # identifiant de « ff_siwis » dans voices.bin (Kokoro v1.0)
 PAUSE_MORCEAUX = 0.3  # secondes de silence entre les morceaux séparés par « | »
 
@@ -112,6 +114,9 @@ def main() -> None:
         x = normaliser(np.concatenate(morceaux), sr)
         sf.write(SORTIE / f"{seg['id']}.wav", x, sr, subtype="PCM_16")
         print(f"{seg['id']}  {len(x) / sr:5.2f} s  {texte}")
+
+    # licence CC BY : le crédit s'affiche en petit sur l'écran final
+    SOURCE.write_text(json.dumps({"credit": CREDIT}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

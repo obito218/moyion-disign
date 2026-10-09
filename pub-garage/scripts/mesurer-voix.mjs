@@ -10,8 +10,13 @@ const segments = JSON.parse(readFileSync(join(RACINE, "src/voix/segments.json"),
 
 const SEUIL_DB = -35; // sous ce niveau (relatif au pic), on considère que c'est un silence
 const PAUSE_MIN = 0.12; // une pause interne doit durer au moins 120 ms
+// mêmes règles que src/timeline.ts
 const DUREE_TOTALE = 40;
-const FIN_MIN = 2; // temps minimum laissé à l'écran final après la dernière phrase
+const FIN_CIBLE = 3.5; // écran final visé après la dernière phrase
+const FIN_MIN = 2; // écran final minimum
+const PAUSE_PLANCHER = 0.25;
+const RESSERRAGE_MAX = 0.5;
+const ETIREMENT_MAX = 1.5;
 
 function lireWav(chemin) {
   const b = readFileSync(chemin);
@@ -87,19 +92,29 @@ function mesurer({ x, sr }) {
 const arrondi = (v) => Math.round(v * 1000) / 1000;
 
 const mesures = {};
+for (const seg of segments) {
+  mesures[seg.id] = mesurer(lireWav(join(RACINE, "public/voix", `${seg.id}.wav`)));
+}
+
+// pauses étirées ou resserrées selon le débit de la voix (même calcul que src/timeline.ts)
+const parole = segments.reduce((t, s) => t + mesures[s.id].finParole - mesures[s.id].debutParole, 0);
+const pauses = segments.reduce((t, s) => t + s.pause, 0);
+let k = Math.min(ETIREMENT_MAX, (DUREE_TOTALE - FIN_CIBLE - parole) / pauses);
+if (k < RESSERRAGE_MAX) k = (DUREE_TOTALE - FIN_MIN - parole) / pauses;
+
 let curseur = 0;
 for (const seg of segments) {
-  const m = mesurer(lireWav(join(RACINE, "public/voix", `${seg.id}.wav`)));
-  mesures[seg.id] = m;
-  const debut = curseur + seg.pause;
+  const m = mesures[seg.id];
+  const debut = curseur + Math.max(Math.min(seg.pause, PAUSE_PLANCHER), seg.pause * k);
   curseur = debut + (m.finParole - m.debutParole);
   console.log(
     `${seg.id}  parole ${debut.toFixed(2)} → ${curseur.toFixed(2)} s  (${m.morceaux.length} morceau(x))  ${seg.texte.replaceAll("*", "")}`,
   );
 }
-writeFileSync(join(RACINE, "src/voix/mesures.json"), JSON.stringify(mesures, null, 2) + "\n");
-console.log(`\nDernière phrase finie à ${curseur.toFixed(2)} s sur ${DUREE_TOTALE} s.`);
-if (curseur > DUREE_TOTALE - FIN_MIN) {
-  console.error(`⚠️  Trop long : il faut finir avant ${DUREE_TOTALE - FIN_MIN} s (raccourcir les pauses ou parler plus vite).`);
+console.log(`\nParole : ${parole.toFixed(1)} s. Dernière phrase finie à ${curseur.toFixed(2)} s sur ${DUREE_TOTALE} s.`);
+if (Math.abs(k - 1) > 0.01) console.log(`Pauses ajustées à ${Math.round(k * 100)} % selon le débit de la voix.`);
+if (k < RESSERRAGE_MAX || curseur > DUREE_TOTALE - FIN_MIN) {
+  console.error(`⚠️  Trop long, même en resserrant les pauses : parlez un peu plus vite ou raccourcissez le texte.`);
   process.exit(1);
 }
+writeFileSync(join(RACINE, "src/voix/mesures.json"), JSON.stringify(mesures, null, 2) + "\n");

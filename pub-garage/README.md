@@ -47,33 +47,68 @@ Pour un aperçu dans le navigateur, avec les props modifiables à droite : `npm 
 
 La voix reste générique (« le client », « ce système ») : elle reste juste quelle que soit la personnalisation.
 
-## Remplacer la voix de synthèse par la vôtre (recommandé)
+## Voix off
 
-Tout le minutage est calculé à partir des fichiers audio. Changer la voix ne demande aucune retouche du code.
+La voix actuelle est **« Sylvestre – calme et chaleureux »**, tirée de la bibliothèque ElevenLabs (modèle `eleven_v4`).
+Elle est lue en une seule prise pour garder un ton continu, puis découpée automatiquement en 12 phrases.
+Les prises d'origine sont dans `voix-source/` : `variante1` est utilisée, `variante2` est la même voix avec une
+interprétation un peu différente.
 
-1. Enregistrez les 12 phrases de [`src/voix/segments.json`](src/voix/segments.json), une par fichier.
-2. Convertissez-les dans `public/voix/` sous les noms `01.wav` à `12.wav`, en normalisant le volume :
-   ```bash
-   npx remotion ffmpeg -i phrase01.m4a -ac 1 -ar 44100 -af loudnorm=I=-16:TP=-1.5 public/voix/01.wav
-   ```
-3. `npm run voix` : le script remesure chaque fichier (début et fin de parole, pauses) et met à jour
-   `src/voix/mesures.json`. Il s'arrête en erreur si la voix finit trop tard pour tenir dans les 40 s.
-4. Relancez le rendu. Les sous-titres et les animations suivent automatiquement.
+Tout le minutage part des fichiers audio : changer de voix ne demande aucune retouche du code. Les pauses entre phrases
+s'allongent ou se resserrent selon le débit, pour que la voix finisse environ 3,5 s avant la fin. Si la voix est trop
+lente pour tenir dans 40 s, `npm run voix` s'arrête en erreur.
 
-Dans `segments.json` :
-- `texte` : le sous-titre affiché ; les mots entre `*` sont en orange ;
-- `pause` : le silence (en secondes) avant la phrase ;
-- `prononciation` : le texte lu par la synthèse s'il diffère du sous-titre. Un `|` force une vraie pause.
+### Changer de prise, ou installer une nouvelle prise ElevenLabs
 
-Si vous enregistrez votre voix, supprimez la ligne de crédit de la voix de synthèse (`CREDIT_VOIX` dans
-`src/scenes/Acte6Offre.tsx`).
+```bash
+.venv/bin/python scripts/decouper-prise.py voix-source/elevenlabs-sylvestre-variante2.mp3 \
+  --whisper sherpa-onnx-whisper-small --sans-debruitage --credit "Voix de synthèse : ElevenLabs"
+npm run voix
+npx remotion render PubGarage out/pub-garage.mp4
+```
 
-## Régénérer la voix de synthèse
+`decouper-prise.py` reconnaît chaque phrase par transcription automatique et ignore les ratés et les phrases redites
+(la dernière bonne prise gagne). Il met toutes les phrases au même niveau et signale celles qui sont mal reconnues.
 
-Cette étape est facultative : les fichiers sont déjà dans `public/voix/`.
+Installation de l'outil, une seule fois (il faut aussi ffmpeg, sinon ajoutez `--ffmpeg "npx remotion ffmpeg"`) :
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install sherpa-onnx soundfile numpy
+curl -LO https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-whisper-small.tar.bz2
+tar -xjf sherpa-onnx-whisper-small.tar.bz2
+```
+
+Texte donné à ElevenLabs, en une seule génération. Gardez les `[long pause]` : ce sont eux qui permettent le découpage.
+
+```
+[warmly] Vous êtes sous une voiture. [long pause] Le téléphone sonne. [long pause] Vous ne pouvez pas décrocher. [long pause] Le client, lui, appelle le garage d'en face. [long pause] Avec ce système, le client reçoit tout de suite un SMS. [long pause] Il clique sur le lien WhatsApp et écrit sa demande. [long pause] Une assistante lui répond et propose un créneau. [long pause] Et vous, vous recevez une fiche. [long pause] Le nom du client… la panne… le créneau. [long pause] Les appels manqués redeviennent des rendez-vous. [long pause] 30 jours pour essayer, gratuitement. [long pause] Sans engagement.
+```
+
+### Enregistrer votre propre voix
+
+Lisez les 12 phrases d'une traite au dictaphone du téléphone, avec environ 2 s de silence entre chaque, dans un endroit
+calme (une voiture garée fait un très bon studio). Si vous vous trompez, redites simplement la phrase. Ensuite, lancez la même
+commande sans `--sans-debruitage` ni `--credit` :
+
+```bash
+.venv/bin/python scripts/decouper-prise.py ma-prise.m4a --whisper sherpa-onnx-whisper-small
+npm run voix
+```
+
+### Modifier le texte
+
+Dans [`src/voix/segments.json`](src/voix/segments.json) :
+- `texte` : le sous-titre affiché ; les mots entre `*` sont en orange ;
+- `pause` : le silence (en secondes) avant la phrase, ajusté ensuite selon le débit ;
+- `prononciation` : le texte lu par la synthèse locale s'il diffère du sous-titre. Un `|` force une vraie pause.
+
+Après un changement de texte, refaites la prise (ElevenLabs ou votre voix), puis le découpage.
+
+### Voix de synthèse locale (Kokoro)
+
+C'est l'ancienne voix : gratuite et hors ligne, mais plus robotique. Elle sert de solution de secours.
+
+```bash
 curl -LO https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/kokoro-multi-lang-v1_0.tar.bz2
 tar -xjf kokoro-multi-lang-v1_0.tar.bz2
 .venv/bin/python scripts/generer-voix.py --modele kokoro-multi-lang-v1_0   # --ids 05,06 pour ne refaire que certaines phrases
@@ -91,11 +126,13 @@ Les bruitages (sonnerie, SMS, bulles, cartes, tampon) sont synthétisés en code
 - `src/theme.ts` : la palette (graphite, orange sécurité, blanc cassé) et la police Barlow, chargée en local.
 - `remotion.config.ts` : H.264, yuv420p, BT.709, CRF 18. Le fichier se lit partout, WhatsApp compris.
 
-Mixage : la voix est à environ −15,5 LUFS, crête à −1,7 dBFS, pour un haut-parleur de téléphone. Les bruitages restent en dessous.
+Mixage : environ −15,8 LUFS, crête à −2,2 dBFS, pour un haut-parleur de téléphone. Les bruitages restent sous la voix.
 
 ## Crédits et licences
 
 - Illustrations, pictogrammes et bruitages : dessinés ou synthétisés dans ce code, sans banque d'images ni logo de marque.
 - Police Barlow : SIL Open Font License 1.1 (`public/fonts/OFL-Barlow.txt`).
-- Voix : Kokoro-82M (Apache 2.0), voix `ff_siwis` tirée du corpus SIWIS (CC BY 4.0). Le crédit apparaît en petit à la fin.
+- Voix : ElevenLabs, voix « Sylvestre – calme et chaleureux ». Sur l'offre gratuite, ElevenLabs interdit l'usage commercial
+  et impose une mention. Pour diffuser cette pub, il faut un abonnement payant : vérifiez leurs conditions.
+  La mention « Voix de synthèse : ElevenLabs » s'affiche en petit à la fin (`src/voix/source.json`, vide = rien d'affiché).
 - Le numéro du client est volontairement masqué (`06 •• •• •• 34`) : la vidéo n'affiche le numéro de personne.

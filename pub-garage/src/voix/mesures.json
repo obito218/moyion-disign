@@ -1,145 +1,153 @@
 {
   "10": {
-    "duree": 2.487,
-    "debutParole": 0.04,
-    "finParole": 2.45,
+    "duree": 2.51,
+    "debutParole": 0.17,
+    "finParole": 2.26,
     "morceaux": [
       [
-        0.04,
-        2.45
+        0.17,
+        2.26
       ]
     ]
   },
   "11": {
-    "duree": 2.051,
-    "debutParole": 0.04,
-    "finParole": 2.02,
+    "duree": 2.315,
+    "debutParole": 0.17,
+    "finParole": 2.07,
     "morceaux": [
       [
-        0.04,
-        2.02
+        0.17,
+        1.29
+      ],
+      [
+        1.47,
+        2.07
       ]
     ]
   },
   "12": {
-    "duree": 1.085,
-    "debutParole": 0.04,
-    "finParole": 1.05,
+    "duree": 0.98,
+    "debutParole": 0.17,
+    "finParole": 0.9,
     "morceaux": [
       [
-        0.04,
-        1.05
+        0.17,
+        0.9
       ]
     ]
   },
   "01": {
-    "duree": 1.487,
-    "debutParole": 0.04,
-    "finParole": 1.45,
+    "duree": 1.59,
+    "debutParole": 0.06,
+    "finParole": 1.33,
     "morceaux": [
       [
-        0.04,
-        1.45
+        0.06,
+        1.33
       ]
     ]
   },
   "02": {
-    "duree": 1.307,
-    "debutParole": 0.04,
-    "finParole": 1.27,
+    "duree": 1.38,
+    "debutParole": 0.17,
+    "finParole": 1.13,
     "morceaux": [
       [
-        0.04,
-        1.27
+        0.17,
+        1.13
       ]
     ]
   },
   "03": {
-    "duree": 1.66,
-    "debutParole": 0.04,
-    "finParole": 1.63,
+    "duree": 1.62,
+    "debutParole": 0.17,
+    "finParole": 1.4,
     "morceaux": [
       [
-        0.04,
-        1.63
+        0.17,
+        1.4
       ]
     ]
   },
   "04": {
-    "duree": 2.562,
-    "debutParole": 0.04,
-    "finParole": 2.52,
+    "duree": 2.78,
+    "debutParole": 0.17,
+    "finParole": 2.54,
     "morceaux": [
       [
-        0.04,
-        0.87
-      ],
-      [
-        1.03,
-        2.52
+        0.17,
+        2.54
       ]
     ]
   },
   "05": {
-    "duree": 3.592,
-    "debutParole": 0.04,
-    "finParole": 3.56,
+    "duree": 3.52,
+    "debutParole": 0.17,
+    "finParole": 3.27,
     "morceaux": [
       [
-        0.04,
-        3.56
+        0.17,
+        3.27
       ]
     ]
   },
   "06": {
-    "duree": 2.908,
-    "debutParole": 0.04,
-    "finParole": 2.87,
+    "duree": 2.86,
+    "debutParole": 0.17,
+    "finParole": 2.61,
     "morceaux": [
       [
-        0.04,
-        2.87
+        0.17,
+        2.61
       ]
     ]
   },
   "07": {
-    "duree": 2.637,
-    "debutParole": 0.04,
-    "finParole": 2.6,
+    "duree": 2.6,
+    "debutParole": 0.17,
+    "finParole": 2.35,
     "morceaux": [
       [
-        0.04,
-        2.6
+        0.17,
+        1.33
+      ],
+      [
+        1.46,
+        2.35
       ]
     ]
   },
   "08": {
-    "duree": 1.702,
-    "debutParole": 0.04,
-    "finParole": 1.67,
+    "duree": 2.15,
+    "debutParole": 0.17,
+    "finParole": 1.9,
     "morceaux": [
       [
-        0.04,
-        1.67
+        0.17,
+        0.52
+      ],
+      [
+        0.85,
+        1.9
       ]
     ]
   },
   "09": {
-    "duree": 3.531,
-    "debutParole": 0.04,
-    "finParole": 3.49,
+    "duree": 3.06,
+    "debutParole": 0.16,
+    "finParole": 2.81,
     "morceaux": [
       [
-        0.04,
-        1.1
+        0.16,
+        1.16
       ],
       [
-        1.47,
-        2.33
+        1.45,
+        2.05
       ],
       [
-        2.71,
-        3.49
+        2.33,
+        2.81
       ]
     ]
   }

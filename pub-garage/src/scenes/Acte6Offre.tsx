@@ -4,8 +4,10 @@ import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { DOUX, SOUPLE, ressort } from "../anim";
 import { M } from "../moments";
 import { C } from "../theme";
+import source from "../voix/source.json";
 
-export const CREDIT_VOIX = "Voix de synthèse : Kokoro, voix ff_siwis (données SIWIS, CC BY 4.0)";
+/** Crédit de la voix (vide pour une voix enregistrée : rien ne s'affiche). Écrit par les scripts de voix. */
+const CREDIT_VOIX: string = source.credit;
 
 export const Acte6Offre: React.FC<{ entree: number }> = ({ entree }) => {
   const frame = useCurrentFrame();
@@ -89,20 +91,22 @@ export const Acte6Offre: React.FC<{ entree: number }> = ({ entree }) => {
           background: `repeating-linear-gradient(-45deg, ${C.orange} 0 26px, ${C.fond} 26px 52px)`,
         }}
       />
-      <div
-        style={{
-          position: "absolute",
-          bottom: 34,
-          width: "100%",
-          textAlign: "center",
-          fontSize: 22,
-          fontWeight: 500,
-          color: C.acier,
-          opacity: signature,
-        }}
-      >
-        {CREDIT_VOIX}
-      </div>
+      {CREDIT_VOIX ? (
+        <div
+          style={{
+            position: "absolute",
+            bottom: 34,
+            width: "100%",
+            textAlign: "center",
+            fontSize: 22,
+            fontWeight: 500,
+            color: C.acier,
+            opacity: signature,
+          }}
+        >
+          {CREDIT_VOIX}
+        </div>
+      ) : null}
     </AbsoluteFill>
   );
 };

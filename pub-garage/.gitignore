@@ -4,3 +4,5 @@ kokoro-multi-lang-v1_0/
 *.tar.bz2
 out/*
 !out/pub-garage.mp4
+sherpa-onnx-whisper-small/
+__pycache__/
