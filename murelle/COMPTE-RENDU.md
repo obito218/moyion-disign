@@ -87,3 +87,10 @@ Ce que reçoit la commande : variante = matière technique (production), propri�
 - `templates/index.json` : textes du hero ; « Découvrir nos panoramiques » → /collections/all ; « Explorer notre univers » et l'indicateur → section « Quatre univers » (ancre).
 - Contraste mesuré (crème sur fond réel, 1280 à 1920 px) : titre ≥ 3:1 sur 95 % de son fond, sous-titre ≥ 4:1 sur 95 % (médiane 8:1).
 - Compromis : le dégradé assombrit le tiers gauche de la photo (fenêtre, plante, phare du panoramique). Le centre et la droite du papier peint restent intacts.
+
+## 5. Visuels des univers et bannières de collection (21 novembre 2026)
+
+- Thème « Horizon – Gammes » : `sections/murelle-collection-hero.liquid` (nouvelle « Bannière collection » : image de la collection, titre, accroche, nombre de motifs, bouton vers la grille, description dessous ; en-tête texte si pas d'image), `templates/collection.json` (bannière avant la grille `main-collection`, inchangée), `sections/murelle-wall.liquid` (texte alternatif + cadrage par point focal), `assets/murelle.css`.
+- Données Shopify : champ de collection « Accroche » (`custom.accroche`) rempli pour les 4 univers ; image de la collection « Forêt et sous-bois » = `Chambre_sereine_au_coeur_de_la_foret.png` (Fichiers) avec texte alternatif.
+- Vérifié : bannière forêt (ordinateur, mobile), carte « Forêt et sous-bois » de l'accueil, 4 produits visibles.
+- En attente : les visuels Tropical et jungle, Chambre enfant et bébé, Design et inspiration (non fournis) ; publication du thème.
