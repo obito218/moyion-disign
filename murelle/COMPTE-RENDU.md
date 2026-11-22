@@ -108,3 +108,10 @@ Ce que reçoit la commande : variante = matière technique (production), propri�
 - Polices (`config/settings_data.json`) : titres Playfair Display 400 ; texte, sous-titres et petits libellés Montserrat 400/500. Bibliothèque de polices Shopify (pas de chargement externe).
 - Hero (`sections/murelle-hero.liquid` : réglage « Couleur du texte » ; `assets/murelle.css` ; `templates/index.json`) : titre « L’art de transformer vos murs. » en vert forêt #343C32 sur voile crème à gauche ; surtitre, sous-titre, boutons, bloc discret et indicateur passés en vert forêt ; textes inchangés.
 - Vérifié : accueil et fiche produit (gammes, configurateur, galerie) sur ordinateur et mobile.
+
+## 8. Réassurance du panier (22 novembre 2026)
+
+- `snippets/murelle-cart-reassurance.liquid` (nouveau), rendu à la fin de `snippets/cart-summary.liquid`, donc sous « Payer » et les paiements express, dans le panier latéral et sur la page panier. Calcul, remises, note et paiement inchangés.
+- Réglages du thème > « Réassurance panier » (`config/settings_schema.json`) : activation, 4 éléments (icône, titre, texte). Par défaut : Paiement sécurisé / Imprimé à vos dimensions / Production en 3 à 5 jours / Livraison express (engagements déjà affichés sur le site).
+- `assets/murelle.css` : grille 2 × 2, Montserrat, filet sable, icônes au trait vert forêt. Hauteur mesurée : 124 px (panier latéral), 156 px (mobile 360 px).
+- Non vérifié sur la boutique : panier latéral ouvert avec un article (l'outil de capture ne l'ouvre pas) ; vérifié sur reproduction du balisage et page panier sans erreur.
