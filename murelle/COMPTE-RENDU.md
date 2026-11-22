@@ -115,3 +115,10 @@ Ce que reçoit la commande : variante = matière technique (production), propri�
 - Réglages du thème > « Réassurance panier » (`config/settings_schema.json`) : activation, 4 éléments (icône, titre, texte). Par défaut : Paiement sécurisé / Imprimé à vos dimensions / Production en 3 à 5 jours / Livraison express (engagements déjà affichés sur le site).
 - `assets/murelle.css` : grille 2 × 2, Montserrat, filet sable, icônes au trait vert forêt. Hauteur mesurée : 124 px (panier latéral), 156 px (mobile 360 px).
 - Non vérifié sur la boutique : panier latéral ouvert avec un article (l'outil de capture ne l'ouvre pas) ; vérifié sur reproduction du balisage et page panier sans erreur.
+
+## 9. Logos de paiement (22 novembre 2026)
+
+- Constat : `shop.enabled_payment_types` est vide (aucun moyen de paiement activé dans Paramètres > Paiements) et l'API ne remonte aucun portefeuille (Apple Pay, Google Pay). Aucun logo n'est donc affiché pour l'instant.
+- `snippets/murelle-payment-icons.liquid` (nouveau), rendu sous « Payer » (avant la réassurance) dans `snippets/cart-summary.liquid` : logos officiels Shopify (`payment_type_svg_tag`), filtrés sur les moyens réellement activés, dans l'ordre Visa, Mastercard, PayPal, Apple Pay. Apparition automatique dès l'activation.
+- Réglages du thème > Réassurance panier : affichage oui/non, liste et ordre des moyens, libellé accessible. `assets/murelle.css` : rangée centrée, 22 px (24 px mobile), écart 8 px.
+- Rendu des quatre logos vérifié sur une page de test temporaire (retirée), ordinateur et largeur 360 px.
