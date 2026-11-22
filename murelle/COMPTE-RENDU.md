@@ -101,3 +101,10 @@ Ce que reçoit la commande : variante = matière technique (production), propri�
 - Fiche produit « Forêt brumeuse stylisée » : 7 médias dans l'ordre Chambre_sereine (1672 px, grande image) · 06 détail panoramique · 05 détail chambre · 03 salon · 04 salle à manger · 02 chambre angle · 01 chambre face. `templates/product.json` : galerie avec grande première image (1 grande + 3 rangées de 2 ; carrousel sur mobile).
 - Accueil, section « Inspirations » (`sections/murelle-gallery.liquid` : option « Format d'origine », `assets/murelle.css`, `templates/index.json`) : 03 salon, 04 salle à manger, 02 chambre angle, 06 détail, liés à la fiche produit, mention « Visualisation ».
 - Limite : 763 px de large, image légèrement agrandie dans les grandes cases (≈ 790 px) et floue sur écran Retina. Remplacer par des versions ≥ 1600 px dès que possible (même nom de fichier dans Shopify > Fichiers > Remplacer).
+
+## 7. Identité visuelle 2026 (22 novembre 2026)
+
+- Logo : découpé tel quel dans la planche officielle (version horizontale), fond pêche rendu transparent, aucun redessin. Fichiers : `murelle/identite/MURELLE_logo_horizontal.png` (dépôt) et Shopify > Contenu > Fichiers > MURELLE_logo_horizontal.png. Réglages du thème > Logo : 50 px ordinateur, 34 px mobile (`config/settings_data.json`).
+- Polices (`config/settings_data.json`) : titres Playfair Display 400 ; texte, sous-titres et petits libellés Montserrat 400/500. Bibliothèque de polices Shopify (pas de chargement externe).
+- Hero (`sections/murelle-hero.liquid` : réglage « Couleur du texte » ; `assets/murelle.css` ; `templates/index.json`) : titre « L’art de transformer vos murs. » en vert forêt #343C32 sur voile crème à gauche ; surtitre, sous-titre, boutons, bloc discret et indicateur passés en vert forêt ; textes inchangés.
+- Vérifié : accueil et fiche produit (gammes, configurateur, galerie) sur ordinateur et mobile.
