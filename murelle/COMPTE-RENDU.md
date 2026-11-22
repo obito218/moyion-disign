@@ -94,3 +94,10 @@ Ce que reçoit la commande : variante = matière technique (production), propri�
 - Données Shopify : champ de collection « Accroche » (`custom.accroche`) rempli pour les 4 univers ; image de la collection « Forêt et sous-bois » = `Chambre_sereine_au_coeur_de_la_foret.png` (Fichiers) avec texte alternatif.
 - Vérifié : bannière forêt (ordinateur, mobile), carte « Forêt et sous-bois » de l'accueil, 4 produits visibles.
 - En attente : les visuels Tropical et jungle, Chambre enfant et bébé, Design et inspiration (non fournis) ; publication du thème.
+
+## 6. Six visuels « Forêt brumeuse stylisée » (22 novembre 2026)
+
+- Originaux (non modifiés, 763 × 334-337 px) : `murelle/visuels/MURELLE_01…06.jpg` dans ce dépôt, importés dans Shopify > Contenu > Fichiers sous les mêmes noms, avec textes alternatifs.
+- Fiche produit « Forêt brumeuse stylisée » : 7 médias dans l'ordre Chambre_sereine (1672 px, grande image) · 06 détail panoramique · 05 détail chambre · 03 salon · 04 salle à manger · 02 chambre angle · 01 chambre face. `templates/product.json` : galerie avec grande première image (1 grande + 3 rangées de 2 ; carrousel sur mobile).
+- Accueil, section « Inspirations » (`sections/murelle-gallery.liquid` : option « Format d'origine », `assets/murelle.css`, `templates/index.json`) : 03 salon, 04 salle à manger, 02 chambre angle, 06 détail, liés à la fiche produit, mention « Visualisation ».
+- Limite : 763 px de large, image légèrement agrandie dans les grandes cases (≈ 790 px) et floue sur écran Retina. Remplacer par des versions ≥ 1600 px dès que possible (même nom de fichier dans Shopify > Fichiers > Remplacer).
