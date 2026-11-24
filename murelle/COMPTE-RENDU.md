@@ -122,3 +122,10 @@ Ce que reçoit la commande : variante = matière technique (production), propri�
 - `snippets/murelle-payment-icons.liquid` (nouveau), rendu sous « Payer » (avant la réassurance) dans `snippets/cart-summary.liquid` : logos officiels Shopify (`payment_type_svg_tag`), filtrés sur les moyens réellement activés, dans l'ordre Visa, Mastercard, PayPal, Apple Pay. Apparition automatique dès l'activation.
 - Réglages du thème > Réassurance panier : affichage oui/non, liste et ordre des moyens, libellé accessible. `assets/murelle.css` : rangée centrée, 22 px (24 px mobile), écart 8 px.
 - Rendu des quatre logos vérifié sur une page de test temporaire (retirée), ordinateur et largeur 360 px.
+
+## 10. Élégance Botanique (24 novembre 2026)
+
+- Nouveau produit (demande confirmée) : « Élégance Botanique », `/products/elegance-botanique`, en ligne, créé par duplication du produit modèle (Matière : Intissé UV 37 €, Intissé HP Latex 45 €, Soie HP Latex 53 € le m²), collections Forêt et sous-bois et Page d'accueil, étiquette `foret`. Pas d'étiquette `ref:` fournisseur (référence non fournie).
+- Médias : 1) `a_serene_modern_neutral_toned_living_room_interi.webp` (version reçue dans la conversation, 1254 × 1254 ; copie dans `murelle/visuels/elegance-botanique/`) ; 2) `Salon_contemporain_avec_mural_arbore.png` (PNG d'origine téléversé, 1254 × 1254). Textes alternatifs « Visualisation : … ».
+- `assets/murelle.css` : galerie « grande première image » sans case vide (2 médias côte à côte ; nombre pair ≥ 4 : dernier en pleine largeur). Forêt brumeuse (7 médias) inchangée.
+- Vérifié : fiche (ordinateur, mobile), carte dans la collection (5 motifs), fiche Forêt brumeuse.
