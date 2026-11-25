@@ -136,3 +136,6 @@ Ce que reçoit la commande : variante = matière technique (production), propri�
 - Médias dans l'ordre : MURELLE_01_salon.png (principale), MURELLE_02_salle_a_manger.png, MURELLE_04_vue_large.png (renommé par Shopify avec un suffixe), MURELLE_05_console.png, MURELLE_06_dimensions.webp. Images reçues dans la conversation, non modifiées, copiées dans `murelle/visuels/ondes-noires/`. Textes alternatifs « Visualisation : … ».
 - Aucun fichier du thème modifié.
 - Limite : mises en situation de 507 × 508 px (agrandies dans la grande image de la fiche, floues sur écran Retina).
+- Vérifié sur le thème « Horizon – Gammes » : carte en tête de la grille « Design et inspiration » (ordinateur et mobile, 6 motifs) ; fiche avec 1 grande image puis 2 rangées de 2 sur ordinateur, carrousel à 5 points sur mobile ; configurateur 320 × 250 cm → 7 lés, 10 m², 370 / 450 / 530 € ; les 3 variantes sont vendables.
+- Sur ordinateur, la grande image s'affiche à sa taille native (≈ 507 px), centrée avec du vide de part et d'autre : Horizon n'agrandit pas une image plus petite que sa case. Correctif : fournir des fichiers d'au moins 2000 px de large.
+- Non testé par clic : l'ajout au panier (l'outil de capture ne peut ni cliquer ni suivre /cart/add). Même modèle de page et mêmes blocs que les autres fiches.
