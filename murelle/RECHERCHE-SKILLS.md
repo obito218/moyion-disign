@@ -144,3 +144,10 @@ Aucune de ces mesures ne garantit une baisse du coût par clic ou une hausse de 
 - Homographie (incrustation en perspective) : https://learnopencv.com/homography-examples-using-opencv-python-c
 - Sécurité des skills (préprints) : https://arxiv.org/html/2601.10338 — https://arxiv.org/pdf/2602.06547 — https://arxiv.org/pdf/2602.20156v3
 - Catalogue de plugins consulté : Anthropic Directory (via la recherche de plugins du compte)
+
+## 5. Réalisé le 25/11/2026 (avec ton accord « vas-y » sur les points 1, 2, 3)
+- **Skill `murelle-catalogue`** créée : `.claude/skills/murelle-catalogue/SKILL.md` (procédures nouveau motif, remplacement d'image, famille, vérifications, références et pièges).
+- **Skill `murelle-visuels`** créée : `.claude/skills/murelle-visuels/` avec `controle_images.py` (contrôle qualité d'un lot), `incruster_motif.py` (incrustation en perspective du motif réel, masque, éclairage, contrôle de fidélité) et `test_incrustation.py` (4 tests : fidélité 0,998, objets masqués et hors-mur inchangés, ordre de coins erroné détecté — tous passent).
+- **OpenCV** installé dans l'environnement de travail (`opencv-python-headless` 5.1.0). À réinstaller dans une nouvelle session si absent.
+- **Skill `google-ads-papier-peint` mise à jour** : `murelle/skills-compte/google-ads-papier-peint/SKILL.md` (+ `.zip`) — à téléverser sur ton compte claude.ai pour remplacer l'ancienne version (je ne peux pas modifier les skills du compte moi-même).
+- Non fait (attend ton action) : thème ↔ GitHub, Shopify AI Toolkit, Google Ads MCP.
