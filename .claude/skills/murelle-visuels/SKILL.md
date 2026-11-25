@@ -58,6 +58,18 @@ Il faut : une photo de pièce où le mur est plat et visible, le fichier motif l
    - Regarder `rendu.png` (bords du mur, masque, éclairage) et `controle.png` (à gauche le motif attendu, à droite le mur redressé : ils doivent être identiques).
 5. Présenter le rendu à l'utilisateur avec ses limites avant tout envoi sur Shopify.
 
+## Retours d'expérience (Jardin d'Antan, 25/11/2026)
+- **Photo prise de face** : le rapport largeur/hauteur passé à `--mur-cm` doit être celui du mur dans la photo, sinon le motif est étiré (le script alerte au-delà de 5 %).
+- **Marges de scan** : retirer seulement les bandes blanches uniformes du bord du fichier motif (copie de travail), jamais le motif ; l'original reste intact et sert d'image « motif à plat ».
+- **Bords du mur** : mesurer au pixel (profil de luminosité) ; s'arrêter au haut de la plinthe ; 1 px de trop = liseré de l'ancien papier peint.
+- **Masques sur mur déjà tapissé (noir/crème)** :
+  - feuillages : `S > 150 et 35 < V < 205` (HSV OpenCV) dans un cadre autour de la plante, fermeture 3×3, composantes ≥ 12 px ;
+  - canapés, fauteuils : GrabCut initialisé par masque (bande haute = mur probable, pixels noirs de la bande = mur certain, cœur du meuble = objet certain) ;
+  - objets clairs (vases, pots, livres) : polygones relevés au zoom, puis retirer les pixels sombres (V < 75) à l'intérieur ;
+  - tiges fines (diffuseur, lampe arc) : couleur dans un couloir étroit (laiton `S > 140 et V > 60` ou reflet `V > 225`) ; traits sombres fins = sombre moins ouverture 5×5 ;
+  - `--adoucir 0.7` pour lisser les bords ; `--ombre 0.5` avec l'éclairage lu sur les seuls pixels clairs du mur.
+- **Contrôle** : zoomer ×2–3 sur chaque bord d'objet avant de livrer ; les défauts typiques sont des liserés de l'ancien motif.
+
 ## Limites connues
 - Un seul plan par passage : un mur qui fait un angle se traite en deux passages (une face chacun) ; l'alignement du motif entre les deux faces n'est pas automatique.
 - Les ombres portées précises (plinthes, cadres) ne sont pas recréées ; seules les variations lentes de lumière le sont.

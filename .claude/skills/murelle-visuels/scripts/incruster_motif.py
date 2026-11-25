@@ -166,6 +166,12 @@ def main():
     print(f"Fidélité géométrique (corrélation motif attendu / mur redressé) : {correlation:.3f}")
     if px_motif_par_px_rendu < 1:
         print(f"ATTENTION : le motif est agrandi (x{1 / px_motif_par_px_rendu:.1f}) : prévoir un fichier motif plus grand pour un rendu net.")
+    largeur_px = (np.linalg.norm(coins[1] - coins[0]) + np.linalg.norm(coins[2] - coins[3])) / 2
+    hauteur_px = (np.linalg.norm(coins[3] - coins[0]) + np.linalg.norm(coins[2] - coins[1])) / 2
+    ecart = abs((largeur_px / hauteur_px) / (mur_l_cm / mur_h_cm) - 1)
+    if ecart > 0.05:
+        print(f"ATTENTION : proportions du mur dans la photo ({largeur_px / hauteur_px:.2f}) ≠ --mur-cm ({mur_l_cm / mur_h_cm:.2f}). "
+              "Si la photo est prise de face, le motif sera étiré : ajuster --mur-cm au rapport de la photo.")
     if correlation < 0.9:
         print("ATTENTION : fidélité < 0,90 : vérifier l'ordre des coins (HG, HD, BD, BG) et l'image de contrôle.")
 

@@ -160,3 +160,10 @@ Ce que reçoit la commande : variante = matière technique (production), propri�
 - Créées : skills de projet `murelle-catalogue` et `murelle-visuels` (dossier `.claude/skills/`), chargées automatiquement par Claude Code sur ce dépôt. Testées (contrôle qualité sur les vrais visuels ; incrustation sur scène synthétique : 4/4).
 - Mise à jour préparée : `google-ads-papier-peint` (prix 37/45/53, tableau de rentabilité, prix au m² dans Shopping, bloquants) — à téléverser sur le compte.
 - Aucune modification du site Shopify dans cette mission.
+
+## 14. Jardin d'Antan (25 novembre 2026)
+- Nouveau produit « Jardin d'Antan » (`/products/jardin-dantan`), en ligne, collection « Forêt et sous-bois » uniquement (retiré de « Page d'accueil », héritée du modèle), étiquette `foret`, prix 37 / 45 / 53 €, configurateur et panier d'origine. Pas de référence fournisseur (non communiquée). Produit distinct de « Grands arbres, sépia » (non modifié).
+- 5 images, dans l'ordre : salon (principale), séjour, vue rapprochée console, mur coté 4 m × 2,7 m, gravure à plat (fichier reçu, intact, aussi miniature `murelle.miniature_motif`).
+- Images 1 à 4 créées à la demande de l'utilisateur, par incrustation fidèle de la gravure (skill `murelle-visuels`) sur les photos de pièces déjà utilisées pour Ondes Noires : motif seulement mis à l'échelle uniformément et projeté (fidélité 0,999–1,000), marge blanche du scan retirée de la copie de travail uniquement, objets devant le mur protégés par masques vérifiés au zoom.
+- Limites : gravure source de 780 px → agrandie ×1,5 à ×1,7 sur le mur (légère douceur) ; vue rapprochée en 900 × 600 ; gravure à plat légèrement plus haute (1,37:1) que les autres (1,5:1) → petites bandes possibles dans le carrousel mobile.
+- Vérifié : 5 médias dans l'ordre, image principale = salon ; fiche ordinateur (grande image + grille 2 × 2) et mobile (carrousel) ; Signature + 400 × 270 → 9 lés, 13 m², 585 € ; grille « Forêt et sous-bois » (6 motifs, Jardin d'Antan en tête). Ajout au panier non cliqué (outil sans clic).
