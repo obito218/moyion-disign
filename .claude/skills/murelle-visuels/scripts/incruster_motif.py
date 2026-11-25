@@ -70,12 +70,16 @@ def carte_eclairage(piece, masque_mur, force):
     if force <= 0:
         return None
     gris = cv2.cvtColor(piece, cv2.COLOR_BGR2GRAY).astype(np.float32) / 255.0
-    sigma = max(piece.shape[:2]) * 0.03
-    poids = cv2.GaussianBlur(masque_mur, (0, 0), sigma)
-    flou = cv2.GaussianBlur(gris * masque_mur, (0, 0), sigma) / np.maximum(poids, 1e-4)
     zone = masque_mur > 0.5
     if not zone.any():
         return None
+    # Seuls les pixels clairs du mur d'origine renseignent la lumière : sur un mur déjà
+    # tapissé (motif contrasté), les zones sombres du motif ne doivent pas devenir des ombres.
+    seuil = np.percentile(gris[zone], 55)
+    clair = (masque_mur * (gris >= seuil)).astype(np.float32)
+    sigma = max(piece.shape[:2]) * 0.03
+    poids = cv2.GaussianBlur(clair, (0, 0), sigma)
+    flou = cv2.GaussianBlur(gris * clair, (0, 0), sigma) / np.maximum(poids, 1e-4)
     reference = np.percentile(flou[zone], 90)
     lumiere = np.clip(flou / max(reference, 1e-4), 0.0, 1.15)
     return (1.0 - force) + force * lumiere
@@ -90,6 +94,7 @@ def main():
     ap.add_argument("--mode", choices=["couvrir", "repeter"], default="couvrir")
     ap.add_argument("--largeur-motif-cm", type=float, default=0, help="mode repeter : largeur réelle d'un raccord")
     ap.add_argument("--masque", help="masque des objets devant le mur (blanc = garder la pièce)")
+    ap.add_argument("--adoucir", type=float, default=0.0, help="flou du bord du masque en pixels (ex. 0.7) pour éviter l'effet crénelé")
     ap.add_argument("--ombre", type=float, default=0.5, help="report de l'éclairage, 0 à 1 (0 = motif brut)")
     ap.add_argument("--sortie", required=True)
     ap.add_argument("--controle", help="image de contrôle : motif attendu / mur redressé côte à côte")
@@ -125,7 +130,10 @@ def main():
             sys.exit(f"Impossible de lire le masque : {a.masque}")
         if occ.shape != (H_img, W_img):
             sys.exit(f"Le masque doit faire {W_img}x{H_img} px (comme la photo), il fait {occ.shape[1]}x{occ.shape[0]}")
-        alpha *= 1.0 - occ.astype(np.float32) / 255.0
+        occ = occ.astype(np.float32) / 255.0
+        if a.adoucir > 0:
+            occ = cv2.GaussianBlur(occ, (0, 0), a.adoucir)
+        alpha *= 1.0 - occ
 
     mur_f = mur.astype(np.float32)
     eclairage = carte_eclairage(piece, masque_mur, a.ombre)
