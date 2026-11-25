@@ -151,3 +151,10 @@ Aucune de ces mesures ne garantit une baisse du coût par clic ou une hausse de 
 - **OpenCV** installé dans l'environnement de travail (`opencv-python-headless` 5.1.0). À réinstaller dans une nouvelle session si absent.
 - **Skill `google-ads-papier-peint` mise à jour** : `murelle/skills-compte/google-ads-papier-peint/SKILL.md` (+ `.zip`) — à téléverser sur ton compte claude.ai pour remplacer l'ancienne version (je ne peux pas modifier les skills du compte moi-même).
 - Non fait (attend ton action) : thème ↔ GitHub, Shopify AI Toolkit, Google Ads MCP.
+
+## 6. Ponytail (ajouté le 25/11/2026, avec ton accord)
+- Source : https://github.com/DietrichGebert/ponytail (MIT, ~199 000 étoiles), commit `ebd8654` du 22/11/2026.
+- Installé : `.claude/skills/ponytail/` et `.claude/skills/ponytail-review/` — fichiers SKILL.md copiés à l'identique, LICENSE et SOURCE.md à côté.
+- Non installé : le plugin et ses hooks (scripts Node à chaque session/message/sous-agent, fichiers dans ~/.claude et ~/.config/ponytail, journal CSV des tâches activé par défaut, webhook optionnel). Aucun appel réseau trouvé dans la configuration par défaut, mais exécution permanente sans bénéfice supplémentaire pour MURELLE.
+- Rôle : méthode de code (plus petit changement complet, réutiliser l'existant, pas d'abstraction non demandée) et relecture de modifications. N'apporte aucune compétence e-commerce.
+- Mise à jour : relire le nouveau SKILL.md avant de remplacer la copie (règle de sécurité, section 4.E).
