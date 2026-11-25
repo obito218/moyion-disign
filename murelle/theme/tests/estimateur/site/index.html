@@ -1,0 +1,30 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Estimateur</title>
+<style>
+:root{--font-heading--family:Georgia,serif;--font-body--family:Arial,sans-serif;--font-accent--family:Arial,sans-serif;--color-border:#CDBFA8;--color-foreground:#343C32}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:#E9E0D0;color:#343C32}
+.section--page-width{max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) 16px}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.m-est__title{font-family:Georgia,serif;font-weight:400;font-size:clamp(40px,5vw,64px);margin:0}
+.m-est__intro{margin-top:20px;font-size:17px;line-height:1.55;max-width:48ch} .m-est__intro p{margin:0}
+.m-est__grid { display: grid; grid-template-columns: 6fr 5fr; gap: clamp(40px, 7vw, 120px); align-items: start; }
+.m-est__steps { list-style: none; margin: 48px 0 0; padding: 0; counter-reset: step; }
+.m-est__steps li { counter-increment: step; display: grid; grid-template-columns: 56px 1fr; column-gap: 16px; padding: 24px 0 26px; border-top: 1px solid var(--color-border); }
+.m-est__steps li::before { content: counter(step, decimal-leading-zero); grid-row: span 2; font-size: 13px; padding-top: 6px; }
+.m-est__step-title { font-family: Georgia,serif; font-weight: 400; font-size: 26px; margin: 0 0 8px; }
+.m-est__step-text p{margin:0}
+</style><link rel="stylesheet" href="/estimate.css"></head><body>
+<div class="section section--page-width m-est" id="sur-mesure"><div class="m-est__grid">
+<div class="m-est__copy"><h2 class="m-est__title">Le sur-mesure</h2><div class="m-est__intro"><p>Vous indiquez la largeur et la hauteur de votre mur. Nous imprimons le panoramique à ces dimensions, à la commande.</p></div>
+<ol class="m-est__steps"><li><h3 class="m-est__step-title">Mesurez</h3><div class="m-est__step-text"><p>Relevez la largeur et la hauteur de votre mur, en centimètres.</p></div></li><li><h3 class="m-est__step-title">Choisissez</h3><div class="m-est__step-text"><p>Un motif, puis l'une de nos trois gammes.</p></div></li><li><h3 class="m-est__step-title">Recevez</h3><div class="m-est__step-text"><p>Imprimé à la commande.</p></div></li></ol></div>
+<div class="m-est__aside"><murelle-estimate class="m-est__tool" data-strip="50" data-margin="10" data-min-billed="1" data-locale="fr-FR" data-currency="EUR" data-url="/collections/all">
+<div class="m-est__head"><p class="m-est__eyebrow">Estimer mon mur</p><p class="m-est__lead">Indiquez les dimensions de votre mur, en centimètres.</p></div>
+<div class="m-est__fields"><div class="m-est__field" data-field><label class="m-est__label" for="EstW">Largeur</label><div class="m-est__control"><input class="m-est__input" id="EstW" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" maxlength="6" value="320" placeholder="320" data-dim="w" data-label="largeur" data-min="50" data-max="2000"><span class="m-est__unit">cm</span></div><p class="m-est__hint" data-hint>Entre 50 et 2000 cm</p><p class="m-est__error" data-error="w" aria-live="polite" hidden></p></div><span class="m-est__times">×</span><div class="m-est__field" data-field><label class="m-est__label" for="EstH">Hauteur</label><div class="m-est__control"><input class="m-est__input" id="EstH" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" maxlength="6" value="250" placeholder="250" data-dim="h" data-label="hauteur" data-min="50" data-max="500"><span class="m-est__unit">cm</span></div><p class="m-est__hint" data-hint>Entre 50 et 500 cm</p><p class="m-est__error" data-error="h" aria-live="polite" hidden></p></div></div>
+<dl class="m-est__figures"><div><dt>Surface du mur</dt><dd data-o-wall>—</dd></div><div><dt>Nombre de lés<small>Lés de 50 cm de large</small></dt><dd data-o-strips>—</dd></div><div><dt>Surface imprimée<small>Marge de coupe de 10 cm en largeur et en hauteur</small></dt><dd data-o-printed>—</dd></div><div><dt>Surface facturée<small>Arrondie au m² supérieur</small></dt><dd data-o-billed>—</dd></div></dl>
+<ul class="m-est__prices"><li class="m-est__price"><span class="m-est__gamme"><span class="m-est__gamme-name">Essentielle</span><span class="m-est__gamme-meta">Intissé UV · <span data-rate-label="3700">37,00 € / m²</span></span></span><span class="m-est__amount" data-rate="3700">—</span></li><li class="m-est__price is-reco"><span class="m-est__gamme"><span class="m-est__gamme-name">Signature<span class="m-est__badge">Notre recommandation</span></span><span class="m-est__gamme-meta">Intissé HP Latex · <span data-rate-label="4500">45,00 € / m²</span></span></span><span class="m-est__amount" data-rate="4500">—</span></li><li class="m-est__price"><span class="m-est__gamme"><span class="m-est__gamme-name">Prestige</span><span class="m-est__gamme-meta">Soie HP Latex · <span data-rate-label="5300">53,00 € / m²</span></span></span><span class="m-est__amount" data-rate="5300">—</span></li></ul>
+<p class="visually-hidden" aria-live="polite" data-summary data-template="[lés] lés, [m2] m² imprimés"></p><p class="m-est__alert" role="alert" data-alert hidden></p>
+<a class="m-est__cta" href="/collections/all" data-cta><span>Choisir un motif à ces dimensions</span><span class="m-est__cta-arrow">→</span></a>
+<div class="m-est__note"><p>Estimation hors frais de livraison. Le prix final s'affiche dans le configurateur de chaque motif.</p></div>
+</murelle-estimate>
+<div class="m-est__reassure"><p class="m-est__reassure-text">Votre papier peint est imprimé à la commande, selon les dimensions de votre mur.</p><ul class="m-est__points"><li>Fabrication sur mesure</li><li>Impression à la commande</li><li>Dimensions personnalisées</li></ul></div>
+</div></div></div>
+<script src="/murelle-estimate.js"></script></body></html>

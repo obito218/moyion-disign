@@ -1,0 +1,207 @@
+{% comment %}
+  Section contract.
+  « Le sur-mesure » : trois étapes (blocs « Étape ») à gauche, un estimateur à droite.
+  L'estimateur calcule la surface du mur, le nombre de lés, la surface imprimée et
+  la surface facturée, puis le prix de chaque gamme à partir des prix au m² des
+  variantes du produit de référence. Les règles (lé, marge, minimum, limites)
+  doivent être identiques à celles du bloc « Configurateur de mur » du modèle produit.
+  Le bouton vérifie les dimensions, les mémorise et ouvre la page de destination
+  (par défaut « Tous les motifs ») ; le configurateur des fiches les reprend.
+  @example
+  <!-- Accueil > Le sur-mesure : choisir le produit de référence et la page de destination -->
+{% endcomment %}
+{%- liquid
+  assign ss = section.settings
+  assign p = ss.product
+  assign dest = ss.button_link | default: routes.all_products_collection_url
+  assign reco = settings.gamme_recommended | plus: 0
+  assign min_size = ss.min_size | default: 50
+  assign max_w = ss.max_width | default: 2000
+  assign max_h = ss.max_height | default: 500
+  assign uid = section.id
+-%}
+<div class="section-background color-{{ ss.color_scheme }}"></div>
+<div class="section section--page-width color-{{ ss.color_scheme }} m-est" id="sur-mesure">
+  <div class="m-est__grid">
+    <div class="m-est__copy">
+      {%- if ss.heading != blank -%}<h2 class="m-est__title" data-reveal>{{ ss.heading | escape }}</h2>{%- endif -%}
+      {%- if ss.intro != blank -%}<div class="m-est__intro" data-reveal>{{ ss.intro }}</div>{%- endif -%}
+      <ol class="m-est__steps" role="list">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>
+            <h3 class="m-est__step-title">{{ block.settings.title | escape }}</h3>
+            <div class="m-est__step-text">{{ block.settings.text }}</div>
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+
+    <div class="m-est__aside">
+      <murelle-estimate
+        class="m-est__tool"
+        data-strip="{{ ss.strip_width }}"
+        data-margin="{{ ss.margin }}"
+        data-min-billed="{{ ss.min_billed }}"
+        data-locale="{{ request.locale.iso_code }}-FR"
+        data-currency="{{ cart.currency.iso_code }}"
+        data-url="{{ dest }}"
+      >
+        <div class="m-est__head">
+          {%- if ss.tool_heading != blank -%}<p class="m-est__eyebrow">{{ ss.tool_heading | escape }}</p>{%- endif -%}
+          {%- if ss.tool_text != blank -%}<p class="m-est__lead">{{ ss.tool_text | escape }}</p>{%- endif -%}
+        </div>
+
+        <div class="m-est__fields">
+          <div class="m-est__field" data-field>
+            <label class="m-est__label" for="EstW-{{ uid }}">{{ ss.label_width | escape }}</label>
+            <div class="m-est__control">
+              <input
+                class="m-est__input" id="EstW-{{ uid }}" type="text" inputmode="numeric" pattern="[0-9]*"
+                autocomplete="off" enterkeyhint="go" spellcheck="false" maxlength="6"
+                value="{{ ss.default_width }}" placeholder="{{ ss.default_width | default: 320 }}"
+                aria-describedby="EstWHint-{{ uid }} EstWErr-{{ uid }}"
+                data-dim="w" data-label="largeur" data-min="{{ min_size }}" data-max="{{ max_w }}"
+              >
+              <span class="m-est__unit" aria-hidden="true">cm</span>
+            </div>
+            <p class="m-est__hint" id="EstWHint-{{ uid }}" data-hint>Entre {{ min_size }} et {{ max_w }} cm</p>
+            <p class="m-est__error" id="EstWErr-{{ uid }}" data-error="w" aria-live="polite" hidden></p>
+          </div>
+          <span class="m-est__times" aria-hidden="true">×</span>
+          <div class="m-est__field" data-field>
+            <label class="m-est__label" for="EstH-{{ uid }}">{{ ss.label_height | escape }}</label>
+            <div class="m-est__control">
+              <input
+                class="m-est__input" id="EstH-{{ uid }}" type="text" inputmode="numeric" pattern="[0-9]*"
+                autocomplete="off" enterkeyhint="go" spellcheck="false" maxlength="6"
+                value="{{ ss.default_height }}" placeholder="{{ ss.default_height | default: 250 }}"
+                aria-describedby="EstHHint-{{ uid }} EstHErr-{{ uid }}"
+                data-dim="h" data-label="hauteur" data-min="{{ min_size }}" data-max="{{ max_h }}"
+              >
+              <span class="m-est__unit" aria-hidden="true">cm</span>
+            </div>
+            <p class="m-est__hint" id="EstHHint-{{ uid }}" data-hint>Entre {{ min_size }} et {{ max_h }} cm</p>
+            <p class="m-est__error" id="EstHErr-{{ uid }}" data-error="h" aria-live="polite" hidden></p>
+          </div>
+        </div>
+
+        <dl class="m-est__figures">
+          <div><dt>Surface du mur</dt><dd data-o-wall>—</dd></div>
+          <div><dt>Nombre de lés<small>Lés de {{ ss.strip_width }} cm de large</small></dt><dd data-o-strips>—</dd></div>
+          <div>
+            <dt>Surface imprimée
+              {%- if ss.margin > 0 -%}<small>Marge de coupe de {{ ss.margin }} cm en largeur et en hauteur</small>{%- endif -%}
+            </dt>
+            <dd data-o-printed>—</dd>
+          </div>
+          <div><dt>Surface facturée<small>Arrondie au m² supérieur</small></dt><dd data-o-billed>—</dd></div>
+        </dl>
+
+        {%- if p != blank -%}
+          <ul class="m-est__prices" role="list" aria-label="Prix estimés par gamme">
+            {%- for v in p.variants -%}
+              {%- capture g_name -%}{%- render 'murelle-gamme', value: v.option1, field: 'name' -%}{%- endcapture -%}
+              {%- capture g_index -%}{%- render 'murelle-gamme', value: v.option1, field: 'index' -%}{%- endcapture -%}
+              {%- assign g_index = g_index | strip | plus: 0 -%}
+              <li class="m-est__price{% if reco > 0 and g_index == reco %} is-reco{% endif %}">
+                <span class="m-est__gamme">
+                  <span class="m-est__gamme-name">
+                    {{- g_name | strip | escape -}}
+                    {%- if reco > 0 and g_index == reco and settings.gamme_badge != blank -%}
+                      <span class="m-est__badge">{{ settings.gamme_badge | escape }}</span>
+                    {%- endif -%}
+                  </span>
+                  <span class="m-est__gamme-meta">{{ v.option1 | escape }} · <span data-rate-label="{{ v.price }}">{{ v.price | money_without_currency }} € / m²</span></span>
+                </span>
+                <span class="m-est__amount" data-rate="{{ v.price }}">—</span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- elsif request.design_mode -%}
+          <p class="m-est__alert">Choisissez un produit de référence dans les réglages de la section pour afficher les prix.</p>
+        {%- endif -%}
+
+        <p class="visually-hidden" aria-live="polite" data-summary data-template="{{ ss.summary_template | escape }}"></p>
+        <p class="m-est__alert" role="alert" data-alert hidden></p>
+
+        <a class="m-est__cta" href="{{ dest }}" data-cta>
+          <span>{{ ss.button_label | default: 'Choisir un motif à ces dimensions' | escape }}</span>
+          <span class="m-est__cta-arrow" aria-hidden="true">→</span>
+        </a>
+        {%- if ss.note != blank -%}<div class="m-est__note">{{ ss.note }}</div>{%- endif -%}
+      </murelle-estimate>
+
+      {%- if ss.reassurance_text != blank or ss.reassurance_points != blank -%}
+        <div class="m-est__reassure">
+          {%- if ss.reassurance_text != blank -%}<p class="m-est__reassure-text">{{ ss.reassurance_text | escape }}</p>{%- endif -%}
+          {%- if ss.reassurance_points != blank -%}
+            <ul class="m-est__points" role="list">
+              {%- assign points = ss.reassurance_points | split: '·' -%}
+              {%- for point in points -%}
+                {%- assign pt = point | strip -%}
+                {%- if pt != blank -%}<li>{{ pt | escape }}</li>{%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+<script src="{{ 'murelle-estimate.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Estimateur Murelle",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "De la mesure au mur" },
+    { "type": "richtext", "id": "intro", "label": "Texte d'introduction" },
+    { "type": "product", "id": "product", "label": "Produit de référence (prix au m² de ses gammes)" },
+    { "type": "url", "id": "button_link", "label": "Page ouverte par le bouton", "info": "Vide : « Tous les motifs ». Les dimensions sont transmises à la page et au configurateur des fiches." },
+    { "type": "header", "content": "Estimateur" },
+    { "type": "text", "id": "tool_heading", "label": "Titre de l'estimateur", "default": "Estimer mon mur" },
+    { "type": "text", "id": "tool_text", "label": "Phrase d'accompagnement", "default": "Indiquez les dimensions de votre mur, en centimètres." },
+    { "type": "text", "id": "label_width", "label": "Libellé largeur", "default": "Largeur" },
+    { "type": "text", "id": "label_height", "label": "Libellé hauteur", "default": "Hauteur" },
+    { "type": "number", "id": "default_width", "label": "Largeur par défaut (cm)", "default": 320 },
+    { "type": "number", "id": "default_height", "label": "Hauteur par défaut (cm)", "default": 250 },
+    { "type": "text", "id": "summary_template", "label": "Phrase lue par les lecteurs d'écran", "info": "[lés] et [m2] sont remplacés par le calcul.", "default": "[lés] lés, [m2] m² imprimés" },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Choisir un motif à ces dimensions" },
+    { "type": "richtext", "id": "note", "label": "Note", "default": "<p>Estimation hors frais de livraison. Le prix final s'affiche dans le configurateur de chaque motif.</p>" },
+    { "type": "header", "content": "Règles de calcul", "info": "À garder identiques au bloc « Configurateur de mur » du modèle produit, et à faire confirmer par le fournisseur." },
+    { "type": "number", "id": "strip_width", "label": "Largeur d'un lé (cm)", "default": 50 },
+    { "type": "number", "id": "margin", "label": "Marge de coupe ajoutée en largeur et en hauteur (cm)", "default": 10 },
+    { "type": "number", "id": "min_billed", "label": "Surface minimale facturée (m²)", "default": 1 },
+    { "type": "number", "id": "min_size", "label": "Dimension minimale (cm)", "default": 50 },
+    { "type": "number", "id": "max_width", "label": "Largeur maximale (cm)", "default": 2000 },
+    { "type": "number", "id": "max_height", "label": "Hauteur maximale (cm)", "default": 500 },
+    { "type": "header", "content": "Réassurance" },
+    { "type": "text", "id": "reassurance_text", "label": "Phrase sous l'estimateur", "default": "Votre papier peint est imprimé à la commande, selon les dimensions de votre mur." },
+    { "type": "text", "id": "reassurance_points", "label": "Points (séparés par ·)", "default": "Fabrication sur mesure · Impression à la commande · Dimensions personnalisées" },
+    { "type": "header", "content": "Couleurs" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Palette de la section", "default": "scheme-1" },
+    { "type": "color_scheme", "id": "tool_color_scheme", "label": "Palette de l'estimateur (non utilisée : panneau crème MURELLE)", "default": "scheme-2" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Étape",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre", "default": "Mesurez" },
+        { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Largeur et hauteur du mur, au centimètre.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Estimateur Murelle",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Mesurez", "text": "<p>Relevez la largeur et la hauteur de votre mur, en centimètres.</p>" } },
+        { "type": "step", "settings": { "title": "Choisissez", "text": "<p>Un motif, puis l'une de nos trois gammes. Le prix est calculé au m² imprimé.</p>" } },
+        { "type": "step", "settings": { "title": "Recevez", "text": "<p>Votre panoramique est imprimé à la commande, à vos dimensions.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

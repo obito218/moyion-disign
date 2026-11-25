@@ -1,0 +1,11 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Ondes Noires</title></head><body><div class="shopify-section">
+<murelle-configurator data-form-id="F" data-strip="50" data-margin="10" data-min-billed="1" data-variant="2" data-locale="fr" data-currency="EUR">
+<input type="hidden" form="F" name="properties[Gamme]" value="Signature" data-p-gamme>
+<script type="application/json" data-gammes>{"1":"Essentielle","2":"Signature","3":"Prestige"}</script>
+<script type="application/json" data-prices>{"1":3700,"2":4500,"3":5300}</script>
+<input type="number" name="properties[Largeur du mur]" form="F" min="50" max="2000" step="1" required data-w id="w">
+<input type="number" name="properties[Hauteur du mur]" form="F" min="50" max="500" step="1" required data-h id="h">
+<input type="hidden" form="F" name="properties[Nombre de lés]" data-p-strips disabled><input type="hidden" form="F" name="properties[Surface imprimée facturée]" data-p-billed disabled>
+<svg><g data-plan-wall></g></svg><dl><dd data-o-strips></dd><dd data-o-wall></dd><dd data-o-billed></dd><dd data-o-gamme></dd><dd data-o-rate></dd><dd data-o-total id="total"></dd></dl>
+</murelle-configurator><form id="F"><input name="id" value="2"><input name="quantity" value="1"></form></div>
+<script src="/murelle-configurator.js"></script></body></html>
