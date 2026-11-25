@@ -129,3 +129,10 @@ Ce que reçoit la commande : variante = matière technique (production), propri�
 - Médias : 1) `a_serene_modern_neutral_toned_living_room_interi.webp` (version reçue dans la conversation, 1254 × 1254 ; copie dans `murelle/visuels/elegance-botanique/`) ; 2) `Salon_contemporain_avec_mural_arbore.png` (PNG d'origine téléversé, 1254 × 1254). Textes alternatifs « Visualisation : … ».
 - `assets/murelle.css` : galerie « grande première image » sans case vide (2 médias côte à côte ; nombre pair ≥ 4 : dernier en pleine largeur). Forêt brumeuse (7 médias) inchangée.
 - Vérifié : fiche (ordinateur, mobile), carte dans la collection (5 motifs), fiche Forêt brumeuse.
+
+## 11. Ondes Noires (25 novembre 2026)
+
+- Nouveau produit « Ondes Noires », `/products/ondes-noires`, en ligne, créé par duplication du produit modèle (mêmes matières, prix 37/45/53 €, même configurateur), collection « Design et inspiration » uniquement (retiré de « Page d'accueil » héritée du modèle), étiquette `design`. Pas d'étiquette `ref:` fournisseur (non fournie).
+- Médias dans l'ordre : MURELLE_01_salon.png (principale), MURELLE_02_salle_a_manger.png, MURELLE_04_vue_large.png (renommé par Shopify avec un suffixe), MURELLE_05_console.png, MURELLE_06_dimensions.webp. Images reçues dans la conversation, non modifiées, copiées dans `murelle/visuels/ondes-noires/`. Textes alternatifs « Visualisation : … ».
+- Aucun fichier du thème modifié.
+- Limite : mises en situation de 507 × 508 px (agrandies dans la grande image de la fiche, floues sur écran Retina).
