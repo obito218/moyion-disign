@@ -226,3 +226,11 @@ Demande : retirer tous les papiers peints sans photo. Décisions (QCM) : archive
 - **Section « Trois gammes » de l'accueil** : produit de référence Jungle colorée à palmiers (archivé) → Ondes Noires (mêmes prix 37 / 45 / 53 €), thème « Horizon – Gammes ».
 - **Laissé tel quel, à la demande** : « Tropical et jungle » et « Chambre enfant et bébé » sont désormais vides mais restent dans le menu et dans « Quatre univers » ; un client qui clique voit une page sans motif.
 - Remarque d'affichage : dans « Nos motifs du moment », les cartes gardent le format de chaque image (Élégance Botanique est carrée) → hauteurs inégales ; réglable (format d'image des cartes de la section) si l'utilisateur le souhaite.
+
+## 22. Ondes Sauge : 4 mises en situation (26 novembre 2026)
+- Produit identifié : « Ondes Sauge » (`/products/ondes-sauge`), nommé par l'utilisateur et confirmé visuellement (mêmes ondulations vert olive sur fond clair que le motif à plat déjà en ligne).
+- 4 images importées sans aucune modification (fichiers reçus, sommes MD5 identiques, ni recadrage ni réencodage ; aucune bande parasite détectée) et rattachées à ce seul produit, avec textes alternatifs : hall d'entrée, chambre, salon, salle à manger (760 × 506 px chacune).
+- Galerie : hall d'entrée (image principale, comme pour Ondes Terracotta), chambre, salon, salle à manger, puis le motif à plat existant, conservé (dernière position ; reste la miniature du sélecteur « Choisissez votre motif »).
+- Aucun code, thème, prix, texte ou autre produit modifié. Seul effet hors fiche : la vignette d'Ondes Sauge dans les collections (Design et inspiration, Nos motifs du moment) montre désormais le hall au lieu du motif à plat.
+- Vérifié : ordre et image principale (requête), nombre d'images des autres produits inchangé, fiche ordinateur (grande image + grille 2 × 2) et mobile (carrousel), sélecteur de motif (Ondes Sauge sélectionné), configurateur 300 × 250 → 7,5 m², facturé 8 m², 296 €.
+- Limites : 760 px de large (un peu doux en grand écran) ; mises en situation générées : fond plus crème et chaud que le motif à plat (vert très pâle), composition différente du fichier fournisseur ; motif à plat plus allongé (1,63) que les pièces (1,50) → léger écart de hauteur dans la dernière ligne de la grille.
