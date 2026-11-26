@@ -1,2 +1,3 @@
 pilotage/data/*.tmp
 node_modules/
+pilotage/.sync/

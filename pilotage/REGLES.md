@@ -3,11 +3,33 @@
 Ces règles s'appliquent à **chaque** intervention de Claude Code sur MURELLE, quel que soit le sujet demandé.
 Elles ne dépendent d'aucune conversation précédente : tout l'état du projet est dans `pilotage/data/`.
 
+## Où vivent les données
+
+**La référence est le dashboard publié** : https://claude.ai/artifact/BCJaKKFdNmVFmncwPNewzT
+(base de données de l'artifact, collections `tasks` et `journal`). L'utilisateur y modifie les tâches directement.
+Les fichiers `pilotage/data/*.json` en sont la copie locale, utilisée par la CLI et par la version locale (`node pilotage/server.js`).
+
+Synchronisation, à chaque intervention :
+
+1. **Récupérer** (avant tout travail) : `ArtifactData` action `list`, `url` ci-dessus, `collection` `tasks` puis `journal`,
+   `query.limit` 1000, `out_dir` `pilotage/.sync`. Noter la `version` de chaque document listé.
+   Puis `node pilotage/cli.js import` (remplace la copie locale par l'état publié).
+2. **Travailler** avec la CLI locale (statuts, ajouts, journal), comme décrit ci-dessous.
+3. **Renvoyer** (fin d'intervention) : `node pilotage/cli.js push-plan` liste les documents modifiés ou créés avec leur fichier.
+   Les envoyer en un `ArtifactData` `batch` (50 écritures maximum par appel), en ajoutant à chaque document existant
+   son `if_version` relevé à l'étape 1. Si une écriture est refusée parce que le document a changé entre-temps
+   (l'utilisateur l'a modifié), recommencer à l'étape 1 et refaire la modification sur la nouvelle version : ne jamais écraser un changement de l'utilisateur.
+4. **Vérifier** : relire avec `ArtifactData` `list` que les documents envoyés sont bien là.
+
+Si la base publiée est inaccessible dans la session, travailler sur la copie locale, le dire à l'utilisateur, et synchroniser à la session suivante.
+
+Après une modification de l'interface (`public/`, `lib/model.js`) : `node pilotage/build-hosted.js`, puis republier `pilotage/hosted/index.html` avec l'outil Artifact sur la même URL (les données sont conservées).
+
 ## Fichiers
 
 | Fichier | Rôle | Modification |
 |---|---|---|
-| `pilotage/data/tasks.json` | Toutes les tâches (source de vérité) | Uniquement via `node pilotage/cli.js` ou le dashboard |
+| `pilotage/data/tasks.json` | Copie locale des tâches | Uniquement via `node pilotage/cli.js` ou le dashboard |
 | `pilotage/data/journal.json` | Journal chronologique des interventions | Uniquement via `node pilotage/cli.js journal` |
 | `pilotage/ETAT.md` | Résumé lisible, régénéré automatiquement | Jamais à la main |
 | `pilotage/REGLES.md` | Ce fichier | Seulement si l'utilisateur change les règles |
@@ -25,7 +47,7 @@ Ne jamais éditer les JSON à la main : la CLI valide les données, écrit l'his
 7. **Nouvelle tâche découverte** → `add …` avec catégorie, phase, priorité, description claire et dépendances.
 8. **Ne jamais supprimer** une tâche terminée : elle reste dans « Terminé ». Une suppression n'est faite qu'à la demande explicite de l'utilisateur.
 9. **En fin d'intervention**, toujours : `node pilotage/cli.js journal --summary "…" --result "…" --done … --started … --added … --blocked … --validation … --files …`
-10. **Vérifier** : `node pilotage/cli.js check` doit répondre `OK`, et `status` doit refléter les changements. Si le serveur tourne, le dashboard s'actualise seul (15 s).
+10. **Vérifier** : `node pilotage/cli.js check` doit répondre `OK`, puis renvoyer les changements au dashboard publié (synchronisation, étape 3) et les relire. Le dashboard publié s'actualise en direct.
 
 ## Ce qui ne compte JAMAIS comme « Terminé »
 

@@ -7,7 +7,23 @@
 const S = require('./lib/store');
 const { writeReport } = require('./lib/report');
 
+const fs = require('fs');
+const path = require('path');
+
 const BY = process.env.PILOTAGE_AUTHOR || 'Claude Code';
+const DEFAULT_SYNC = path.join(__dirname, '.sync');
+
+function readDocs(dir) {
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir).filter((f) => f.endsWith('.json'))
+    .map((f) => ({ ...JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')), id: f.replace(/\.json$/, '') }));
+}
+
+function sortKeys(v) {
+  if (Array.isArray(v)) return v.map(sortKeys);
+  if (v && typeof v === 'object') return Object.fromEntries(Object.keys(v).sort().map((k) => [k, sortKeys(v[k])]));
+  return v;
+}
 
 function parse(argv) {
   const pos = [];
@@ -50,6 +66,8 @@ const HELP = `Pilotage MURELLE — commandes
   journal --summary "…" [--done IDs] [--started IDs] [--added IDs] [--blocked IDs]
       [--validation IDs] [--files a,b] [--result "…"]
   check                           Valide les données et régénère ETAT.md
+  import [dir]                    Remplace les données locales par l'export du dashboard publié (défaut pilotage/.sync)
+  push-plan [dir]                 Liste les documents à renvoyer au dashboard publié (écritures ArtifactData)
   meta                            Liste les identifiants de statuts, priorités, catégories, phases
 
 Règle : passer une tâche à "termine" exige --evidence (preuve de vérification).`;
@@ -145,6 +163,44 @@ function main() {
       if (errors.length) { console.error('Erreurs :\n- ' + errors.join('\n- ')); process.exit(1); }
       const st = S.computeStats(db);
       console.log(`OK — ${db.tasks.length} tâches valides, ${S.loadJournal().entries.length} entrées de journal, progression ${st.percent} %. ETAT.md régénéré.`);
+      break;
+    }
+    case 'import': {
+      // Remplace les fichiers locaux par un export de la base du dashboard publié
+      // (dossier rempli par ArtifactData list … out_dir : <dir>/tasks/*.json et <dir>/journal/*.json).
+      const dir = path.resolve(pos[0] || DEFAULT_SYNC);
+      const tasks = readDocs(path.join(dir, 'tasks')).sort((a, b) => a.id.localeCompare(b.id));
+      const entries = readDocs(path.join(dir, 'journal')).sort((a, b) => (a.at || '').localeCompare(b.at || '') || a.id.localeCompare(b.id));
+      if (!tasks.length) throw new Error(`aucune tâche trouvée dans ${dir}/tasks`);
+      const next = { ...db, tasks };
+      const errors = S.validateAll(next);
+      if (errors.length) throw new Error('export invalide, rien n\'a été importé :\n- ' + errors.join('\n- '));
+      S.saveTasks(next);
+      S.saveJournal({ version: 1, entries });
+      writeReport();
+      console.log(`Importé depuis le dashboard publié : ${tasks.length} tâches, ${entries.length} entrées de journal.`);
+      break;
+    }
+    case 'push-plan': {
+      // Compare les fichiers locaux à l'export <dir> et prépare les écritures à envoyer au dashboard publié.
+      const dir = path.resolve(pos[0] || DEFAULT_SYNC);
+      const out = path.join(dir, 'out');
+      fs.rmSync(out, { recursive: true, force: true });
+      const writes = [];
+      const plan = (coll, local) => {
+        const remote = Object.fromEntries(readDocs(path.join(dir, coll)).map((d) => [d.id, d]));
+        for (const d of local) {
+          if (remote[d.id] && JSON.stringify(sortKeys(remote[d.id])) === JSON.stringify(sortKeys(d))) continue;
+          fs.mkdirSync(path.join(out, coll), { recursive: true });
+          const file = path.join(out, coll, `${d.id}.json`);
+          fs.writeFileSync(file, JSON.stringify(d));
+          writes.push({ op: 'set', collection: coll, doc_id: d.id, file_path: file });
+        }
+        for (const id of Object.keys(remote)) if (!local.some((d) => d.id === id)) writes.push({ op: 'delete', collection: coll, doc_id: id });
+      };
+      plan('tasks', db.tasks);
+      plan('journal', S.loadJournal().entries);
+      console.log(writes.length ? JSON.stringify(writes, null, 1) : 'Rien à envoyer : le dashboard publié est à jour.');
       break;
     }
     case 'meta': {

@@ -100,6 +100,7 @@ async function api(req, res, url) {
 }
 
 function staticFile(res, pathname) {
+  if (pathname === '/model.js') return fs.readFile(path.join(__dirname, 'lib', 'model.js'), (err, buf) => (err ? send(res, 404, 'introuvable', 'text/plain') : send(res, 200, buf, MIME['.js'])));
   const rel = pathname === '/' ? 'index.html' : decodeURIComponent(pathname).replace(/^\/+/, '');
   const file = path.normalize(path.join(PUBLIC, rel));
   if (!file.startsWith(PUBLIC)) return send(res, 403, 'interdit', 'text/plain');

@@ -47,51 +47,172 @@
     toast.t = setTimeout(() => { el.className = 'toast'; }, 2600);
   }
 
-  async function api(method, url, body) {
-    const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined });
-    const json = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(json.error || `Erreur ${res.status}`);
-    return json;
-  }
+  const PM = window.PilotageModel;
+  const META = { statuses: PM.STATUSES, priorities: PM.PRIORITIES, categories: PM.CATEGORIES, phases: PM.PHASES, waitingOn: PM.WAITING_ON };
+
+  // ---------- Stockage : serveur local (fichiers JSON) ou base de l'artifact publié ----------
+  const localBackend = {
+    kind: 'local',
+    where: 'Fichiers <code>pilotage/data/tasks.json</code> et <code>pilotage/data/journal.json</code>',
+    async call(method, url, body) {
+      const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(json.error || `Erreur ${res.status}`);
+      return json;
+    },
+    subscribe(onData, onError) {
+      let last = null;
+      const pull = async () => {
+        try {
+          const d = await this.call('GET', '/api/state');
+          const sig = `${d.updatedAt}|${d.journal.length}`;
+          if (sig !== last) { last = sig; onData({ tasks: d.tasks, journal: d.journal, updatedAt: d.updatedAt }, true); }
+        } catch (e) { if (last === null) onError(e); }
+      };
+      pull();
+      setInterval(() => { if (prefs.autoRefresh && !document.hidden && !modal.open) pull(); }, 15000);
+    },
+    create: async (data) => localBackend.call('POST', '/api/tasks', data),
+    update: async (id, patch) => localBackend.call('PATCH', `/api/tasks/${id}`, patch),
+    remove: async (id) => localBackend.call('DELETE', `/api/tasks/${id}`),
+    exportData() { location.href = '/api/export'; },
+  };
+
+  const hostedBackend = {
+    kind: 'hosted',
+    where: 'Base de données de cette page (collections <code>tasks</code> et <code>journal</code>), mise à jour par toi et par Claude Code',
+    db: null,
+    downloads: null,
+    BY: 'Toi (dashboard)',
+    subscribe(onData, onError) {
+      const c = window.claude;
+      if (!c || !c.use) { onError(new Error('Cette page doit être ouverte depuis claude.ai.')); return; }
+      const timer = setTimeout(() => onError(new Error('La base de données ne répond pas pour l\'instant. Vérifie ta connexion, la page se mettra à jour seule.')), 10000);
+      c.use('downloads').then((d) => { this.downloads = d; }).catch(() => {});
+      c.use('db').then((db) => {
+        if (!db) { clearTimeout(timer); onError(new Error('Connecte-toi à claude.ai pour voir les données du pilotage.')); return; }
+        this.db = db;
+        const state = { tasks: null, journal: null };
+        const emit = (fromCache) => {
+          if (state.tasks === null || state.journal === null) return;
+          if (!fromCache) clearTimeout(timer);
+          const tasks = state.tasks.slice().sort((a, b) => a.id.localeCompare(b.id));
+          const journal = state.journal.slice().sort((a, b) => (a.at || '').localeCompare(b.at || '') || a.id.localeCompare(b.id));
+          const updatedAt = tasks.flatMap((t) => (t.history || []).map((h) => h.at)).concat(journal.map((j) => j.at)).sort().pop() || null;
+          onData({ tasks, journal, updatedAt }, !fromCache);
+        };
+        const fail = (e) => { clearTimeout(timer); onError(new Error(e && e.message ? e.message : 'Base de données indisponible.')); };
+        db.collection('tasks').onSnapshot((s) => { state.tasks = s.docs.map((d) => ({ ...d.data(), id: d.id })); emit(s.metadata.fromCache); }, fail);
+        db.collection('journal').onSnapshot((s) => { state.journal = s.docs.map((d) => ({ ...d.data(), id: d.id })); emit(s.metadata.fromCache); }, fail);
+      });
+    },
+    model() { return { tasks: JSON.parse(JSON.stringify(D.tasks)) }; },
+    async write(fn) {
+      if (!this.db) throw new Error('Base de données indisponible.');
+      try { return await fn(this.db); } catch (e) {
+        if (e && e.code === 'invalid_argument') throw new Error('Tu n\'as pas le droit de modifier ce tableau (accès en lecture seule).');
+        if (e && e.code === 'quota_exceeded') throw new Error('La base de données est pleine : supprime des tâches inutiles.');
+        throw new Error(e && e.message ? e.message : String(e));
+      }
+    },
+    async journal(entry) {
+      const j = { entries: D.journal.slice() };
+      const e = PM.addJournalEntry(j, { author: this.BY, ...entry });
+      const n = Math.max(0, ...D.journal.map((x) => parseInt(String(x.id).replace(/\D/g, ''), 10) || 0)) + 1;
+      e.id = `J-${String(n).padStart(3, '0')}`;
+      await this.db.collection('journal').doc(e.id).set(e);
+    },
+    async create(data) {
+      const m = this.model();
+      const t = PM.createTask(m, { ...data, source: 'manuel' }, this.BY);
+      await this.write((db) => db.collection('tasks').doc(t.id).set(t));
+      await this.write(() => this.journal({ summary: `Tâche ajoutée manuellement : ${t.id} — ${t.title}`, tasksAdded: [t.id] }));
+    },
+    async update(id, body) {
+      const m = this.model();
+      const { note, ...patch } = body;
+      const { task } = PM.updateTask(m, id, patch, this.BY, note);
+      await this.write((db) => db.collection('tasks').doc(id).set(task));
+    },
+    async remove(id) {
+      const m = this.model();
+      const t = PM.deleteTask(m, id);
+      const touched = m.tasks.filter((x) => JSON.stringify(x.dependsOn) !== JSON.stringify(byId[x.id].dependsOn));
+      await this.write(async (db) => {
+        for (const x of touched) await db.collection('tasks').doc(x.id).update({ dependsOn: x.dependsOn });
+        await db.collection('tasks').doc(id).delete();
+      });
+      await this.write(() => this.journal({ summary: `Tâche supprimée : ${t.id} — ${t.title}`, result: `Statut au moment de la suppression : ${PM.labelOf(PM.STATUSES, t.status)}` }));
+    },
+    async exportData() {
+      if (!this.downloads) throw new Error('Le téléchargement n\'est pas disponible dans cette vue.');
+      const data = JSON.stringify({ exportedAt: new Date().toISOString(), tasks: D.tasks, journal: D.journal }, null, 2);
+      await this.downloads.save({ filename: `murelle-pilotage-${todayStr()}.json`, data });
+    },
+  };
+
+  const backend = window.PILOTAGE_HOSTED ? hostedBackend : localBackend;
 
   function setData(d) {
-    D = d;
+    const stats = PM.computeStats({ tasks: d.tasks });
+    D = { ...d, stats, meta: META };
     byId = Object.fromEntries(D.tasks.map((t) => [t.id, t]));
-    $('#nc-bloque').textContent = D.stats.byStatus.bloque || '';
-    $('#nc-verif').textContent = D.stats.byStatus.a_verifier || '';
-    $('#side-foot').innerHTML = `Données : <span class="mono">pilotage/data</span><br>Mis à jour ${D.updatedAt ? fmtDateTime(D.updatedAt) : '—'}`;
+    $('#nc-bloque').textContent = stats.byStatus.bloque || '';
+    $('#nc-verif').textContent = stats.byStatus.a_verifier || '';
+    $('#side-foot').innerHTML = `${backend.kind === 'local' ? 'Données : <span class="mono">pilotage/data</span><br>' : ''}Mis à jour ${D.updatedAt ? fmtDateTime(D.updatedAt) : '—'}`;
   }
 
-  async function load() {
-    try {
-      setData(await api('GET', '/api/state'));
-      render();
-    } catch (e) {
-      main.innerHTML = `<div class="card"><h2>Serveur injoignable</h2><p class="lead">Lance <span class="mono">node pilotage/server.js</span> depuis le dossier du projet, puis recharge cette page.</p><p class="empty">${esc(e.message)}</p></div>`;
-    }
+  function load() {
+    let first = true;
+    backend.subscribe((d, confirmed) => {
+      const wasOpen = modal.open;
+      setData(d);
+      if (first || !wasOpen) {
+        const active = document.activeElement && document.activeElement.id;
+        render(!first);
+        if (active && $('#' + active)) $('#' + active).focus();
+        if (!first && confirmed && !mutating) toast('Tableau actualisé');
+      }
+      first = false;
+    }, (e) => {
+      if (D) { toast(e.message, true); return; }
+      main.innerHTML = backend.kind === 'local'
+        ? `<div class="card"><h2>Serveur injoignable</h2><p class="lead">Lance <span class="mono">node pilotage/server.js</span> depuis le dossier du projet, puis recharge cette page.</p><p class="empty">${esc(e.message)}</p></div>`
+        : `<div class="card"><h2>Données indisponibles</h2><p class="lead">${esc(e.message)}</p></div>`;
+    });
   }
 
-  async function mutate(method, url, body, okMsg) {
+  let mutating = false;
+  async function mutate(fn, okMsg) {
+    mutating = true;
     try {
-      setData(await api(method, url, body));
-      render(true);
+      const res = await fn();
+      if (res && res.tasks) { setData({ tasks: res.tasks, journal: res.journal, updatedAt: res.updatedAt }); render(true); }
       if (okMsg) toast(okMsg);
       return true;
     } catch (e) {
       toast(e.message, true);
       return false;
+    } finally {
+      setTimeout(() => { mutating = false; }, 1500);
     }
   }
 
   // ---------- Routage ----------
+  // L'adresse ne porte que le nom de la vue (#taches) ; les filtres restent dans la page.
+  let currentQ = {};
   function parseHash() {
-    const raw = location.hash.replace(/^#\/?/, '');
-    const [path, qs] = raw.split('?');
-    return { route: path || '', q: Object.fromEntries(new URLSearchParams(qs || '')) };
+    const route = location.hash.replace(/^#\/?/, '').split('?')[0];
+    return { route: PAGES_KEYS.includes(route) ? route : '', q: currentQ };
   }
+  const PAGES_KEYS = ['', 'taches', 'roadmap', 'categories', 'bloquees', 'verifier', 'historique', 'parametres'];
+  let navigating = false;
   const go = (route, q) => {
-    const qs = q && Object.keys(q).length ? '?' + new URLSearchParams(q).toString() : '';
-    location.hash = `#/${route}${qs}`;
+    currentQ = q || {};
+    navigating = true;
+    const target = route ? `#${route}` : '#';
+    if (location.hash === target || (!route && !location.hash)) { navigating = false; render(); window.scrollTo(0, 0); }
+    else location.hash = target;
   };
 
   const PAGES = { '': overview, taches: tasksPage, roadmap, categories, bloquees: blockedPage, verifier: verifyPage, historique: historyPage, parametres: settingsPage };
@@ -418,23 +539,20 @@
 
   // ---------- Paramètres ----------
   function settingsPage() {
-    const f = D.meta.files;
     return pageHead('Réglages', 'Paramètres', '') + `
       <div class="stack">
         <div class="card"><h3 style="margin-bottom:14px">Stockage des données</h3>
           <dl class="kv">
-            <dt>Tâches</dt><dd><code>${f.tasks}</code></dd>
-            <dt>Journal des réalisations</dt><dd><code>${f.journal}</code></dd>
-            <dt>Règles de mise à jour</dt><dd><code>${f.rules}</code> et <code>CLAUDE.md</code></dd>
-            <dt>Résumé lisible sans serveur</dt><dd><code>pilotage/ETAT.md</code> (régénéré à chaque modification)</dd>
+            <dt>Emplacement</dt><dd>${backend.where}</dd>
+            <dt>Règles de mise à jour</dt><dd><code>pilotage/REGLES.md</code> et <code>CLAUDE.md</code> dans le dépôt du projet</dd>
             <dt>Dernière écriture</dt><dd>${D.updatedAt ? fmtDateTime(D.updatedAt) : '—'}</dd>
             <dt>Contenu</dt><dd>${D.tasks.length} tâches · ${D.journal.length} interventions au journal</dd>
           </dl>
-          <div class="chips" style="margin-top:18px"><a class="btn" href="/api/export">Exporter une sauvegarde (JSON)</a><button class="btn" id="reload">Recharger les données</button></div>
+          <div class="chips" style="margin-top:18px"><button class="btn" id="export">Exporter une sauvegarde (JSON)</button></div>
         </div>
         <div class="card"><h3 style="margin-bottom:14px">Affichage</h3>
           <div class="stack" style="gap:12px">
-            <label class="check"><input type="checkbox" id="p-auto" ${prefs.autoRefresh ? 'checked' : ''}> Actualiser automatiquement toutes les 15 s (voir les mises à jour de Claude Code en direct)</label>
+            ${backend.kind === 'local' ? `<label class="check"><input type="checkbox" id="p-auto" ${prefs.autoRefresh ? 'checked' : ''}> Actualiser automatiquement toutes les 15 s (voir les mises à jour de Claude Code en direct)</label>` : '<p class="empty" style="margin:0">Les changements faits par Claude Code apparaissent en direct.</p>'}
             <label class="check"><input type="checkbox" id="p-motion" ${prefs.reduceMotion ? 'checked' : ''}> Réduire les animations</label>
             <label class="check"><input type="checkbox" id="p-list" ${prefs.view === 'list' ? 'checked' : ''}> Afficher les tâches en liste par défaut</label>
           </div>
@@ -503,8 +621,13 @@
     modal.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => modal.close()));
     const del = $('[data-delete]', modal);
     if (del) del.addEventListener('click', async () => {
-      if (!confirm(`Supprimer définitivement ${id} — « ${t.title} » ?\n\nPour une tâche terminée, préfère la laisser dans « Terminé » : elle reste dans l'historique et la progression.`)) return;
-      if (await mutate('DELETE', `/api/tasks/${id}`, null, `${id} supprimée`)) modal.close();
+      if (!del.dataset.armed) {
+        del.dataset.armed = '1';
+        del.textContent = 'Confirmer la suppression';
+        $('#t-err', modal).textContent = t.status === 'termine' ? 'Tâche terminée : mieux vaut la garder, elle compte dans la progression et l\'historique. Clique à nouveau pour supprimer quand même.' : 'Suppression définitive. Clique à nouveau pour confirmer.';
+        return;
+      }
+      if (await mutate(() => backend.remove(id), `${id} supprimée`)) modal.close();
     });
     form.addEventListener('submit', async (ev) => {
       ev.preventDefault();
@@ -519,7 +642,7 @@
       };
       if (!data.title) { err.textContent = 'Le titre est obligatoire.'; form.title.focus(); return; }
       if (data.status === 'bloque' && !data.blockedReason) { err.textContent = 'Indique la raison du blocage.'; form.blockedReason.focus(); return; }
-      const ok = isNew ? await mutate('POST', '/api/tasks', data, 'Tâche ajoutée') : await mutate('PATCH', `/api/tasks/${id}`, data, 'Modifications enregistrées');
+      const ok = isNew ? await mutate(() => backend.create(data), 'Tâche ajoutée') : await mutate(() => backend.update(id, data), 'Modifications enregistrées');
       if (ok) modal.close();
     });
     modal.showModal();
@@ -542,19 +665,25 @@
   }
 
   document.addEventListener('click', async (e) => {
-    const t = e.target.closest('[data-open],[data-new],[data-view],[data-alert],[data-htab],[data-confirm],[data-todo],#reload');
+    const a = e.target.closest('a[href^="#"]');
+    if (a && !a.matches('[data-open]')) {
+      e.preventDefault();
+      const [r, qs] = a.getAttribute('href').replace(/^#\/?/, '').split('?');
+      return go(r, Object.fromEntries(new URLSearchParams(qs || '')));
+    }
+    const t = e.target.closest('[data-open],[data-new],[data-view],[data-alert],[data-htab],[data-confirm],[data-todo],#export');
     if (!t) return;
     if (t.matches('[data-confirm]')) {
       const task = byId[t.dataset.confirm];
       const ev = [task.evidence, `Confirmé par toi dans le dashboard le ${fmtDate(todayStr())}`].filter(Boolean).join(' · ');
-      return mutate('PATCH', `/api/tasks/${task.id}`, { status: 'termine', evidence: ev, note: 'Validé depuis « À vérifier »' }, `${task.id} terminée`);
+      return mutate(() => backend.update(task.id, { status: 'termine', evidence: ev, note: 'Validé depuis « À vérifier »' }), `${task.id} terminée`);
     }
-    if (t.matches('[data-todo]')) return mutate('PATCH', `/api/tasks/${t.dataset.todo}`, { status: 'a_faire', note: 'Non confirmé : reste à faire' }, 'Passée en « À faire »');
+    if (t.matches('[data-todo]')) return mutate(() => backend.update(t.dataset.todo, { status: 'a_faire', note: 'Non confirmé : reste à faire' }), 'Passée en « À faire »');
     if (t.matches('[data-open]')) { e.preventDefault(); return openTask(t.dataset.open); }
     if (t.matches('[data-new]')) return openTask(null);
     if (t.matches('[data-view]')) { prefs.view = t.dataset.view; savePrefs(); return render(true); }
     if (t.matches('[data-htab]')) return go('historique', t.dataset.htab === 'modifs' ? { tab: 'modifs' } : {});
-    if (t.id === 'reload') { await load(); return toast('Données rechargées'); }
+    if (t.id === 'export') { try { await backend.exportData(); } catch (err) { toast(err.message, true); } return; }
     if (t.matches('[data-alert]')) {
       const box = t.closest('#alerts');
       box.querySelectorAll('[data-alert]').forEach((b) => b.classList.toggle('on', b === t));
@@ -593,24 +722,10 @@
     const id = dragId; const status = z.dataset.drop; dragId = null;
     if (!byId[id] || byId[id].status === status) return;
     if (status === 'bloque') return openTask(id, { status: 'bloque' });
-    mutate('PATCH', `/api/tasks/${id}`, { status }, `${id} → ${L('statuses', status)}`);
+    mutate(() => backend.update(id, { status }), `${id} → ${L('statuses', status)}`);
   });
 
-  window.addEventListener('hashchange', () => { render(); window.scrollTo(0, 0); });
-
-  // Actualisation automatique pour voir les changements faits par Claude Code via la CLI.
-  setInterval(async () => {
-    if (!prefs.autoRefresh || document.hidden || modal.open || !D) return;
-    try {
-      const d = await api('GET', '/api/state');
-      if (d.updatedAt !== D.updatedAt || d.journal.length !== D.journal.length) {
-        const active = document.activeElement && document.activeElement.id;
-        setData(d); render(true);
-        if (active && $('#' + active)) $('#' + active).focus();
-        toast('Tableau actualisé');
-      }
-    } catch { /* serveur arrêté : on réessaie au prochain tour */ }
-  }, 15000);
+  window.addEventListener('hashchange', () => { if (!navigating) currentQ = {}; navigating = false; render(); window.scrollTo(0, 0); });
 
   load();
 })();
