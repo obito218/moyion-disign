@@ -16,7 +16,7 @@ Outils : connecteur Shopify (`graphql_query`, `graphql_mutation`, `theme_screens
 - Toujours demander : nom, collection, ordre des images, si ce n'est pas précisé.
 
 ## Références (au 25/11/2026 — revérifier par requête avant usage)
-- Produit modèle (brouillon) : `gid://shopify/Product/15992522768724` ; variantes « Matière » : Intissé UV / Intissé HP Latex / Soie HP Latex (prix au m² : 37 / 45 / 53 € TTC à ce jour).
+- Produit modèle (brouillon) : `gid://shopify/Product/15992522768724` ; option « Gamme » : Essentielle / Signature / Adhésive (prix au m² : 37 / 45 / 53 € TTC à ce jour ; noms techniques retirés le 26/11/2026).
 - Collections : `design-et-inspiration` 737673871700 · `foret-et-sous-bois` 737673773396 · `tropical-et-jungle` 737673806164 · `chambre-enfant-et-bebe` 737673838932 · `frontpage` (Page d'accueil) 696826429780 — la duplication y ajoute le produit : l'en retirer.
 - Familles de motifs : métaobjet `famille_motifs` (champs `nom`, `produits` = liste ordonnée). Entrée « Ondes Noires » : `gid://shopify/Metaobject/676719395156`.
 - Miniature du sélecteur : métachamp produit `murelle.miniature_motif` (file_reference, image).
@@ -46,9 +46,10 @@ Importer la nouvelle (étapes 5–6), la placer à la position de l'ancienne (é
 ## Vérifications (obligatoires avant de dire « fait »)
 1. Requête : `product { status collections { handle } featuredMedia { id } media(first: 20) { nodes { id alt ... on MediaImage { image { url width height } } } } }` → ordre, image principale, collection.
 2. Captures `theme_screenshot` (thème 209539301716) : la collection et la fiche, `viewport: both`.
-3. Configurateur : ouvrir `/products/<handle>?variant=<id Intissé HP Latex>&largeur=400&hauteur=270` → Signature cochée, 9 lés, 13 m², total cohérent avec le prix.
-4. Si famille : le sélecteur affiche tous les motifs, le motif courant est sélectionné.
-5. Ajouter une ligne à `murelle/COMPTE-RENDU.md` (quoi, où, limites : résolution, référence manquante), commit + push.
+3. Configurateur : ouvrir `/products/<handle>?variant=<id Signature>&largeur=400&hauteur=270` → Signature cochée, mur 10,8 m², facturé 11 m² (surface du mur arrondie au m² supérieur), total 495 € à 45 €/m².
+4. Images : repérer les bandes parasites (restes de montage, liseré blanc) en haut et en bas de chaque image ; si présentes, retirer uniquement ces lignes, sans redimensionner, en WebP sans perte, et garder l'original dans `originaux/`.
+5. Si famille : le sélecteur affiche tous les motifs, le motif courant est sélectionné.
+6. Ajouter une ligne à `murelle/COMPTE-RENDU.md` (quoi, où, limites : résolution, référence manquante), commit + push.
 
 ## Pièges déjà rencontrés (API 2026-10 et outils)
 - `collectionUpdate(collection:)` (plus `input:`) ; ajout aux collections via `productUpdate.collectionsToJoin` ; `Publication.name` → `catalog.title` ; `Shop.billingAddress` → `shopAddress`.
