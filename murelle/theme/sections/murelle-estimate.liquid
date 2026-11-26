@@ -85,17 +85,31 @@
           </div>
         </div>
 
-        <dl class="m-est__figures">
-          <div><dt>Surface du mur</dt><dd data-o-wall>—</dd></div>
-          <div><dt>Nombre de lés<small>Lés de {{ ss.strip_width }} cm de large</small></dt><dd data-o-strips>—</dd></div>
-          <div>
-            <dt>Surface imprimée
-              {%- if ss.margin > 0 -%}<small>Marge de coupe de {{ ss.margin }} cm en largeur et en hauteur</small>{%- endif -%}
-            </dt>
-            <dd data-o-printed>—</dd>
+        <div class="m-est__billing">
+          <div class="m-est__billed">
+            <span class="m-est__billed-label">Surface facturée<small>Mur de <span data-o-wall>—</span> · <span data-o-strips>—</span> lés</small></span>
+            <span class="m-est__billed-value" data-o-billed>—</span>
           </div>
-          <div><dt>Surface facturée<small>Arrondie au m² supérieur</small></dt><dd data-o-billed>—</dd></div>
-        </dl>
+          <details class="m-est__details">
+            <summary class="m-est__toggle">Pourquoi cette surface ? Voir le détail</summary>
+            <dl class="m-est__figures">
+              <div><dt>Surface du mur</dt><dd data-o-wall>—</dd></div>
+              <div><dt>Nombre de lés<small>Lés de {{ ss.strip_width }} cm de large</small></dt><dd data-o-strips>—</dd></div>
+              <div>
+                <dt>Surface imprimée
+                  {%- if ss.margin > 0 -%}<small>Marge de coupe de {{ ss.margin }} cm en largeur et en hauteur</small>{%- endif -%}
+                </dt>
+                <dd data-o-printed>—</dd>
+              </div>
+              <div><dt>Surface facturée<small>Arrondie au m² supérieur</small></dt><dd data-o-billed>—</dd></div>
+            </dl>
+            <p class="m-est__why">
+              Votre panoramique est imprimé en lés entiers de {{ ss.strip_width }} cm
+              {%- if ss.margin > 0 %}, avec {{ ss.margin }} cm de marge de coupe en largeur et en hauteur pour une pose parfaite{% endif -%}
+              . La surface imprimée est arrondie au m² supérieur : c'est elle qui est facturée.
+            </p>
+          </details>
+        </div>
 
         {%- if p != blank -%}
           <ul class="m-est__prices" role="list" aria-label="Prix estimés par gamme">
@@ -111,7 +125,11 @@
                       <span class="m-est__badge">{{ settings.gamme_badge | escape }}</span>
                     {%- endif -%}
                   </span>
-                  <span class="m-est__gamme-meta">{{ v.option1 | escape }} · <span data-rate-label="{{ v.price }}">{{ v.price | money_without_currency }} € / m²</span></span>
+                  {%- capture g_finish -%}{%- render 'murelle-gamme', value: v.option1, field: 'finish' -%}{%- endcapture -%}
+                  <span class="m-est__gamme-meta">
+                    {%- if settings.gamme_show_material -%}{{ v.option1 | escape }} · {% elsif g_finish != blank %}{{ g_finish | strip | escape }} · {% endif -%}
+                    <span data-rate-label="{{ v.price }}">{{ v.price | money_without_currency }} € / m²</span>
+                  </span>
                 </span>
                 <span class="m-est__amount" data-rate="{{ v.price }}">—</span>
               </li>

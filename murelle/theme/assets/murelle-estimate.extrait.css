@@ -84,3 +84,26 @@
   .m-est__badge { display: table; margin: 4px 0 0; }
   .m-est__amount { font-size: 19px; }
 }
+
+/* ---------- Estimateur : surface facturée et détail repliable ---------- */
+.m-est__billing { display: grid; gap: 4px; }
+.m-est__billed { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 14px 0 12px; border-top: 1px solid #E2D9C8; border-bottom: 1px solid #E2D9C8; }
+.m-est__billed-label { font-size: 15px; line-height: 1.35; }
+.m-est__billed-label small { display: block; margin-top: 2px; font-size: 12px; color: #7A7468; }
+.m-est__tool:not(.is-ready) .m-est__billed-label small { visibility: hidden; }
+.m-est__billed-value { font-family: var(--font-heading--family); font-size: 22px; white-space: nowrap; font-variant-numeric: lining-nums tabular-nums; font-feature-settings: "lnum" 1, "tnum" 1; }
+.m-est__toggle {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 0; cursor: pointer; list-style: none;
+  font-size: 13px; color: #343C32; text-decoration: underline; text-decoration-color: #B9AF9F; text-underline-offset: 3px;
+}
+.m-est__toggle::-webkit-details-marker { display: none; }
+.m-est__toggle::after {
+  content: ""; width: 6px; height: 6px; border-right: 1.2px solid currentColor; border-bottom: 1.2px solid currentColor;
+  transform: rotate(45deg) translateY(-2px); transition: transform 0.2s ease;
+}
+.m-est__details[open] .m-est__toggle::after { transform: rotate(-135deg) translateY(-1px); }
+.m-est__toggle:focus-visible { outline: 2px solid #343C32; outline-offset: 2px; }
+.m-est__details .m-est__figures { margin-top: 6px; }
+.m-est__why { margin: 10px 0 2px; font-size: 13px; line-height: 1.5; color: #5B6157; }
+.m-est__amount { font-variant-numeric: lining-nums tabular-nums; font-feature-settings: "lnum" 1, "tnum" 1; }
+@media (prefers-reduced-motion: reduce) { .m-est__toggle::after { transition: none; } }
