@@ -58,7 +58,7 @@ if (!customElements.get('murelle-configurator')) {
       const H = parseFloat(this.h.value);
       const valid = W >= parseFloat(this.w.min) && W <= parseFloat(this.w.max) && H >= parseFloat(this.h.min) && H <= parseFloat(this.h.max);
       const cents = this.prices[this.variant];
-      const set = (sel, v) => { this.querySelector(sel).textContent = v; };
+      const set = (sel, v) => { const el = this.querySelector(sel); if (el) el.textContent = v; };
       if (cents != null) set('[data-o-rate]', this.money.format(cents / 100) + ' / m²');
       const gamme = this.gammes[this.variant];
       const pGamme = this.querySelector('[data-p-gamme]');

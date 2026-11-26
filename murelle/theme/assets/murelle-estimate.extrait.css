@@ -93,3 +93,6 @@
 .m-est__tool:not(.is-ready) .m-est__billed-label small { visibility: hidden; }
 .m-est__billed-value { font-family: var(--font-heading--family); font-size: 22px; white-space: nowrap; font-variant-numeric: lining-nums tabular-nums; font-feature-settings: "lnum" 1, "tnum" 1; }
 .m-est__amount { font-variant-numeric: lining-nums tabular-nums; font-feature-settings: "lnum" 1, "tnum" 1; }
+
+/* Badge secondaire de gamme (ex. « Pose facile ») */
+.m-est__badge.m-est__badge--alt { background: #E4E9DD; color: #343C32; box-shadow: inset 0 0 0 1px #A0B292; }

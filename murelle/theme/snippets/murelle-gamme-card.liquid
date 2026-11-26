@@ -1,0 +1,101 @@
+{%- doc -%}
+  Carte de sélection d'une gamme MURELLE. Le bouton radio reprend les attributs
+  du sélecteur de variantes Horizon : changement de variante, prix et panier
+  fonctionnent à l'identique. La valeur transmise est celle de l'option « Gamme ».
+  Badge : « Notre recommandation » sur la gamme recommandée, sinon le badge propre
+  à la gamme (ex. « Pose facile » pour la gamme 3). L'indicateur de finition
+  (barres) concerne les gammes 1 et 2 ; la gamme 3 est l'adhésive.
+
+  @param {object} value - Valeur d'option (product_option_value)
+  @param {object} product_option - Option produit
+  @param {object} product_resource - Produit
+  @param {object} block - Bloc sélecteur de variantes
+  @param {number} fieldset_index - Index du fieldset
+  @param {number} input_index - Position de la carte dans le fieldset
+  @param {number} gamme - 1, 2 ou 3 ; 0 si la valeur n'est liée à aucune gamme
+  @param {number} reco - Numéro de la gamme recommandée (0 = aucune)
+{%- enddoc -%}
+{%- liquid
+  assign v = value.variant
+  assign name = value.name
+  assign finish = ''
+  assign text = ''
+  assign badge = ''
+  if gamme > 0
+    assign k = 'gamme_' | append: gamme | append: '_name'
+    assign name = settings[k] | default: value.name
+    assign k = 'gamme_' | append: gamme | append: '_finish'
+    assign finish = settings[k]
+    assign k = 'gamme_' | append: gamme | append: '_text'
+    assign text = settings[k]
+    assign k = 'gamme_' | append: gamme | append: '_badge'
+    assign badge = settings[k]
+  endif
+  assign is_reco = false
+  if gamme > 0 and gamme == reco
+    assign is_reco = true
+  endif
+  assign alt_badge = ''
+  if is_reco == false and badge != blank
+    assign alt_badge = badge
+  endif
+  assign show_material = false
+  if settings.gamme_show_material and gamme > 0
+    assign show_material = true
+  endif
+-%}
+<label class="m-gamme m-gamme--{{ gamme }}{% if is_reco %} m-gamme--reco{% endif %}{% if alt_badge != blank %} m-gamme--badged{% endif %}{% if value.available == false %} m-gamme--unavailable{% endif %}">
+  <input
+    type="radio"
+    class="m-gamme__input"
+    name="{{ product_option.name | escape }}-{{ block.id }}-{{ product_resource.id }}"
+    value="{{ value | escape }}"
+    {% if value.available == false %}aria-disabled="true"{% endif %}
+    data-previous-checked="false"
+    data-fieldset-index="{{ fieldset_index }}"
+    data-input-index="{{ input_index }}"
+    data-input-id="{{ product_option.position }}-{{ input_index }}"
+    data-option-value-id="{{ value.id }}"
+    data-option-available="{{ value.available }}"
+    data-connected-product-url="{{ value.product_url }}"
+    {% if v.id %}data-variant-id="{{ v.id }}"{% endif %}
+    {% if value.selected %}data-current-checked="true" checked{% else %}data-current-checked="false"{% endif %}
+  >
+  {%- if is_reco and settings.gamme_badge != blank -%}
+    <span class="m-gamme__badge">{{ settings.gamme_badge | escape }}</span>
+  {%- elsif alt_badge != blank -%}
+    <span class="m-gamme__badge m-gamme__badge--alt">{{ alt_badge | escape }}</span>
+  {%- endif -%}
+  <span class="m-gamme__top">
+    <span class="m-gamme__radio" aria-hidden="true"></span>
+    <span class="m-gamme__name">{{ name | escape }}</span>
+    {%- if v -%}
+      <span class="m-gamme__price"><span class="m-gamme__amount">{{ v.price | money_without_trailing_zeros }}</span>&nbsp;/&nbsp;m²</span>
+    {%- endif -%}
+  </span>
+  {%- if finish != blank or show_material -%}
+    <span class="m-gamme__meta">
+      {%- if gamme > 0 and gamme < 3 -%}<span class="m-gamme__sheen" data-level="{{ gamme }}" aria-hidden="true"><i></i><i></i><i></i></span>{%- endif -%}
+      <span>
+        {{- finish | escape -}}
+        {%- if finish != blank and show_material %} · {% endif -%}
+        {%- if show_material -%}<span class="m-gamme__material">{{ value | escape }}</span>{%- endif -%}
+      </span>
+    </span>
+  {%- endif -%}
+  {%- if text != blank -%}
+    <span class="m-gamme__text">{{ text | escape }}</span>
+  {%- endif -%}
+  <span class="m-gamme__total" data-gamme-total data-variant="{{ v.id }}"></span>
+  {%- if is_reco -%}
+    {%- if settings.gamme_cta_label != blank -%}
+      <span class="m-gamme__cta" aria-hidden="true">
+        <span class="m-gamme__cta-off">{{ settings.gamme_cta_label | escape }}</span>
+        <span class="m-gamme__cta-on">{{ settings.gamme_cta_selected | escape }}</span>
+      </span>
+    {%- endif -%}
+    {%- if settings.gamme_hint != blank -%}
+      <span class="m-gamme__hint">{{ settings.gamme_hint | escape }}</span>
+    {%- endif -%}
+  {%- endif -%}
+</label>

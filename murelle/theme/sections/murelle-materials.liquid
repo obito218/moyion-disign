@@ -1,0 +1,82 @@
+{% comment %}
+  Section contract.
+  Les gammes, lues en direct depuis les variantes du produit de référence (nom et
+  prix au m²) et depuis Réglages du thème > Gammes MURELLE (finition, texte, badge).
+  Les blocs « Fiche gamme » remplacent le texte et ajoutent des caractéristiques
+  par gamme ; un champ vide n'est pas affiché.
+  @example
+  <!-- Accueil > Gammes : choisir le produit de référence, remplir les fiches -->
+{% endcomment %}
+{%- liquid
+  assign ss = section.settings
+  assign p = ss.product
+-%}
+<div class="section-background color-{{ ss.color_scheme }}"></div>
+<div class="section section--page-width color-{{ ss.color_scheme }} m-mat">
+  <div>
+    <header class="m-mat__head" data-reveal>
+      {%- if ss.heading != blank -%}<h2 class="m-sec-title">{{ ss.heading | escape }}</h2>{%- endif -%}
+      {%- if ss.text != blank -%}<div class="m-sec-text">{{ ss.text }}</div>{%- endif -%}
+    </header>
+    {%- if p != blank -%}
+      <ol class="m-mat__list" role="list">
+        {%- for v in p.variants -%}
+          {%- liquid
+            assign sheet = nil
+            for b in section.blocks
+              if b.settings.name == v.title
+                assign sheet = b
+              endif
+            endfor
+          -%}
+          <li class="m-mat__item" data-reveal {% if sheet %}{{ sheet.shopify_attributes }}{% endif %}>
+            {%- capture g_name -%}{%- render 'murelle-gamme', value: v.title, field: 'name' -%}{%- endcapture -%}
+            {%- capture g_idx -%}{%- render 'murelle-gamme', value: v.title, field: 'index' -%}{%- endcapture -%}
+            {%- capture g_finish -%}{%- render 'murelle-gamme', value: v.title, field: 'finish' -%}{%- endcapture -%}
+            {%- capture g_text -%}{%- render 'murelle-gamme', value: v.title, field: 'text' -%}{%- endcapture -%}
+            {%- capture g_badge -%}{%- render 'murelle-gamme', value: v.title, field: 'badge' -%}{%- endcapture -%}
+            <span class="m-mat__index">{{ forloop.index | prepend: '0' }}{% if g_idx != blank and g_idx == settings.gamme_recommended and settings.gamme_badge != blank %} · {{ settings.gamme_badge | escape }}{% elsif g_badge != blank %} · {{ g_badge | strip | escape }}{% endif %}</span>
+            <h3 class="m-mat__name">{{ g_name | strip | escape }}</h3>
+            {%- if g_idx != blank -%}<p class="m-mat__tech">{{ g_finish | strip | escape }}{% if settings.gamme_show_material %}{% if g_finish != blank %} · {% endif %}{{ v.title | escape }}{% endif %}</p>{%- endif -%}
+            <p class="m-mat__price"><span>{{ v.price | money }}</span> / m²</p>
+            {%- if sheet and sheet.settings.description != blank -%}
+              <div class="m-mat__desc">{{ sheet.settings.description }}</div>
+            {%- elsif g_text != blank -%}
+              <div class="m-mat__desc"><p>{{ g_text | strip | escape }}</p></div>
+            {%- endif -%}
+            {%- if sheet and sheet.settings.specs != blank -%}
+              <ul class="m-mat__specs" role="list">
+                {%- assign specs = sheet.settings.specs | newline_to_br | split: '<br />' -%}
+                {%- for s in specs -%}{%- assign t = s | strip -%}{%- if t != blank -%}<li>{{ t | escape }}</li>{%- endif -%}{%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Gammes MURELLE",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Trois gammes, un même motif" },
+    { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Chaque motif existe dans les trois gammes. Le prix est calculé au m² de votre mur.</p>" },
+    { "type": "product", "id": "product", "label": "Produit de référence (ses variantes = les gammes)" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Palette", "default": "scheme-1" }
+  ],
+  "blocks": [
+    {
+      "type": "sheet",
+      "name": "Fiche gamme",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Nom exact de la gamme (comme dans Shopify)", "default": "Essentielle" },
+        { "type": "richtext", "id": "description", "label": "Description (vérifiée)" },
+        { "type": "textarea", "id": "specs", "label": "Caractéristiques, une par ligne (vérifiées)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Gammes MURELLE" }]
+}
+{% endschema %}

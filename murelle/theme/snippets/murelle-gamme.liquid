@@ -1,0 +1,34 @@
+{%- doc -%}
+  Lit la gamme MURELLE associée à une valeur de l'option « Gamme » des produits
+  (Réglages du thème > Gammes MURELLE). Sans correspondance, « name » renvoie
+  la valeur telle quelle et les autres champs ne renvoient rien.
+
+  @param {string} value - Valeur de l'option (ex. « Signature »)
+  @param {string} field - name | index | finish | text | badge
+
+  @example
+  {% capture gamme %}{% render 'murelle-gamme', value: variant.option1, field: 'name' %}{% endcapture %}
+{%- enddoc -%}
+{%- liquid
+  assign wanted = value | strip | downcase
+  assign out = ''
+  assign found = false
+  for i in (1..3)
+    assign key = 'gamme_' | append: i | append: '_material'
+    assign m = settings[key] | strip | downcase
+    if m != blank and m == wanted
+      assign found = true
+      if field == 'index'
+        assign out = i
+      else
+        assign key = 'gamme_' | append: i | append: '_' | append: field
+        assign out = settings[key]
+      endif
+      break
+    endif
+  endfor
+  if found == false and field == 'name'
+    assign out = value
+  endif
+  echo out
+-%}

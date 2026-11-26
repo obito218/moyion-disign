@@ -1,6 +1,6 @@
 /* « Choisissez votre motif » : chaque miniature est un lien vers la vraie fiche.
    Au survol / focus / toucher : nom affiché et page préchargée. Au clic : la gamme
-   (même valeur de Matière) et les dimensions saisies sont transmises dans l'URL. */
+   (même gamme) et les dimensions saisies sont transmises dans l'URL. */
 if (!customElements.get('murelle-motifs')) {
   class MurelleMotifs extends HTMLElement {
     connectedCallback() {

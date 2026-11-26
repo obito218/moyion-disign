@@ -98,8 +98,11 @@
                 <span class="m-est__gamme">
                   <span class="m-est__gamme-name">
                     {{- g_name | strip | escape -}}
+                    {%- capture g_badge -%}{%- render 'murelle-gamme', value: v.option1, field: 'badge' -%}{%- endcapture -%}
                     {%- if reco > 0 and g_index == reco and settings.gamme_badge != blank -%}
                       <span class="m-est__badge">{{ settings.gamme_badge | escape }}</span>
+                    {%- elsif g_badge != blank -%}
+                      <span class="m-est__badge m-est__badge--alt">{{ g_badge | strip | escape }}</span>
                     {%- endif -%}
                   </span>
                   {%- capture g_finish -%}{%- render 'murelle-gamme', value: v.option1, field: 'finish' -%}{%- endcapture -%}
