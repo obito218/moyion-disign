@@ -25,8 +25,7 @@ const ok = (name, cond, detail = '') => res.push(`${cond ? 'OK   ' : 'ÉCHEC'} $
   const read = () => page.evaluate(() => {
     const q = (s) => document.querySelector(s);
     return {
-      wall: q('[data-o-wall]').textContent, strips: q('[data-o-strips]').textContent,
-      printed: q('[data-o-printed]').textContent, billed: q('[data-o-billed]').textContent,
+      wall: q('[data-o-wall]').textContent, billed: q('[data-o-billed]').textContent,
       prices: [...document.querySelectorAll('[data-rate]')].map((e) => e.textContent.replace(/ | /g, ' ')),
       errW: q('[data-error="w"]').hidden ? '' : q('[data-error="w"]').textContent,
       errH: q('[data-error="h"]').hidden ? '' : q('[data-error="h"]').textContent,
@@ -40,23 +39,25 @@ const ok = (name, cond, detail = '') => res.push(`${cond ? 'OK   ' : 'ÉCHEC'} $
 
   // 1. Valeurs par défaut
   let r = await read();
-  ok('Défaut 320 × 250 : 8 m², 7 lés, 9,1 m², 10 m²', r.wall === '8 m²' && r.strips === '7' && r.printed === '9,1 m²' && r.billed === '10 m²', JSON.stringify(r));
-  ok('Défaut : 370 / 450 / 530 €', r.prices.join('|') === '370,00 €|450,00 €|530,00 €', r.prices.join(' | '));
+  ok('Défaut 320 × 250 : mur 8 m², facturé 8 m²', r.wall === '8 m²' && r.billed === '8 m²', JSON.stringify(r));
+  ok('Défaut : 296 / 360 / 424 €', r.prices.join('|') === '296,00 €|360,00 €|424,00 €', r.prices.join(' | '));
   ok('Prix au m² affichés au format français', (await page.textContent('[data-rate-label="4500"]')).replace(/ | /g, ' ') === '45,00 € / m²');
 
   // 2. Cas demandés
   const cases = [
-    ['100', '100', { wall: '1 m²', strips: '3', printed: '1,65 m²', billed: '2 m²', prices: '74,00 €|90,00 €|106,00 €' }],
-    ['400', '300', { wall: '12 m²', strips: '9', printed: '13,95 m²', billed: '14 m²', prices: '518,00 €|630,00 €|742,00 €' }],
+    ['100', '100', { wall: '1 m²', billed: '1 m²', prices: '37,00 €|45,00 €|53,00 €' }],
+    ['400', '300', { wall: '12 m²', billed: '12 m²', prices: '444,00 €|540,00 €|636,00 €' }],
+    ['260', '250', { wall: '6,5 m²', billed: '7 m²', prices: '259,00 €|315,00 €|371,00 €' }],
+    ['301', '200', { wall: '6,02 m²', billed: '7 m²', prices: '259,00 €|315,00 €|371,00 €' }],
   ];
   for (const [w, h, exp] of cases) {
     await setDims(w, h); r = await read();
-    ok(`${w} × ${h}`, r.wall === exp.wall && r.strips === exp.strips && r.printed === exp.printed && r.billed === exp.billed && r.prices.join('|') === exp.prices,
-      `${r.wall}, ${r.strips} lés, ${r.printed}, ${r.billed}, ${r.prices.join(' | ')}`);
+    ok(`${w} × ${h}`, r.wall === exp.wall && r.billed === exp.billed && r.prices.join('|') === exp.prices,
+      `mur ${r.wall}, facturé ${r.billed}, ${r.prices.join(' | ')}`);
   }
   // Mise à jour instantanée (sans quitter le champ)
   await page.fill('#EstW', '320'); await page.fill('#EstH', '250');
-  r = await read(); ok('Mise à jour instantanée à la frappe', r.billed === '10 m²' && r.prices[1] === '450,00 €');
+  r = await read(); ok('Mise à jour instantanée à la frappe', r.billed === '8 m²' && r.prices[1] === '360,00 €');
 
   const invalid = [
     ['', '250', 'w', 'Largeur vide'], ['320', '', 'h', 'Hauteur vide'], ['-320', '250', 'w', 'Largeur négative'],
@@ -87,13 +88,13 @@ const ok = (name, cond, detail = '') => res.push(`${cond ? 'OK   ' : 'ÉCHEC'} $
   const u = new URL(page.url());
   ok('Redirection vers Tous les motifs avec les dimensions', u.pathname === '/collections/all' && u.searchParams.get('largeur') === '400' && u.searchParams.get('hauteur') === '300', u.pathname + u.search);
   const stored = await page.evaluate(() => JSON.parse(sessionStorage.getItem('murelle:dimensions')));
-  ok('Dimensions et calcul mémorisés', stored.largeur === 400 && stored.hauteur === 300 && stored.surfaceFacturee === 14 && stored.les === 9 && stored.surfaceMur === 12, JSON.stringify(stored));
+  ok('Dimensions et calcul mémorisés', stored.largeur === 400 && stored.hauteur === 300 && stored.surfaceFacturee === 12 && stored.surfaceMur === 12, JSON.stringify(stored));
 
   // 5. Fiche produit ouverte depuis la collection (sans paramètres) : dimensions reprises
   await Promise.all([page.waitForURL('**/products/ondes-noires'), page.click('#p')]);
   await page.waitForFunction(() => customElements.get('murelle-configurator'));
   const prod = await page.evaluate(() => ({ w: document.querySelector('#w').value, h: document.querySelector('#h').value, total: document.querySelector('#total').textContent.replace(/ | /g, ' '), qty: document.querySelector('[name=quantity]').value }));
-  ok('Fiche : dimensions reprises sans ressaisie, total cohérent (14 m² × 45 €)', prod.w === '400' && prod.h === '300' && prod.total === '630,00 €' && prod.qty === '14', JSON.stringify(prod));
+  ok('Fiche : dimensions reprises sans ressaisie, total cohérent (12 m² × 45 €)', prod.w === '400' && prod.h === '300' && prod.total === '540,00 €' && prod.qty === '12', JSON.stringify(prod));
   // Modification sur la fiche → mémorisée → retour à l'accueil pré-rempli
   await page.fill('#w', '280'); await page.fill('#h', '260');
   await page.goto(base + '/index.html');
@@ -119,7 +120,7 @@ const ok = (name, cond, detail = '') => res.push(`${cond ? 'OK   ' : 'ÉCHEC'} $
     const h = fresh.querySelector('#EstH'); h.value = '250'; h.dispatchEvent(new Event('input', { bubbles: true }));
     return fresh.querySelector('[data-o-billed]').textContent;
   });
-  ok('Section réinsérée (éditeur de thème) : calcul actif', reload === '10 m²', reload);
+  ok('Section réinsérée (éditeur de thème) : calcul actif', reload === '8 m²', reload);
 
   // 7. Responsive : pas de débordement, champs lisibles
   for (const [name, width, height] of [['mobile', 390, 844], ['tablette', 768, 1024], ['ordinateur', 1280, 900]]) {

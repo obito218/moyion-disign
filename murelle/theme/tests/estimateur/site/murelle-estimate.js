@@ -1,7 +1,6 @@
 /* Estimateur « Le sur-mesure » (accueil).
-   Règles lues dans les attributs de la section (mêmes valeurs que le configurateur des fiches) :
-   lés = ⌈(largeur + marge) / largeur du lé⌉ ; surface imprimée = lés × lé × (hauteur + marge) ;
-   surface facturée = max(minimum, surface imprimée arrondie au m² supérieur) ; prix = surface facturée × prix au m² de la variante.
+   Règle (identique au configurateur des fiches) : surface facturée = max(minimum, surface du mur
+   arrondie au m² supérieur) ; prix = surface facturée × prix au m² de la variante.
    Le bouton vérifie les dimensions, les mémorise (sessionStorage « murelle:dimensions ») et ouvre la page
    de destination avec ?largeur=&hauteur= ; le configurateur des fiches relit ces valeurs. */
 if (!customElements.get('murelle-estimate')) {
@@ -27,11 +26,7 @@ if (!customElements.get('murelle-estimate')) {
       this.abort = new AbortController();
       const on = (el, type, fn) => el && el.addEventListener(type, fn, { signal: this.abort.signal });
       const d = this.dataset;
-      this.rules = {
-        strip: number(d.strip, 50),
-        margin: Math.max(0, number(d.margin, 0)),
-        minBilled: Math.max(0, number(d.minBilled, 1)),
-      };
+      this.rules = { minBilled: Math.max(0, number(d.minBilled, 1)) };
       const locale = d.locale || 'fr-FR';
       this.money = new Intl.NumberFormat(locale, { style: 'currency', currency: d.currency || 'EUR' });
       this.area = new Intl.NumberFormat(locale, { maximumFractionDigits: 2 });
@@ -92,11 +87,8 @@ if (!customElements.get('murelle-estimate')) {
     }
 
     compute(W, H) {
-      const { strip, margin, minBilled } = this.rules;
-      const strips = Math.ceil((W + margin) / strip);
-      const printed = strips * (strip / 100) * ((H + margin) / 100);
-      const billed = Math.max(minBilled, Math.ceil(printed - 1e-9));
-      return { wall: (W * H) / 10000, strips, printed, billed };
+      const wall = (W * H) / 10000;
+      return { wall, billed: Math.max(this.rules.minBilled, Math.ceil(wall - 1e-9)) };
     }
 
     update() {
@@ -115,7 +107,7 @@ if (!customElements.get('murelle-estimate')) {
       const set = (sel, text) => this.querySelectorAll(sel).forEach((el) => { el.textContent = text; });
       const summary = this.querySelector('[data-summary]');
       if (!valid) {
-        ['[data-o-wall]', '[data-o-strips]', '[data-o-printed]', '[data-o-billed]'].forEach((s) => set(s, '—'));
+        ['[data-o-wall]', '[data-o-billed]'].forEach((s) => set(s, '—'));
         this.querySelectorAll('[data-rate]').forEach((el) => { el.textContent = '—'; });
         if (summary) summary.textContent = '';
         this.state = { valid: false, parsed };
@@ -125,14 +117,12 @@ if (!customElements.get('murelle-estimate')) {
       const H = parsed.find(({ f }) => f.key === 'h').r.value;
       const c = this.compute(W, H);
       set('[data-o-wall]', this.area.format(c.wall) + ' m²');
-      set('[data-o-strips]', String(c.strips));
-      set('[data-o-printed]', this.area.format(c.printed) + ' m²');
       set('[data-o-billed]', c.billed + ' m²');
       this.querySelectorAll('[data-rate]').forEach((el) => {
         el.textContent = this.money.format((c.billed * number(el.dataset.rate, 0)) / 100);
       });
       if (summary) {
-        summary.textContent = (summary.dataset.template || '').replace('[lés]', c.strips).replace('[m2]', c.billed);
+        summary.textContent = (summary.dataset.template || '').replace('[m2]', c.billed);
       }
       this.state = { valid: true, W, H, ...c, parsed };
       return this.state;
@@ -162,8 +152,6 @@ if (!customElements.get('murelle-estimate')) {
         largeur: s.W,
         hauteur: s.H,
         surfaceMur: Math.round(s.wall * 100) / 100,
-        les: s.strips,
-        surfaceImprimee: Math.round(s.printed * 100) / 100,
         surfaceFacturee: s.billed,
         regles: this.rules,
         date: Date.now(),

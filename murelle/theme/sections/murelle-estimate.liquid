@@ -1,10 +1,10 @@
 {% comment %}
   Section contract.
   « Le sur-mesure » : trois étapes (blocs « Étape ») à gauche, un estimateur à droite.
-  L'estimateur calcule la surface du mur, le nombre de lés, la surface imprimée et
-  la surface facturée, puis le prix de chaque gamme à partir des prix au m² des
-  variantes du produit de référence. Les règles (lé, marge, minimum, limites)
-  doivent être identiques à celles du bloc « Configurateur de mur » du modèle produit.
+  L'estimateur calcule la surface du mur et la surface facturée (surface du mur
+  arrondie au m² supérieur), puis le prix de chaque gamme à partir des prix au m²
+  des variantes du produit de référence. Le minimum et les limites doivent être
+  identiques à ceux du bloc « Configurateur de mur » du modèle produit.
   Le bouton vérifie les dimensions, les mémorise et ouvre la page de destination
   (par défaut « Tous les motifs ») ; le configurateur des fiches les reprend.
   @example
@@ -39,8 +39,6 @@
     <div class="m-est__aside">
       <murelle-estimate
         class="m-est__tool"
-        data-strip="{{ ss.strip_width }}"
-        data-margin="{{ ss.margin }}"
         data-min-billed="{{ ss.min_billed }}"
         data-locale="{{ request.locale.iso_code }}-FR"
         data-currency="{{ cart.currency.iso_code }}"
@@ -85,30 +83,9 @@
           </div>
         </div>
 
-        <div class="m-est__billing">
-          <div class="m-est__billed">
-            <span class="m-est__billed-label">Surface facturée<small>Mur de <span data-o-wall>—</span> · <span data-o-strips>—</span> lés</small></span>
-            <span class="m-est__billed-value" data-o-billed>—</span>
-          </div>
-          <details class="m-est__details">
-            <summary class="m-est__toggle">Pourquoi cette surface ? Voir le détail</summary>
-            <dl class="m-est__figures">
-              <div><dt>Surface du mur</dt><dd data-o-wall>—</dd></div>
-              <div><dt>Nombre de lés<small>Lés de {{ ss.strip_width }} cm de large</small></dt><dd data-o-strips>—</dd></div>
-              <div>
-                <dt>Surface imprimée
-                  {%- if ss.margin > 0 -%}<small>Marge de coupe de {{ ss.margin }} cm en largeur et en hauteur</small>{%- endif -%}
-                </dt>
-                <dd data-o-printed>—</dd>
-              </div>
-              <div><dt>Surface facturée<small>Arrondie au m² supérieur</small></dt><dd data-o-billed>—</dd></div>
-            </dl>
-            <p class="m-est__why">
-              Votre panoramique est imprimé en lés entiers de {{ ss.strip_width }} cm
-              {%- if ss.margin > 0 %}, avec {{ ss.margin }} cm de marge de coupe en largeur et en hauteur pour une pose parfaite{% endif -%}
-              . La surface imprimée est arrondie au m² supérieur : c'est elle qui est facturée.
-            </p>
-          </details>
+        <div class="m-est__billed">
+          <span class="m-est__billed-label">Surface facturée<small>Mur de <span data-o-wall>—</span>, arrondi au m² supérieur</small></span>
+          <span class="m-est__billed-value" data-o-billed>—</span>
         </div>
 
         {%- if p != blank -%}
@@ -184,12 +161,10 @@
     { "type": "text", "id": "label_height", "label": "Libellé hauteur", "default": "Hauteur" },
     { "type": "number", "id": "default_width", "label": "Largeur par défaut (cm)", "default": 320 },
     { "type": "number", "id": "default_height", "label": "Hauteur par défaut (cm)", "default": 250 },
-    { "type": "text", "id": "summary_template", "label": "Phrase lue par les lecteurs d'écran", "info": "[lés] et [m2] sont remplacés par le calcul.", "default": "[lés] lés, [m2] m² imprimés" },
+    { "type": "text", "id": "summary_template", "label": "Phrase lue par les lecteurs d'écran", "info": "[m2] est remplacé par la surface facturée.", "default": "[m2] m² facturés" },
     { "type": "text", "id": "button_label", "label": "Bouton", "default": "Choisir un motif à ces dimensions" },
     { "type": "richtext", "id": "note", "label": "Note", "default": "<p>Estimation hors frais de livraison. Le prix final s'affiche dans le configurateur de chaque motif.</p>" },
-    { "type": "header", "content": "Règles de calcul", "info": "À garder identiques au bloc « Configurateur de mur » du modèle produit, et à faire confirmer par le fournisseur." },
-    { "type": "number", "id": "strip_width", "label": "Largeur d'un lé (cm)", "default": 50 },
-    { "type": "number", "id": "margin", "label": "Marge de coupe ajoutée en largeur et en hauteur (cm)", "default": 10 },
+    { "type": "header", "content": "Règles de calcul", "info": "Surface facturée = surface du mur arrondie au m² supérieur. À garder identiques au bloc « Configurateur de mur » du modèle produit." },
     { "type": "number", "id": "min_billed", "label": "Surface minimale facturée (m²)", "default": 1 },
     { "type": "number", "id": "min_size", "label": "Dimension minimale (cm)", "default": 50 },
     { "type": "number", "id": "max_width", "label": "Largeur maximale (cm)", "default": 2000 },
@@ -216,7 +191,7 @@
       "name": "Estimateur Murelle",
       "blocks": [
         { "type": "step", "settings": { "title": "Mesurez", "text": "<p>Relevez la largeur et la hauteur de votre mur, en centimètres.</p>" } },
-        { "type": "step", "settings": { "title": "Choisissez", "text": "<p>Un motif, puis l'une de nos trois gammes. Le prix est calculé au m² imprimé.</p>" } },
+        { "type": "step", "settings": { "title": "Choisissez", "text": "<p>Un motif, puis l'une de nos trois gammes. Le prix est calculé au m² de votre mur.</p>" } },
         { "type": "step", "settings": { "title": "Recevez", "text": "<p>Votre panoramique est imprimé à la commande, à vos dimensions.</p>" } }
       ]
     }

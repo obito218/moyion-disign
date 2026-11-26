@@ -72,8 +72,7 @@ if (!customElements.get('murelle-configurator')) {
       let qty = this.minBilled;
       if (valid) {
         const strips = Math.ceil((W + this.margin) / this.strip);
-        const printed = strips * (this.strip / 100) * ((H + this.margin) / 100);
-        qty = Math.max(this.minBilled, Math.ceil(printed - 1e-9));
+        qty = Math.max(this.minBilled, Math.ceil((W * H) / 10000 - 1e-9));
         set('[data-o-strips]', strips + ' × ' + this.strip + ' cm');
         set('[data-o-wall]', this.num.format((W * H) / 10000) + ' m²');
         set('[data-o-billed]', qty + ' m²');
