@@ -1,0 +1,13 @@
+{
+  "name": "murelle",
+  "private": true,
+  "description": "Projet MURELLE — outils internes",
+  "scripts": {
+    "pilotage": "node pilotage/server.js",
+    "pilotage:status": "node pilotage/cli.js status",
+    "pilotage:check": "node pilotage/cli.js check"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

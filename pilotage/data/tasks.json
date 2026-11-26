@@ -1,0 +1,2358 @@
+{
+  "version": 1,
+  "project": "MURELLE",
+  "updatedAt": "2026-11-26T00:37:47.950Z",
+  "tasks": [
+    {
+      "id": "M-001",
+      "title": "Choisir le nom de marque",
+      "description": "Nom retenu : MURELLE.",
+      "category": "branding",
+      "phase": "p01",
+      "priority": "elevee",
+      "status": "termine",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Boutique Shopify nommée « Murelle » ; sections du thème préfixées murelle-*. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": "2026-11-26",
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.945Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Boutique Shopify nommée « Murelle » ; sections du thème préfixées murelle-*."
+        }
+      ]
+    },
+    {
+      "id": "M-002",
+      "title": "Vérifier la disponibilité de la marque MURELLE (INPI / EUIPO) et décider d'un dépôt",
+      "description": "Recherche d'antériorité en classes 27 (papiers peints) et 35 (vente en ligne), puis décision de dépôt. Aucune information à ce sujet dans le projet.",
+      "category": "juridique",
+      "phase": "p01",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-001"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.948Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-003",
+      "title": "Formaliser le positionnement (cible, promesse, prix face à la concurrence)",
+      "description": "Le site affiche une promesse : panoramique imprimé sur mesure, à la commande, prix au m². Aucun document de positionnement n'existe dans le projet : à confirmer et écrire.",
+      "category": "branding",
+      "phase": "p01",
+      "priority": "elevee",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Promesse lue dans les fiches produits. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.948Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Promesse lue dans les fiches produits."
+        }
+      ]
+    },
+    {
+      "id": "M-004",
+      "title": "Valider la direction artistique (palette, typographies, ton)",
+      "description": "Une feuille de style dédiée existe dans le thème (assets/murelle.css, 307 lignes). Charte non documentée : confirmer qu'elle correspond à l'identité voulue.",
+      "category": "branding",
+      "phase": "p01",
+      "priority": "moyenne",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "assets/murelle.css présent dans le thème Horizon publié. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.948Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : assets/murelle.css présent dans le thème Horizon publié."
+        }
+      ]
+    },
+    {
+      "id": "M-005",
+      "title": "Logo et identité visuelle finalisés",
+      "description": "Non vérifié pendant l'analyse : confirmer que le logo définitif est en place (en-tête, favicon, emails).",
+      "category": "branding",
+      "phase": "p01",
+      "priority": "moyenne",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.948Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-006",
+      "title": "Confirmer l'achat du nom de domaine (OVH)",
+      "description": "Aucun domaine personnalisé n'est relié à Shopify. Indique quel domaine a été acheté et chez qui, pour la connexion.",
+      "category": "branding",
+      "phase": "p01",
+      "priority": "elevee",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Domaine principal Shopify : cdskau-zu.myshopify.com. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.948Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Domaine principal Shopify : cdskau-zu.myshopify.com."
+        }
+      ]
+    },
+    {
+      "id": "M-007",
+      "title": "Connecter le domaine à Shopify (DNS chez OVH)",
+      "description": "Dans OVH : enregistrement A vers 23.227.38.65 et CNAME www vers shops.myshopify.com, puis définir le domaine comme principal dans Shopify. Action à faire par toi.",
+      "category": "shopify",
+      "phase": "p01",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-006"
+      ],
+      "notes": "",
+      "evidence": "Domaine principal actuel : cdskau-zu.myshopify.com. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.948Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Domaine principal actuel : cdskau-zu.myshopify.com."
+        }
+      ]
+    },
+    {
+      "id": "M-008",
+      "title": "Créer une adresse email professionnelle sur le domaine",
+      "description": "Le contact affiché aux clients (politique de confidentialité, boutique) est une adresse Gmail personnelle. Créer contact@<domaine> et la renseigner dans Shopify.",
+      "category": "service_client",
+      "phase": "p01",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-007"
+      ],
+      "notes": "",
+      "evidence": "Email de contact boutique = adresse Gmail. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.948Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Email de contact boutique = adresse Gmail."
+        }
+      ]
+    },
+    {
+      "id": "M-009",
+      "title": "Confirmer l'imprimeur / fournisseur et ses conditions",
+      "description": "Les matières vendues (Intissé UV, Intissé HP Latex, Soie HP Latex) suggèrent un fournisseur identifié, mais rien ne le documente dans le projet : nom, prix d'achat au m², délais, conditions de défaut.",
+      "category": "produit",
+      "phase": "p02",
+      "priority": "urgente",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Options de variante lues sur les fiches. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.948Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Options de variante lues sur les fiches."
+        }
+      ]
+    },
+    {
+      "id": "M-010",
+      "title": "Commander et contrôler des échantillons des 3 matières",
+      "description": "Vérifier rendu des couleurs, tenue, raccords de lés. Indispensable avant d'annoncer une qualité.",
+      "category": "produit",
+      "phase": "p02",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "fournisseur",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-009"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.948Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-011",
+      "title": "Fichiers HD imprimables et droits d'utilisation des 24 motifs",
+      "description": "Pour chaque motif : fichier source assez grand pour un mur entier, et preuve du droit de le vendre en impression (création propre, licence commerciale…). Origine des motifs inconnue.",
+      "category": "produit",
+      "phase": "p02",
+      "priority": "urgente",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.948Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-012",
+      "title": "Valider la grille tarifaire 37 / 45 / 53 €/m²",
+      "description": "Prix en place par matière. À confronter au coût d'achat fournisseur avant le lancement.",
+      "category": "finance",
+      "phase": "p02",
+      "priority": "elevee",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-009"
+      ],
+      "notes": "",
+      "evidence": "Variantes : Intissé UV 37 €, Intissé HP Latex 45 €, Soie HP Latex 53 €. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.948Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Variantes : Intissé UV 37 €, Intissé HP Latex 45 €, Soie HP Latex 53 €."
+        }
+      ]
+    },
+    {
+      "id": "M-013",
+      "title": "Obtenir la confirmation écrite du délai de production de 3 à 5 jours",
+      "description": "Ce délai est promis aux clients sur les fiches et dans la FAQ. Le faire confirmer par le fournisseur.",
+      "category": "produit",
+      "phase": "p02",
+      "priority": "elevee",
+      "status": "a_verifier",
+      "needsUser": false,
+      "waitingOn": "fournisseur",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-009"
+      ],
+      "notes": "",
+      "evidence": "Délai affiché dans les fiches produits et la FAQ de la page d'accueil. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.948Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Délai affiché dans les fiches produits et la FAQ de la page d'accueil."
+        }
+      ]
+    },
+    {
+      "id": "M-014",
+      "title": "Arrêter la politique de personnalisation (dimensions min/max, surface minimale facturée)",
+      "description": "Le configurateur applique des bornes et une surface minimale facturée réglées dans le thème. Valider ces valeurs avec les contraintes du fournisseur, plus la règle de recadrage du motif.",
+      "category": "produit",
+      "phase": "p02",
+      "priority": "moyenne",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-009"
+      ],
+      "notes": "",
+      "evidence": "Bornes min/max et minBilled présentes dans assets/murelle-configurator.js. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Bornes min/max et minBilled présentes dans assets/murelle-configurator.js."
+        }
+      ]
+    },
+    {
+      "id": "M-015",
+      "title": "Organiser la transmission des commandes au fournisseur",
+      "description": "Définir comment chaque commande part chez l'imprimeur : fichier HD recadré, dimensions, matière, adresse. Manuel au départ, automatisable plus tard.",
+      "category": "logistique",
+      "phase": "p02",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-009",
+        "M-011"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-016",
+      "title": "Mettre en place le thème et les sections MURELLE",
+      "description": "Thème Horizon publié avec 7 sections dédiées (hero, mur, matières, galerie, estimation, FAQ, réassurance).",
+      "category": "shopify",
+      "phase": "p03",
+      "priority": "elevee",
+      "status": "termine",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Thème Horizon (MAIN) ; templates/index.json utilise les 7 sections murelle-*. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": "2026-11-26",
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Thème Horizon (MAIN) ; templates/index.json utilise les 7 sections murelle-*."
+        }
+      ]
+    },
+    {
+      "id": "M-017",
+      "title": "Créer la navigation principale",
+      "description": "Menu : Accueil, Forêt et sous-bois, Tropical et jungle, Chambre d'enfant, Design, Tous les motifs, Contact.",
+      "category": "shopify",
+      "phase": "p03",
+      "priority": "moyenne",
+      "status": "termine",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Menu « main-menu » lu via l'API : 7 entrées. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": "2026-11-26",
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Menu « main-menu » lu via l'API : 7 entrées."
+        }
+      ]
+    },
+    {
+      "id": "M-018",
+      "title": "Valider visuellement la page d'accueil",
+      "description": "La page d'accueil est construite mais n'a pas été relue visuellement pendant l'analyse. Ouvre-la sur ordinateur et mobile et valide ou liste les corrections.",
+      "category": "shopify",
+      "phase": "p03",
+      "priority": "elevee",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-016"
+      ],
+      "notes": "",
+      "evidence": "7 sections murelle-* configurées dans templates/index.json. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : 7 sections murelle-* configurées dans templates/index.json."
+        }
+      ]
+    },
+    {
+      "id": "M-019",
+      "title": "Compléter le menu du pied de page (pages légales, livraison, retours, contact)",
+      "description": "Le pied de page ne contient qu'un lien « Rechercher ».",
+      "category": "shopify",
+      "phase": "p03",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-051",
+        "M-052",
+        "M-037",
+        "M-038"
+      ],
+      "notes": "",
+      "evidence": "Menu « footer » : 1 entrée (Rechercher). (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Menu « footer » : 1 entrée (Rechercher)."
+        }
+      ]
+    },
+    {
+      "id": "M-020",
+      "title": "Créer une page « À propos / Notre atelier »",
+      "description": "Seule la page Contact existe. Une page qui explique qui fabrique et comment rassure sur un achat sur mesure.",
+      "category": "shopify",
+      "phase": "p03",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Pages publiées : Contact uniquement. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Pages publiées : Contact uniquement."
+        }
+      ]
+    },
+    {
+      "id": "M-021",
+      "title": "Créer les collections thématiques",
+      "description": "Forêt et sous-bois (5), Tropical et jungle (5), Chambre enfant et bébé (6), Design et inspiration (8), Nos motifs du moment (6).",
+      "category": "catalogue",
+      "phase": "p03",
+      "priority": "moyenne",
+      "status": "termine",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Collections lues via l'API Shopify. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": "2026-11-26",
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Collections lues via l'API Shopify."
+        }
+      ]
+    },
+    {
+      "id": "M-022",
+      "title": "Rédiger une description propre à chaque motif",
+      "description": "La description lue (« Ondes Sauge ») est un texte générique commun. Chaque fiche doit décrire le motif, les pièces conseillées et les couleurs.",
+      "category": "catalogue",
+      "phase": "p03",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Description générique constatée sur « Ondes Sauge » ; les autres fiches restent à contrôler. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Description générique constatée sur « Ondes Sauge » ; les autres fiches restent à contrôler."
+        }
+      ]
+    },
+    {
+      "id": "M-023",
+      "title": "Décider du sort du produit brouillon « Modèle »",
+      "description": "Produit « Modèle – papier peint panoramique sur mesure » en brouillon. Le garder comme modèle interne ou le supprimer.",
+      "category": "catalogue",
+      "phase": "p03",
+      "priority": "basse",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Statut DRAFT. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Statut DRAFT."
+        }
+      ]
+    },
+    {
+      "id": "M-024",
+      "title": "Valider le configurateur largeur × hauteur",
+      "description": "Le bloc configurateur existe et est placé sur la fiche produit : saisie des dimensions, contrôle des bornes, calcul de la surface facturée, aperçu du mur. Son comportement réel n'a pas encore été testé.",
+      "category": "configurateur",
+      "phase": "p03",
+      "priority": "urgente",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "blocks/murelle-configurator.liquid + assets/murelle-configurator.js ; utilisé dans templates/product.json. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : blocks/murelle-configurator.liquid + assets/murelle-configurator.js ; utilisé dans templates/product.json."
+        }
+      ]
+    },
+    {
+      "id": "M-025",
+      "title": "Tester le configurateur de bout en bout : dimensions → prix → panier → commande",
+      "description": "Vérifier que la quantité en m² et les dimensions saisies arrivent bien dans le panier puis dans la commande (sinon le fournisseur ne sait pas quoi imprimer).",
+      "category": "configurateur",
+      "phase": "p03",
+      "priority": "urgente",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-024"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-026",
+      "title": "Tester le configurateur sur mobile",
+      "description": "Saisie, clavier numérique, lisibilité de l'aperçu, bouton d'ajout au panier visible.",
+      "category": "configurateur",
+      "phase": "p03",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-024"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-027",
+      "title": "Vérifier l'affichage du panier (dimensions et surface visibles)",
+      "description": "Le client doit relire ses dimensions avant de payer : c'est la principale source d'erreur sur du sur-mesure non repris.",
+      "category": "shopify",
+      "phase": "p03",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-025"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-028",
+      "title": "Configurer et relire le checkout",
+      "description": "Langue, champs obligatoires (téléphone pour le transporteur), case CGV, logo, couleurs.",
+      "category": "paiements",
+      "phase": "p03",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-036"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-029",
+      "title": "Audit responsive mobile du site",
+      "description": "Accueil, collections, fiche produit, panier sur un écran de téléphone.",
+      "category": "shopify",
+      "phase": "p03",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-018"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-030",
+      "title": "Faire le ménage dans les 4 copies de thème non publiées",
+      "description": "Horizon – Gammes, 2 × Copie de Horizon – Gammes, Copie mise à jour de Horizon. Confirmer lesquelles supprimer.",
+      "category": "shopify",
+      "phase": "p03",
+      "priority": "basse",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Liste des thèmes lue via l'API. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Liste des thèmes lue via l'API."
+        }
+      ]
+    },
+    {
+      "id": "M-031",
+      "title": "Ajouter des visuels aux 19 produits actifs sans image",
+      "description": "Sur 24 produits actifs, seuls 5 ont une image (Forêt brumeuse stylisée, Élégance Botanique, Ondes Noires, Ondes Terracotta, Ondes Sauge). Un produit en vente sans image ne se vend pas et ne peut pas aller sur Google Shopping.",
+      "category": "visuels",
+      "phase": "p04",
+      "priority": "urgente",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-011"
+      ],
+      "notes": "",
+      "evidence": "19 produits ACTIVE sans média (API, 26/11/2026). (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : 19 produits ACTIVE sans média (API, 26/11/2026)."
+        }
+      ]
+    },
+    {
+      "id": "M-032",
+      "title": "Créer des mises en situation (pièce meublée) pour chaque motif",
+      "description": "Le client achète un mur, pas un fichier : au moins une vue en situation par motif.",
+      "category": "visuels",
+      "phase": "p04",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-031"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-033",
+      "title": "Images des collections",
+      "description": "Une image représentative par collection pour l'accueil et la navigation.",
+      "category": "visuels",
+      "phase": "p04",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-031"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-034",
+      "title": "Harmoniser les visuels (cadrage, lumière, ratio)",
+      "description": "Un même ratio et une même ambiance sur toutes les fiches.",
+      "category": "visuels",
+      "phase": "p04",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-004",
+        "M-031"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-035",
+      "title": "Produire les visuels marketing (réseaux, publicités)",
+      "description": "Formats carré, 4:5 et 9:16 à partir des mises en situation.",
+      "category": "visuels",
+      "phase": "p04",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-032"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-036",
+      "title": "Activer et vérifier les moyens de paiement",
+      "description": "Shopify Payments (CB, Apple Pay, Google Pay), PayPal éventuel. Non vérifiable par Claude : l'accès API aux paiements est refusé. Confirme l'état dans Shopify > Paramètres > Paiements.",
+      "category": "paiements",
+      "phase": "p05",
+      "priority": "urgente",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Requête shopifyPaymentsAccount : accès refusé. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Requête shopifyPaymentsAccount : accès refusé."
+        }
+      ]
+    },
+    {
+      "id": "M-037",
+      "title": "Rédiger la politique d'expédition",
+      "description": "Aucune politique d'expédition n'est publiée dans Shopify. Délais, zones, tarifs, que faire en cas de colis abîmé.",
+      "category": "logistique",
+      "phase": "p05",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-067"
+      ],
+      "notes": "",
+      "evidence": "Seule la politique de confidentialité existe dans shopPolicies. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Seule la politique de confidentialité existe dans shopPolicies."
+        }
+      ]
+    },
+    {
+      "id": "M-038",
+      "title": "Rédiger la politique de retour (produit sur mesure)",
+      "description": "Le droit de rétractation est exclu pour un produit fabriqué selon les spécifications du client (art. L221-28 3° du Code de la consommation), mais les garanties légales de conformité et des vices cachés restent dues et doivent être mentionnées. La formule actuelle « non repris ni échangé, sauf défaut » est incomplète.",
+      "category": "juridique",
+      "phase": "p05",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Formule lue dans les fiches et la FAQ. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Formule lue dans les fiches et la FAQ."
+        }
+      ]
+    },
+    {
+      "id": "M-039",
+      "title": "Étoffer la FAQ (page dédiée)",
+      "description": "La FAQ de l'accueil compte 4 questions (mesure, délais, matières, retours). Ajouter pose, colle, nettoyage, raccords, livraison, paiement.",
+      "category": "service_client",
+      "phase": "p05",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Section murelle-faq : 4 questions. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Section murelle-faq : 4 questions."
+        }
+      ]
+    },
+    {
+      "id": "M-040",
+      "title": "Publier la page Contact",
+      "description": "Page Contact publiée. Le bon acheminement des messages sera testé au pré-lancement.",
+      "category": "service_client",
+      "phase": "p05",
+      "priority": "moyenne",
+      "status": "termine",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Page « contact » publiée (API). (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": "2026-11-26",
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Page « contact » publiée (API)."
+        }
+      ]
+    },
+    {
+      "id": "M-041",
+      "title": "Mettre en place les avis clients",
+      "description": "Choisir une application d'avis et l'activer dès les premières commandes.",
+      "category": "marketing",
+      "phase": "p05",
+      "priority": "basse",
+      "status": "en_attente",
+      "needsUser": false,
+      "waitingOn": "externe",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Commandes : 0. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Commandes : 0."
+        }
+      ]
+    },
+    {
+      "id": "M-042",
+      "title": "Vérifier que chaque promesse de réassurance est tenue",
+      "description": "Le bandeau de réassurance et la FAQ promettent des délais et une livraison express. Chaque promesse doit être garantie par le fournisseur et le transporteur.",
+      "category": "shopify",
+      "phase": "p05",
+      "priority": "elevee",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-013",
+        "M-067"
+      ],
+      "notes": "",
+      "evidence": "Section murelle-assurance sur l'accueil. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Section murelle-assurance sur l'accueil."
+        }
+      ]
+    },
+    {
+      "id": "M-043",
+      "title": "Ajouter les informations techniques par matière",
+      "description": "Grammage, finition, classement au feu, mode de pose, entretien : à obtenir du fournisseur.",
+      "category": "catalogue",
+      "phase": "p05",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-009"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-044",
+      "title": "SEO technique : domaine principal, vitesse, données structurées",
+      "description": "À faire une fois le domaine connecté (sinon tout est indexé sur l'adresse myshopify).",
+      "category": "seo",
+      "phase": "p06",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-007"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-045",
+      "title": "Rédiger meta title et meta description des collections",
+      "description": "Aucune des collections n'a de meta title ni de meta description.",
+      "category": "seo",
+      "phase": "p06",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "seo.title et seo.description vides (API). (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : seo.title et seo.description vides (API)."
+        }
+      ]
+    },
+    {
+      "id": "M-046",
+      "title": "Rédiger meta title et meta description des 24 fiches",
+      "description": "Aucune fiche n'a de meta title ni de meta description.",
+      "category": "seo",
+      "phase": "p06",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-022"
+      ],
+      "notes": "",
+      "evidence": "seo.title et seo.description vides sur les 25 produits (API). (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : seo.title et seo.description vides sur les 25 produits (API)."
+        }
+      ]
+    },
+    {
+      "id": "M-047",
+      "title": "Renseigner les textes alternatifs des images",
+      "description": "Texte descriptif sur chaque image produit et collection.",
+      "category": "seo",
+      "phase": "p06",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-031"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-048",
+      "title": "Maillage interne (collections ↔ fiches ↔ contenus)",
+      "description": "Liens entre collections proches et depuis les contenus éditoriaux.",
+      "category": "seo",
+      "phase": "p06",
+      "priority": "basse",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-045"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-049",
+      "title": "Déclarer le site et le sitemap dans Google Search Console",
+      "description": "Nécessite ton compte Google et le domaine définitif.",
+      "category": "seo",
+      "phase": "p06",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-007"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-050",
+      "title": "Confirmer l'immatriculation de la micro-entreprise (SIRET)",
+      "description": "Aucune information dans le projet. Sans SIRET, pas de mentions légales conformes ni de vente légale.",
+      "category": "juridique",
+      "phase": "p07",
+      "priority": "urgente",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-051",
+      "title": "Publier les mentions légales",
+      "description": "Obligatoires (LCEN) : identité, adresse, SIRET, contact, hébergeur (Shopify). Aucune page ni politique correspondante.",
+      "category": "juridique",
+      "phase": "p07",
+      "priority": "urgente",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-050"
+      ],
+      "notes": "",
+      "evidence": "Absentes des pages et politiques Shopify. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Absentes des pages et politiques Shopify."
+        }
+      ]
+    },
+    {
+      "id": "M-052",
+      "title": "Rédiger et publier les CGV",
+      "description": "Aucune condition de vente publiée. Doivent couvrir prix, commande sur mesure, exclusion de rétractation, garanties légales, livraison, médiateur.",
+      "category": "juridique",
+      "phase": "p07",
+      "priority": "urgente",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-050",
+        "M-038",
+        "M-055"
+      ],
+      "notes": "",
+      "evidence": "Politique « conditions de service » absente. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Politique « conditions de service » absente."
+        }
+      ]
+    },
+    {
+      "id": "M-053",
+      "title": "Adapter la politique de confidentialité",
+      "description": "Une politique existe (modèle Shopify, mise à jour du 25/11/2026) avec une adresse Gmail. À relire et compléter : responsable du traitement, durées, contact pro.",
+      "category": "juridique",
+      "phase": "p07",
+      "priority": "elevee",
+      "status": "a_verifier",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-008"
+      ],
+      "notes": "",
+      "evidence": "Politique PRIVACY_POLICY présente. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Politique PRIVACY_POLICY présente."
+        }
+      ]
+    },
+    {
+      "id": "M-054",
+      "title": "Bandeau cookies et consentement (CNIL)",
+      "description": "Vérifier que la bannière de consentement de Shopify est activée pour la France/UE avant d'installer des pixels publicitaires.",
+      "category": "juridique",
+      "phase": "p07",
+      "priority": "elevee",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "Non vérifié pendant l'analyse. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Non vérifié pendant l'analyse."
+        }
+      ]
+    },
+    {
+      "id": "M-055",
+      "title": "Adhérer à un médiateur de la consommation",
+      "description": "Obligatoire pour tout vendeur aux particuliers ; ses coordonnées doivent figurer dans les CGV.",
+      "category": "juridique",
+      "phase": "p07",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-050"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-056",
+      "title": "Confirmer le régime de TVA et les mentions de facture",
+      "description": "En franchise en base : mention « TVA non applicable, art. 293 B du CGI ». Régler les taxes Shopify en conséquence.",
+      "category": "finance",
+      "phase": "p07",
+      "priority": "moyenne",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-050"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-057",
+      "title": "Décider des pays de livraison",
+      "description": "La boutique expédie vers 41 pays (dont États-Unis, Japon, Australie) alors que l'offre annonce une livraison express en France. Choisir les pays réellement servis.",
+      "category": "logistique",
+      "phase": "p07",
+      "priority": "elevee",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "shipsToCountries : 41 pays. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : shipsToCountries : 41 pays."
+        }
+      ]
+    },
+    {
+      "id": "M-058",
+      "title": "Vérifier les obligations si vente hors de France",
+      "description": "TVA à distance UE (guichet OSS au-delà de 10 000 €), langue, droits de douane hors UE.",
+      "category": "juridique",
+      "phase": "p07",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-057"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-059",
+      "title": "Définir la stratégie de contenu",
+      "description": "Thèmes, fréquence, formats (avant/après, pose, inspirations par pièce).",
+      "category": "marketing",
+      "phase": "p08",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-003"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-060",
+      "title": "Compte Instagram MURELLE",
+      "description": "Existence du compte inconnue.",
+      "category": "marketing",
+      "phase": "p08",
+      "priority": "moyenne",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-061",
+      "title": "Compte TikTok MURELLE",
+      "description": "Existence du compte inconnue.",
+      "category": "marketing",
+      "phase": "p08",
+      "priority": "basse",
+      "status": "a_verifier",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-062",
+      "title": "Compte Pinterest professionnel et épingles produits",
+      "description": "Pinterest est un canal majeur en décoration intérieure. Compte pro + catalogue produits.",
+      "category": "marketing",
+      "phase": "p08",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-031"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-063",
+      "title": "Préparer Google Shopping / Google Ads",
+      "description": "Connecter le canal Google & YouTube, flux produits complet (images, prix, livraison). Bloqué en pratique tant que les produits n'ont pas d'images.",
+      "category": "marketing",
+      "phase": "p08",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-031",
+        "M-088",
+        "M-037"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-064",
+      "title": "Créer les publicités",
+      "description": "Textes et visuels des premières campagnes.",
+      "category": "marketing",
+      "phase": "p08",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-035"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-065",
+      "title": "Arrêter la stratégie d'acquisition",
+      "description": "Ordre des canaux, objectifs de coût par commande.",
+      "category": "marketing",
+      "phase": "p08",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-088"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-066",
+      "title": "Fixer le budget marketing de lancement",
+      "description": "Montant mensuel et coût par commande maximal tiré de la marge réelle.",
+      "category": "finance",
+      "phase": "p08",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-088"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-067",
+      "title": "Définir transporteur, délais et tarifs de livraison",
+      "description": "L'offre annonce une livraison express en France : obtenir délai et coût réels (expédition par le fournisseur ou par toi).",
+      "category": "logistique",
+      "phase": "p09",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "fournisseur",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-009"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-068",
+      "title": "Corriger les poids des variantes (0 kg) ou passer à des tarifs fixes",
+      "description": "Toutes les variantes lues ont un poids de 0 kg : des tarifs calculés au poids seraient faux.",
+      "category": "logistique",
+      "phase": "p09",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-067"
+      ],
+      "notes": "",
+      "evidence": "measurement.weight = 0 kg (API). (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : measurement.weight = 0 kg (API)."
+        }
+      ]
+    },
+    {
+      "id": "M-069",
+      "title": "Suivi des commandes et numéros de suivi",
+      "description": "Retour du numéro de suivi du fournisseur vers Shopify et le client.",
+      "category": "logistique",
+      "phase": "p09",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-015"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-070",
+      "title": "Procédure retards et défauts",
+      "description": "Qui prévient le client, sous quel délai ; défaut : photos, réimpression, prise en charge fournisseur.",
+      "category": "service_client",
+      "phase": "p09",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-009"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-071",
+      "title": "Organiser le service client",
+      "description": "Canal (email, WhatsApp…), délai de réponse, réponses types.",
+      "category": "service_client",
+      "phase": "p09",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-008"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-072",
+      "title": "Personnaliser les emails transactionnels",
+      "description": "Confirmation de commande avec dimensions et délai de fabrication, expédition, logo.",
+      "category": "service_client",
+      "phase": "p09",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-025"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-073",
+      "title": "Automatisations (relance panier, notifications internes)",
+      "description": "Relance de panier abandonné, alerte interne à chaque commande.",
+      "category": "service_client",
+      "phase": "p09",
+      "priority": "basse",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-072"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-074",
+      "title": "Passer une commande test complète",
+      "description": "Aucune commande n'existe encore. Commande réelle (puis remboursement) : configurateur, paiement, email, transmission fournisseur.",
+      "category": "lancement",
+      "phase": "p10",
+      "priority": "urgente",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-025",
+        "M-036",
+        "M-015"
+      ],
+      "notes": "",
+      "evidence": "Commandes : 0. (Analyse boutique Shopify (lecture seule) du 26/11/2026)",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : Commandes : 0."
+        }
+      ]
+    },
+    {
+      "id": "M-075",
+      "title": "Tester chaque moyen de paiement",
+      "description": "CB, Apple Pay / Google Pay, PayPal si activé.",
+      "category": "paiements",
+      "phase": "p10",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-036"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-076",
+      "title": "Tests complets sur mobile",
+      "description": "iPhone et Android : navigation, configurateur, paiement.",
+      "category": "lancement",
+      "phase": "p10",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-029",
+        "M-026"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-077",
+      "title": "Vérifier domaine, HTTPS et redirections",
+      "description": "",
+      "category": "lancement",
+      "phase": "p10",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-007"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-078",
+      "title": "Vérifier la réception des emails (client et boutique)",
+      "description": "Formulaire de contact compris.",
+      "category": "lancement",
+      "phase": "p10",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-072",
+        "M-008"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.949Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-079",
+      "title": "Vérifier les pages légales en ligne",
+      "description": "Mentions, CGV, confidentialité, livraison, retours accessibles depuis le pied de page.",
+      "category": "juridique",
+      "phase": "p10",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-019",
+        "M-053"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.950Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-080",
+      "title": "Vérifier les frais de livraison au checkout",
+      "description": "Pour chaque pays retenu.",
+      "category": "logistique",
+      "phase": "p10",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-068",
+        "M-057"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.950Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-081",
+      "title": "Relecture qualité générale",
+      "description": "Textes, fautes, liens cassés, cohérence des prix et délais.",
+      "category": "lancement",
+      "phase": "p10",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-022",
+        "M-031"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.950Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-082",
+      "title": "Mise en ligne (retrait du mot de passe)",
+      "description": "Uniquement quand les tests du pré-lancement sont terminés.",
+      "category": "lancement",
+      "phase": "p11",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-074",
+        "M-076",
+        "M-079",
+        "M-077",
+        "M-080",
+        "M-081"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.950Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-083",
+      "title": "Mettre en place le suivi des visiteurs",
+      "description": "Google Analytics 4 via le canal Google & YouTube, rapports Shopify.",
+      "category": "marketing",
+      "phase": "p11",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-054"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.950Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-084",
+      "title": "Mettre en place le suivi des conversions",
+      "description": "Conversion achat Google Ads et pixels réseaux, après consentement.",
+      "category": "marketing",
+      "phase": "p11",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-083",
+        "M-063"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.950Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-085",
+      "title": "Lancer les premières campagnes",
+      "description": "",
+      "category": "marketing",
+      "phase": "p11",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-082",
+        "M-064",
+        "M-066",
+        "M-084"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.950Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-086",
+      "title": "Analyser les premières ventes",
+      "description": "Taux de conversion, panier moyen, marge réelle par commande.",
+      "category": "finance",
+      "phase": "p11",
+      "priority": "moyenne",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-082"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.950Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-087",
+      "title": "Optimisations après lancement",
+      "description": "À partir des données réelles.",
+      "category": "lancement",
+      "phase": "p11",
+      "priority": "basse",
+      "status": "a_faire",
+      "needsUser": false,
+      "waitingOn": "aucun",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-086"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.950Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    },
+    {
+      "id": "M-088",
+      "title": "Calculer la marge nette par matière",
+      "description": "Prix de vente – (impression + livraison + frais de paiement + frais Shopify). Base de tout le budget publicitaire.",
+      "category": "finance",
+      "phase": "p02",
+      "priority": "elevee",
+      "status": "a_faire",
+      "needsUser": true,
+      "waitingOn": "toi",
+      "blockedReason": "",
+      "dependsOn": [
+        "M-012",
+        "M-067"
+      ],
+      "notes": "",
+      "evidence": "",
+      "source": "claude",
+      "createdAt": "2026-11-26",
+      "completedAt": null,
+      "history": [
+        {
+          "at": "2026-11-26T00:37:47.950Z",
+          "by": "Claude Code",
+          "change": "Créée à l'initialisation — statut fixé d'après : aucune preuve disponible"
+        }
+      ]
+    }
+  ]
+}

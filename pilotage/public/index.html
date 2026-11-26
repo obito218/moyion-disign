@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MURELLE · Pilotage</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="side">
+      <a class="brand" href="#/">
+        <span class="brand-mark">M</span>
+        <span class="brand-text"><strong>MURELLE</strong><small>Pilotage</small></span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#/" data-route="">Vue d'ensemble</a>
+        <a href="#/taches" data-route="taches">Toutes les tâches</a>
+        <a href="#/roadmap" data-route="roadmap">Roadmap</a>
+        <a href="#/categories" data-route="categories">Catégories</a>
+        <a href="#/bloquees" data-route="bloquees">Tâches bloquées <span class="nav-count" id="nc-bloque"></span></a>
+        <a href="#/verifier" data-route="verifier">À vérifier <span class="nav-count" id="nc-verif"></span></a>
+        <a href="#/historique" data-route="historique">Historique</a>
+        <a href="#/parametres" data-route="parametres">Paramètres</a>
+      </nav>
+      <div class="side-foot" id="side-foot"></div>
+    </aside>
+    <main class="main" id="main" tabindex="-1">
+      <div class="loading">Chargement…</div>
+    </main>
+  </div>
+
+  <dialog class="modal" id="modal"></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

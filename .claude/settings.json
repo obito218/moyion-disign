@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo '== Pilotage MURELLE (appliquer pilotage/REGLES.md) ==' && node pilotage/cli.js status"
+          }
+        ]
+      }
+    ]
+  }
+}
