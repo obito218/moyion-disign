@@ -315,3 +315,12 @@ Décisions de l'utilisateur : collection « Chambre enfant et bébé » laissée
 - Affichage : page Contact (phrase au-dessus du formulaire, lien `mailto:`), introduction de la FAQ, pied de page (bloc texte sous « La lettre MURELLE », icône enveloppe en CSS, couleur #E0A07F, contraste ≈ 5:1 sur le fond vert). Vérifié en capture ordinateur et mobile.
 - Thème « MURELLE – 27 nov » (`210120212820`) publié par l'utilisateur dans l'admin, puis publication des derniers changements par l'outil, avec son accord (`theme_publish` accepté cette fois ; il listait aussi comme « en attente » le bandeau, le H1 de l'accueil et le bouton « Envoyer »).
 - Reste : la politique de confidentialité donne encore l'ancien Gmail personnel comme contact ; réglages Paramètres > Général à faire par l'utilisateur (« E-mail de la boutique » = Gmail MURELLE, « E-mail de l'expéditeur » = contact@murelle.fr + authentification du domaine chez OVH). Répondre depuis contact@ nécessite une boîte e-mail (OVH ou Google Workspace).
+
+## 33. Pied de page en 4 colonnes (27 novembre 2026)
+- Demande : pied de page organisé comme l'exemple fourni (site tiers : structure seulement, aucun texte repris).
+- Colonnes (thème en ligne « MURELLE – 27 nov », publié avec l'accord de l'utilisateur) :
+  1. **Nous contacter** : ✉ contact@murelle.fr (lien `mailto:`), « Page contact ». Téléphone, adresse et horaires non affichés : non fournis, rien d'inventé.
+  2. **Informations légales** : nouveau menu `informations-legales` avec « Politique de confidentialité » seulement (les autres pages n'existent pas encore : mentions légales, CGV, livraison, retours, à ajouter dès leur création ; aucun lien mort).
+  3. **Navigation** : menu `footer` renommé « Navigation » : Accueil, Forêt et sous-bois, Tropical et jungle, Design, Tous les motifs, Questions fréquentes, Contact (« Rechercher » retiré, déjà dans l'en-tête).
+  4. **La lettre MURELLE** : titre, texte et champ d'inscription regroupés.
+- CSS (`assets/murelle.css`) : colonnes alignées en haut, lien « Page contact » sans soulignement (souligné au survol), titre « Nous contacter » aligné sur les titres de menus (ordinateur). Vérifié en capture ordinateur et mobile.
