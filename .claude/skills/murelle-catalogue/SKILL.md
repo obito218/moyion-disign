@@ -37,7 +37,11 @@ Outils : connecteur Shopify (`graphql_query`, `graphql_mutation`, `theme_screens
 5. **Importer les images** : `fileCreate(files: [{originalSource: "<URL brute GitHub>", contentType: IMAGE, filename: "MURELLE_..", alt: ".."}])`, puis interroger `node(id:) { ... on MediaImage { fileStatus image { width height url } } }` jusqu'à `READY`. Shopify ajoute un suffixe au nom si le fichier existe déjà : ce n'est pas un doublon de produit.
 6. **Attacher sans copier** : `fileUpdate(files: [{id: "<MediaImage>", referencesToAdd: ["<Product>"]}])`.
 7. **Ordonner** : `productReorderMedia(id: "<Product>", moves: [{id: "<MediaImage>", newPosition: "0"}, ...])` (tâche asynchrone : relire ensuite l'ordre).
-8. **Miniature** : `metafieldsSet` sur `murelle.miniature_motif` (type `file_reference`) avec l'image du motif à plat.
+8. **Image principale = motif à plat** (règle catalogue, pour la fiche, les collections, l'image de partage, les données structurées et le futur flux Google & YouTube, qui prend la 1re image comme `image_link`) :
+   - `metafieldsSet` sur `murelle.miniature_motif` (type `file_reference`) avec l'image du motif à plat (fichier fournisseur, sans meuble ni décor, sans texte, jamais retouché) ;
+   - cette même image doit être **dans la galerie, en position 0** (`fileUpdate referencesToAdd` si besoin, puis `productReorderMedia` avec `newPosition: "0"`), les ambiances ensuite ;
+   - ne jamais attribuer d'image propre aux variantes (gammes) : Google utiliserait l'image de variante.
+   - Contrôle de tout le catalogue : `products(query: "status:active") { title featuredMedia { id } metafield(namespace: "murelle", key: "miniature_motif") { value } }` → `featuredMedia.id` doit égaler la miniature ; lister les produits sans miniature (motif à plat à demander à l'utilisateur).
 9. **Sélecteur** : rien à coder ni à déclarer ; l'ajout à la collection-catégorie (étape 4) suffit.
 10. **SEO (obligatoire : le modèle n'a ni titre SEO ni texte propre)** : `productUpdate` avec
     - `seo.title` : « Papier Peint Panoramique <thème éventuel> <Nom> | MURELLE » (≤ 70 caractères) ;
