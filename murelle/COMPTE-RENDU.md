@@ -274,3 +274,11 @@ Décisions de l'utilisateur : collection « Chambre enfant et bébé » laissée
   - « Comment mesurer son mur pour un papier peint panoramique » (`/blogs/actualites/mesurer-son-mur-papier-peint-panoramique`) : largeur et hauteur à 3 endroits, plus grande valeur, plage acceptée 50–2000 × 50–500 cm, arrondi au m² supérieur (exemples 320 × 250 → 8 m², 260 × 250 → 6,5 → 7 m²) ;
   - « Papier peint adhésif ou papier peint à coller : comment choisir ? » (`/blogs/actualites/papier-peint-adhesif-ou-a-coller`) : Adhésive (dos adhésif, 53 €/m²) contre Essentielle (37 €/m²) et Signature (45 €/m²) posées à la colle. Prix revérifiés sur les variantes.
 - Reste à faire par l'utilisateur : publier le thème ; titre et méta-description de l'accueil (Boutique en ligne > Préférences) ; valider « Notre histoire » et les 2 articles ; informations légales (SIRET), délais de livraison réels, Shopify Payments ; puis Search Console + sitemap.
+
+## 28. Bandeau « Livraison offerte » (27 novembre 2026)
+- Demande : « livraison offerte » dans le bandeau vert, si c'est compatible avec Google Merchant Center.
+- Réglages d'expédition réels (Profil général) : France offerte dès 50 € d'achat, 8,80 € en dessous ; Union européenne 22 € ; autres pays desservis 29 €. Une commande de 1 m² en Essentielle (37 €) ou en Signature (45 €) paie donc la livraison : « livraison offerte » sans condition serait faux.
+- Bandeau (thème « MURELLE – 27 nov », commit e6bc37c) : « Imprimé à la commande, à vos dimensions » → « Livraison offerte en France dès 50 € d'achat », avec un lien vers la FAQ. Visible quand ce thème sera publié.
+- FAQ (en ligne) : la réponse « Combien coûte la livraison ? » donne désormais ces tarifs, au lieu de « affichés au paiement ».
+- Pour GMC : déclarer les mêmes règles dans Merchant Center (ou les importer de Shopify par l'application Google & YouTube). Aucune politique d'expédition Shopify n'existe encore (Paramètres > Politiques) : à créer avec les délais réels.
+- Repéré, non modifié : la politique de confidentialité donne une adresse Gmail personnelle comme contact (à remplacer par contact@murelle.fr une fois l'envoi configuré).
