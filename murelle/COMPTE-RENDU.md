@@ -261,3 +261,16 @@ Décisions de l'utilisateur : collection « Chambre enfant et bébé » laissée
 - Menu principal : entrée « Chambre d'enfant » retirée (Accueil, Forêt et sous-bois, Tropical et jungle, Design, Tous les motifs, Contact).
 - Accueil (thème « Horizon – Gammes ») : carte retirée, section « Quatre univers » renommée « Nos univers » (3 cartes). Vérifié en capture ordinateur et mobile.
 - Effet Google : plus de catégorie vide dans la navigation.
+
+## 27. SEO de nuit et thème à publier (27 novembre 2026)
+**Correction des sections 25 et 26.** Le thème « Horizon – Gammes » est devenu le thème en ligne le 26/11 à 14 h 16 ; les modifications de thème faites ensuite (icônes sociales, menu « Informations », « Nos univers », gammes sur Ondes Noires) sont enregistrées mais **en attente de publication**, donc pas encore visibles sur murelle.fr. La publication par l'outil échoue (`changed_on_shopify` sur `config/settings_data.json`), puis est refusée pour une copie (« seuls les thèmes créés par l'agent »).
+- **Thème « MURELLE – 27 nov »** (`gid://shopify/OnlineStoreTheme/210120212820`, non publié) : copie du thème en ligne contenant toutes ces corrections, plus celles de cette nuit. **À publier par l'utilisateur** : Boutique en ligne > Thèmes > « MURELLE – 27 nov » > … > Publier. Les références au thème 209539301716 (skill `murelle-catalogue`) seront à mettre à jour ensuite.
+- Sur cette copie :
+  - accueil : un seul H1, « Papier peint panoramique sur mesure » (le surtitre du bandeau ; le grand titre devient un paragraphe), rendu visuel identique (vérifié en capture ordinateur et mobile) ;
+  - page Contact : bouton « Submit » → « Envoyer ».
+- **Descriptions produit** (en ligne immédiatement, tous thèmes) : texte unique de 284 à 347 mots pour les 7 motifs : ce qu'on voit, intertitre H2 de recherche, les 3 gammes et la règle de prix, liens vers des motifs proches et la collection, intertitre « Où poser… », usages, mention « ni repris ni échangé, sauf défaut ». Rien d'inventé (ni délai, ni matière, ni certification). Volontairement plus court que les 450–550 mots visés, faute d'informations vérifiées supplémentaires.
+- **Textes de collection** (en ligne) : Forêt et sous-bois, Tropical et jungle, Design et inspiration, avec liens vers leurs motifs et une collection voisine.
+- **Blog « Actualités »** : 2 articles de conseils **en brouillon** (invisibles tant qu'ils ne sont pas publiés), titre et description SEO remplis :
+  - « Comment mesurer son mur pour un papier peint panoramique » (`/blogs/actualites/mesurer-son-mur-papier-peint-panoramique`) : largeur et hauteur à 3 endroits, plus grande valeur, plage acceptée 50–2000 × 50–500 cm, arrondi au m² supérieur (exemples 320 × 250 → 8 m², 260 × 250 → 6,5 → 7 m²) ;
+  - « Papier peint adhésif ou papier peint à coller : comment choisir ? » (`/blogs/actualites/papier-peint-adhesif-ou-a-coller`) : Adhésive (dos adhésif, 53 €/m²) contre Essentielle (37 €/m²) et Signature (45 €/m²) posées à la colle. Prix revérifiés sur les variantes.
+- Reste à faire par l'utilisateur : publier le thème ; titre et méta-description de l'accueil (Boutique en ligne > Préférences) ; valider « Notre histoire » et les 2 articles ; informations légales (SIRET), délais de livraison réels, Shopify Payments ; puis Search Console + sitemap.
