@@ -245,3 +245,13 @@ Demande : retirer tous les papiers peints sans photo. Décisions (QCM) : archive
 ## 24. Formation « Module 3 » lue (27 novembre 2026)
 - Contenu payant de l'utilisateur : transcrit et lu uniquement sur son Mac (outil local, rien publié). Skill privée `methode-google-murelle` et notes conservées sur le Mac (`~/Downloads/MURELLE-transcription/`), **volontairement absentes de ce dépôt public**.
 - Actions MURELLE identifiées (détail dans la skill privée) : collection vide, icônes sociales génériques, format de devise « 37,00 € », délais de livraison, pages FAQ et Notre histoire, paiements, e-mail pro, SEO (title/méta, H1, descriptions uniques), images ≥ 1000 px, ordre de lancement Search Console → GMC → Ads.
+
+## 25. Corrections Google (méthode Module 3) — 27 novembre 2026
+Décisions de l'utilisateur : collection « Chambre enfant et bébé » laissée visible (signalé : motif de refus GMC tant qu'elle est vide) ; icônes réseaux sociaux supprimées (pas de comptes) ; « Notre histoire » en version factuelle, à valider avant publication.
+- **Titres et descriptions Google (SEO)** sur les 7 motifs en ligne et 5 collections (Admin API, champ SEO) : modèle « Papier Peint Panoramique <motif> | MURELLE », descriptions 137–160 caractères, factuelles (« imprimé à la commande aux dimensions de votre mur, dès 37 €/m² »). Invisible pour les visiteurs.
+- **Page « Questions fréquentes »** `/pages/faq` créée et publiée (titre et description SEO) : gammes, choix du motif, mesures, calcul du prix, dimensions acceptées, délai (communiqué sur demande, rien d'inventé), frais de livraison (affichés au paiement), retours (exception sur-mesure art. L221-28 + garantie légale de conformité), pose, paiement ; liens vers 3 collections.
+- **Page « Notre histoire »** `/pages/notre-histoire` créée **en brouillon** (non publiée), texte factuel à valider.
+- **Menu du pied de page** renommé « Informations » : FAQ, Contact, Rechercher ; affiché dans le pied de page du thème « Horizon – Gammes » (nouveau bloc menu, intertitre discret).
+- **Icônes réseaux sociaux** génériques (facebook.com, instagram.com, youtube.com, tiktok.com, x.com) retirées du pied de page (thème « Horizon – Gammes »).
+- Non faisable par les outils (à faire par l'utilisateur) : format de devise « 37,00 € » (Paramètres > Général) et titre / méta-description de l'accueil (Boutique en ligne > Préférences).
+- Repéré, non modifié : bouton « Submit » en anglais sur la page Contact ; page Contact sans adresse, téléphone ni e-mail.
