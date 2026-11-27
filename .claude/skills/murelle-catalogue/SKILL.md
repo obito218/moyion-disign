@@ -20,7 +20,7 @@ Outils : connecteur Shopify (`graphql_query`, `graphql_mutation`, `theme_screens
 - Collections : `design-et-inspiration` 737673871700 · `foret-et-sous-bois` 737673773396 · `tropical-et-jungle` 737673806164 · `nos-motifs-du-moment` 737709064532 · `frontpage` (Page d'accueil) 696826429780 — la duplication y ajoute le produit : l'en retirer. (`chambre-enfant-et-bebe` supprimée le 27/11/2026.)
 - Familles de motifs : métaobjet `famille_motifs` (champs `nom`, `produits` = liste ordonnée). Entrée « Ondes Noires » : `gid://shopify/Metaobject/676719395156`.
 - Miniature du sélecteur : métachamp produit `murelle.miniature_motif` (file_reference, image).
-- Thème de travail (non publié) : `gid://shopify/OnlineStoreTheme/209539301716` — aperçu `https://cdskau-zu.myshopify.com/products/<handle>?preview_theme_id=209539301716`.
+- Thème en ligne (publié le 27/11/2026) : « MURELLE – 27 nov » `gid://shopify/OnlineStoreTheme/210120212820` (l'ancien « Horizon – Gammes » 209539301716 est dépublié).
 
 ## Procédure : nouveau motif
 1. **Existe-t-il ?** `productByIdentifier(identifier: {handle: "<handle>"}) { id }` → si oui, passer en mise à jour.
@@ -50,7 +50,7 @@ Importer la nouvelle (étapes 5–6), la placer à la position de l'ancienne (é
 
 ## Vérifications (obligatoires avant de dire « fait »)
 1. Requête : `product { status seo { title description } collections { handle } featuredMedia { id } media(first: 20) { nodes { id alt ... on MediaImage { image { url width height } } } } }` → ordre, image principale, collection, titre et description SEO remplis.
-2. Captures `theme_screenshot` (thème 209539301716) : la collection et la fiche, `viewport: both`.
+2. Captures `theme_screenshot` (thème 210120212820) : la collection et la fiche, `viewport: both`.
 3. Configurateur : ouvrir `/products/<handle>?variant=<id Signature>&largeur=400&hauteur=270` → Signature cochée, mur 10,8 m², facturé 11 m² (surface du mur arrondie au m² supérieur), total 495 € à 45 €/m².
 4. Images : repérer les bandes parasites (restes de montage, liseré blanc) en haut et en bas de chaque image ; si présentes, retirer uniquement ces lignes, sans redimensionner, en WebP sans perte, et garder l'original dans `originaux/`.
 5. Si famille : le sélecteur affiche tous les motifs, le motif courant est sélectionné.
@@ -59,4 +59,4 @@ Importer la nouvelle (étapes 5–6), la placer à la position de l'ancienne (é
 ## Pièges déjà rencontrés (API 2026-10 et outils)
 - `collectionUpdate(collection:)` (plus `input:`) ; ajout aux collections via `productUpdate.collectionsToJoin` ; `Publication.name` → `catalog.title` ; `Shop.billingAddress` → `shopAddress`.
 - `theme_bash` : pas de `;` ni `||` entre commandes, limite d'environ 1 appel par minute ; `theme_screenshot` aussi limité : regrouper les vérifications.
-- Le thème publié n'est pas « Horizon – Gammes » tant que l'utilisateur ne l'a pas publié : les images produit, elles, sont visibles partout dès l'import.
+- Les commits sur le thème en ligne restent « en attente de publication » (publication refusée à l'outil) : modifier une copie non publiée, puis la faire publier par l'utilisateur. Images et textes produit sont visibles partout dès l'import.
