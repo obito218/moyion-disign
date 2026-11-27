@@ -1,11 +1,18 @@
 {%- doc -%}
-  « Choisissez votre motif » : miniatures des motifs de la même famille.
-  Les familles se gèrent dans l'admin (Contenu > Métaobjets > Famille de motifs) :
-  un nom et la liste ordonnée des produits. La miniature est le métachamp produit
-  « Miniature du motif » (murelle.miniature_motif), sinon la photo principale.
-  Chaque miniature est un lien vers la vraie fiche du produit ; le script garde la
-  gamme et les dimensions saisies. Rien ne s'affiche si le produit n'est dans
-  aucune famille ou si moins de deux motifs de sa famille ont une image.
+  « Choisissez votre motif » : miniatures de tous les motifs de la même catégorie.
+
+  Source unique : les collections dont le métachamp « Catégorie de motifs
+  (sélecteur) » (murelle.categorie_motifs) est coché — aujourd'hui Forêt et
+  sous-bois, Tropical et jungle, Design et inspiration. Le sélecteur prend la
+  catégorie du produit affiché et montre ses motifs dans l'ordre de la collection.
+  Ajouter un motif à la collection suffit pour qu'il apparaisse ; cocher le
+  métachamp sur une nouvelle collection crée une nouvelle catégorie.
+
+  Miniature : métachamp produit « Miniature du motif » (murelle.miniature_motif),
+  sinon le haut de la photo principale. Prix : prix au m² de la gamme choisie.
+  Au clic, la fiche du motif choisi remplace la fiche actuelle sans recharger la
+  page (même mécanisme que les listes combinées d'Horizon) ; la gamme et les
+  dimensions saisies sont conservées. Invisible s'il y a moins de deux motifs.
 
   @example
   {% content_for 'block', type: 'murelle-motifs', id: 'motifs' %}
@@ -14,23 +21,22 @@
 {%- liquid
   assign product = closest.product
   assign bs = block.settings
-  assign family = nil
+  assign category = nil
+  assign category_count = 0
   if product != blank
-    for f in shop.metaobjects.famille_motifs.values
-      for p in f.produits.value
-        if p.id == product.id
-          assign family = f
-          break
+    for c in product.collections
+      if c.metafields.murelle.categorie_motifs.value == true
+        assign category_count = category_count | plus: 1
+        if category_count == 1
+          assign category = c
         endif
-      endfor
-      if family
-        break
       endif
     endfor
   endif
+  assign current_variant = product.selected_or_first_available_variant
   assign count = 0
-  if family
-    for p in family.produits.value
+  if category
+    for p in category.products limit: 50
       assign thumb = p.metafields.murelle.miniature_motif.value | default: p.featured_image
       if thumb != blank
         assign count = count | plus: 1
@@ -44,28 +50,50 @@
     class="m-motifs spacing-style"
     style="{% render 'spacing-style', settings: bs %}"
     data-form-id="BuyButtons-ProductForm-{{ section.id }}"
+    data-category="{{ category.handle }}"
     {{ block.shopify_attributes }}
   >
     <div class="m-motifs__head">
       <p class="m-motifs__legend" id="MotifsLegend-{{ block.id }}">{{ bs.heading | escape }}</p>
-      {%- if bs.show_name -%}
-        <p class="m-motifs__name" data-motif-name>{{ product.title | escape }}</p>
-      {%- endif -%}
+      <div class="m-motifs__current" aria-live="polite">
+        {%- if bs.show_name -%}
+          <p class="m-motifs__name" data-motif-name>{{ product.title | escape }}</p>
+        {%- endif -%}
+        {%- if bs.show_price -%}
+          <p class="m-motifs__price" data-motif-price>
+            {{- current_variant.price | money }} / m² · {{ current_variant.option1 | escape -}}
+          </p>
+        {%- endif -%}
+      </div>
     </div>
     <ul class="m-motifs__list" role="list" aria-labelledby="MotifsLegend-{{ block.id }}">
-      {%- for p in family.produits.value -%}
+      {%- for p in category.products limit: 50 -%}
         {%- liquid
-          assign thumb = p.metafields.murelle.miniature_motif.value | default: p.featured_image
+          assign mini = p.metafields.murelle.miniature_motif.value
+          assign thumb = mini | default: p.featured_image
           if thumb == blank
             continue
           endif
           assign src = thumb.preview_image | default: thumb
+          if mini == blank
+            assign side = src.height | divided_by: 2
+            assign left = src.width | minus: side | divided_by: 2
+            assign top = src.height | divided_by: 10
+            assign u80 = src | image_url: width: 80, height: 80, crop: 'region', crop_left: left, crop_top: top, crop_width: side, crop_height: side
+            assign u160 = src | image_url: width: 160, height: 160, crop: 'region', crop_left: left, crop_top: top, crop_width: side, crop_height: side
+            assign u240 = src | image_url: width: 240, height: 240, crop: 'region', crop_left: left, crop_top: top, crop_width: side, crop_height: side
+          else
+            assign u80 = src | image_url: width: 80, height: 80, crop: 'center'
+            assign u160 = src | image_url: width: 160, height: 160, crop: 'center'
+            assign u240 = src | image_url: width: 240, height: 240, crop: 'center'
+          endif
           assign is_current = false
           if p.id == product.id
             assign is_current = true
           endif
         -%}
         {%- capture options_json -%}{ {%- for v in p.variants -%}{{ v.option1 | json }}:{{ v.id }}{% unless forloop.last %},{% endunless %}{%- endfor -%} }{%- endcapture -%}
+        {%- capture prices_json -%}{ {%- for v in p.variants -%}{{ v.option1 | json }}:{{ v.price | money | json }}{% unless forloop.last %},{% endunless %}{%- endfor -%} }{%- endcapture -%}
         <li class="m-motifs__item">
           <a
             class="m-motif{% if is_current %} is-selected{% endif %}"
@@ -73,12 +101,13 @@
             data-url="{{ p.url }}"
             data-title="{{ p.title | escape }}"
             data-options="{{ options_json | strip | escape }}"
+            data-prices="{{ prices_json | strip | escape }}"
             {% if is_current %}aria-current="page"{% endif %}
           >
             <img
               class="m-motif__img"
-              src="{{ src | image_url: width: 160, height: 160, crop: 'center' }}"
-              srcset="{{ src | image_url: width: 80, height: 80, crop: 'center' }} 80w, {{ src | image_url: width: 160, height: 160, crop: 'center' }} 160w, {{ src | image_url: width: 240, height: 240, crop: 'center' }} 240w"
+              src="{{ u160 }}"
+              srcset="{{ u80 }} 80w, {{ u160 }} 160w, {{ u240 }} 240w"
               sizes="72px"
               width="80"
               height="80"
@@ -91,11 +120,14 @@
         </li>
       {%- endfor -%}
     </ul>
+    {%- if request.design_mode and category_count > 1 -%}
+      <p class="m-motifs__empty">Ce motif est rangé dans {{ category_count }} catégories : seule « {{ category.title | escape }} » est utilisée. Retirez-le des autres pour éviter les mélanges.</p>
+    {%- endif -%}
   </murelle-motifs>
-  <script src="{{ 'murelle-motifs.js' | asset_url }}" defer></script>
+  <script type="module" src="{{ 'murelle-motifs.js' | asset_url }}"></script>
 {%- elsif request.design_mode -%}
   <p class="m-motifs__empty" {{ block.shopify_attributes }}>
-    « {{ bs.heading | escape }} » : ce produit n'appartient à aucune famille de motifs ayant au moins deux motifs illustrés (Contenu &gt; Métaobjets &gt; Famille de motifs). Le bloc reste invisible pour les clients.
+    « {{ bs.heading | escape }} » : ce produit n'est dans aucune collection cochée « Catégorie de motifs (sélecteur) », ou sa catégorie a moins de deux motifs illustrés. Le bloc reste invisible pour les clients.
   </p>
 {%- endif -%}
 
@@ -103,9 +135,10 @@
 {
   "name": "Choix du motif",
   "settings": [
-    { "type": "paragraph", "content": "Les familles se gèrent dans Contenu > Métaobjets > Famille de motifs. La miniature est le métachamp produit « Miniature du motif », sinon la photo principale." },
+    { "type": "paragraph", "content": "Motifs affichés : ceux de la collection du produit cochée « Catégorie de motifs (sélecteur) » (Collections > métachamps). Miniature : métachamp produit « Miniature du motif », sinon la photo principale." },
     { "type": "text", "id": "heading", "label": "Titre", "default": "Choisissez votre motif" },
     { "type": "checkbox", "id": "show_name", "label": "Afficher le nom du motif sélectionné", "default": true },
+    { "type": "checkbox", "id": "show_price", "label": "Afficher le prix au m² de la gamme choisie", "default": true },
     { "type": "header", "content": "Espacement" },
     { "type": "range", "id": "padding-block-start", "label": "Marge haute", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
     { "type": "range", "id": "padding-block-end", "label": "Marge basse", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 4 }

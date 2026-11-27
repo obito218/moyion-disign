@@ -1,6 +1,6 @@
 ---
 name: murelle-catalogue
-description: Ajouter ou mettre à jour un motif (produit) dans la boutique Shopify MURELLE selon les règles du projet — création par duplication du produit modèle, import et ordre des images, textes alternatifs, collection, famille de motifs, miniature, vérifications. À utiliser dès qu'il faut créer un produit, remplacer ou ajouter des images, ou associer des motifs dans « Choisissez votre motif ».
+description: Ajouter ou mettre à jour un motif (produit) dans la boutique Shopify MURELLE selon les règles du projet — création par duplication du produit modèle, import et ordre des images, textes alternatifs, collection (= catégorie du sélecteur de motifs), miniature, vérifications. À utiliser dès qu'il faut créer un produit, remplacer ou ajouter des images, ou associer des motifs dans « Choisissez votre motif ».
 ---
 
 # Catalogue MURELLE
@@ -18,8 +18,8 @@ Outils : connecteur Shopify (`graphql_query`, `graphql_mutation`, `theme_screens
 ## Références (au 25/11/2026 — revérifier par requête avant usage)
 - Produit modèle (brouillon) : `gid://shopify/Product/15992522768724` ; option « Gamme » : Essentielle / Signature / Adhésive (prix au m² : 37 / 45 / 53 € TTC à ce jour ; noms techniques retirés le 26/11/2026).
 - Collections : `design-et-inspiration` 737673871700 · `foret-et-sous-bois` 737673773396 · `tropical-et-jungle` 737673806164 · `nos-motifs-du-moment` 737709064532 · `frontpage` (Page d'accueil) 696826429780 — la duplication y ajoute le produit : l'en retirer. (`chambre-enfant-et-bebe` supprimée le 27/11/2026.)
-- Familles de motifs : métaobjet `famille_motifs` (champs `nom`, `produits` = liste ordonnée). Entrée « Ondes Noires » : `gid://shopify/Metaobject/676719395156`.
-- Miniature du sélecteur : métachamp produit `murelle.miniature_motif` (file_reference, image).
+- Sélecteur « Choisissez votre motif » (bloc `murelle-motifs`) : automatique par catégorie. Une catégorie = une collection dont le métachamp `murelle.categorie_motifs` (booléen) est vrai : `foret-et-sous-bois`, `tropical-et-jungle`, `design-et-inspiration`. Tous les motifs de la collection y figurent, dans l'ordre de la collection. Un motif ne doit être que dans **une** catégorie (sinon la première est prise ; avertissement dans l'éditeur). L'ancien métaobjet `famille_motifs` n'est plus lu (données gardées).
+- Miniature du sélecteur : métachamp produit `murelle.miniature_motif` (file_reference, image) = le motif à plat (le fichier peut rester hors galerie). Sans miniature : carré pris en haut au centre de la photo principale.
 - Thème en ligne (publié le 27/11/2026) : « MURELLE – 27 nov » `gid://shopify/OnlineStoreTheme/210120212820` (l'ancien « Horizon – Gammes » 209539301716 est dépublié).
 
 ## Procédure : nouveau motif
@@ -38,7 +38,7 @@ Outils : connecteur Shopify (`graphql_query`, `graphql_mutation`, `theme_screens
 6. **Attacher sans copier** : `fileUpdate(files: [{id: "<MediaImage>", referencesToAdd: ["<Product>"]}])`.
 7. **Ordonner** : `productReorderMedia(id: "<Product>", moves: [{id: "<MediaImage>", newPosition: "0"}, ...])` (tâche asynchrone : relire ensuite l'ordre).
 8. **Miniature** : `metafieldsSet` sur `murelle.miniature_motif` (type `file_reference`) avec l'image du motif à plat.
-9. **Famille** (si demandé) : `metaobjectUpdate` du champ `produits` — la valeur remplace toute la liste : renvoyer la liste complète, dans l'ordre voulu.
+9. **Sélecteur** : rien à coder ni à déclarer ; l'ajout à la collection-catégorie (étape 4) suffit.
 10. **SEO (obligatoire : le modèle n'a ni titre SEO ni texte propre)** : `productUpdate` avec
     - `seo.title` : « Papier Peint Panoramique <thème éventuel> <Nom> | MURELLE » (≤ 70 caractères) ;
     - `seo.description` : 145–160 caractères, ce qu'on voit + « Imprimé à vos dimensions, dès 37 €/m². » (prix revérifié sur les variantes) ;
@@ -53,7 +53,7 @@ Importer la nouvelle (étapes 5–6), la placer à la position de l'ancienne (é
 2. Captures `theme_screenshot` (thème 210120212820) : la collection et la fiche, `viewport: both`.
 3. Configurateur : ouvrir `/products/<handle>?variant=<id Signature>&largeur=400&hauteur=270` → Signature cochée, mur 10,8 m², facturé 11 m² (surface du mur arrondie au m² supérieur), total 495 € à 45 €/m².
 4. Images : repérer les bandes parasites (restes de montage, liseré blanc) en haut et en bas de chaque image ; si présentes, retirer uniquement ces lignes, sans redimensionner, en WebP sans perte, et garder l'original dans `originaux/`.
-5. Si famille : le sélecteur affiche tous les motifs, le motif courant est sélectionné.
+5. Sélecteur : la fiche montre tous les motifs de sa catégorie (et aucun autre), le motif courant encadré, nom et prix au m² de la gamme ; le nouveau motif apparaît aussi sur les fiches des autres motifs de la catégorie.
 6. Ajouter une ligne à `murelle/COMPTE-RENDU.md` (quoi, où, limites : résolution, référence manquante), commit + push.
 
 ## Pièges déjà rencontrés (API 2026-10 et outils)

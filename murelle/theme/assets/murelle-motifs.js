@@ -1,19 +1,31 @@
-/* « Choisissez votre motif » : chaque miniature est un lien vers la vraie fiche.
-   Au survol / focus / toucher : nom affiché et page préchargée. Au clic : la gamme
-   (même gamme) et les dimensions saisies sont transmises dans l'URL. */
+/* « Choisissez votre motif » : tous les motifs de la catégorie du produit.
+   Survol / focus / toucher : nom et prix (gamme en cours) du motif visé, fiche préchargée.
+   Clic : la fiche du motif choisi remplace la fiche actuelle sans recharger la page,
+   comme les listes combinées d'Horizon (morph de <main>), en gardant la gamme et les
+   dimensions. En cas d'échec, navigation classique vers la même adresse. */
+import { morph } from '@theme/morph';
+
+/* Éléments qui lisent leurs données une seule fois (connectedCallback) :
+   recréés après le remplacement pour repartir des données du nouveau motif. */
+const REINIT = 'murelle-configurator, murelle-motifs, product-recommendations';
+
+const readJSON = (el, key) => {
+  try { return JSON.parse((el && el.dataset[key]) || '{}'); } catch (err) { return {}; }
+};
+
 if (!customElements.get('murelle-motifs')) {
   class MurelleMotifs extends HTMLElement {
     connectedCallback() {
       this.links = Array.from(this.querySelectorAll('a.m-motif'));
       this.current = this.querySelector('a.m-motif[aria-current]');
       this.nameEl = this.querySelector('[data-motif-name]');
-      this.currentName = this.nameEl ? this.nameEl.textContent : '';
-      this.prefetched = new Set();
+      this.priceEl = this.querySelector('[data-motif-price]');
+      this.pages = new Map();
       this.pending = false;
       this.onIntent = (e) => this.intent(e.currentTarget);
-      this.onLeave = () => { if (!this.pending) this.showName(this.currentName); };
+      this.onLeave = () => { if (!this.pending) this.show(this.current); };
       this.onClick = (e) => this.select(e);
-      this.onPageShow = (e) => { if (e.persisted) this.reset(); };
+      this.onVariant = () => setTimeout(() => { if (!this.pending) this.show(this.current); }, 0);
       this.links.forEach((a) => {
         a.addEventListener('pointerenter', this.onIntent);
         a.addEventListener('focus', this.onIntent);
@@ -22,48 +34,50 @@ if (!customElements.get('murelle-motifs')) {
         a.addEventListener('blur', this.onLeave);
         a.addEventListener('click', this.onClick);
       });
-      window.addEventListener('pageshow', this.onPageShow);
+      document.addEventListener('variant:update', this.onVariant);
+      document.addEventListener('change', this.onVariant);
+      this.show(this.current);
     }
+
     disconnectedCallback() {
-      window.removeEventListener('pageshow', this.onPageShow);
+      document.removeEventListener('variant:update', this.onVariant);
+      document.removeEventListener('change', this.onVariant);
     }
+
+    get form() {
+      return document.getElementById(this.dataset.formId);
+    }
+
+    /* Gamme en cours (« Essentielle », « Signature »…), lue dans le formulaire d'achat. */
+    gamme() {
+      const input = this.form && this.form.querySelector('[name="id"]');
+      const id = input ? String(input.value) : new URLSearchParams(window.location.search).get('variant');
+      const mine = readJSON(this.current, 'options');
+      return Object.keys(mine).find((k) => String(mine[k]) === id) || Object.keys(mine)[0];
+    }
+
+    show(a) {
+      if (!a) return;
+      if (this.nameEl) this.nameEl.textContent = a.dataset.title;
+      if (this.priceEl) {
+        const g = this.gamme();
+        const price = readJSON(a, 'prices')[g];
+        if (price) this.priceEl.textContent = `${price} / m² · ${g}`;
+      }
+    }
+
     intent(a) {
-      this.showName(a.dataset.title);
+      this.show(a);
       if (a === this.current) return;
       a.href = this.buildUrl(a);
       this.prefetch(a.href);
     }
-    select(e) {
-      const a = e.currentTarget;
-      if (a === this.current) { e.preventDefault(); return; }
-      a.href = this.buildUrl(a);
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      this.pending = true;
-      this.links.forEach((l) => l.classList.toggle('is-selected', l === a));
-      this.classList.add('is-loading');
-      this.showName(a.dataset.title);
-    }
-    reset() {
-      this.pending = false;
-      this.classList.remove('is-loading');
-      this.links.forEach((l) => l.classList.toggle('is-selected', l === this.current));
-      this.showName(this.currentName);
-    }
-    showName(text) {
-      if (this.nameEl && text) this.nameEl.textContent = text;
-    }
-    readJSON(el) {
-      try { return JSON.parse((el && el.dataset.options) || '{}'); } catch (err) { return {}; }
-    }
+
     buildUrl(a) {
       const url = new URL(a.dataset.url, window.location.origin);
-      const form = document.getElementById(this.dataset.formId);
-      const idInput = form && form.querySelector('[name="id"]');
-      const variantId = idInput ? String(idInput.value) : new URLSearchParams(window.location.search).get('variant');
-      const mine = this.readJSON(this.current);
-      const value = Object.keys(mine).find((k) => String(mine[k]) === variantId);
-      const target = this.readJSON(a);
-      if (value && target[value]) url.searchParams.set('variant', target[value]);
+      const target = readJSON(a, 'options');
+      const g = this.gamme();
+      if (g && target[g]) url.searchParams.set('variant', target[g]);
       const scope = this.closest('.shopify-section') || document;
       const w = scope.querySelector('murelle-configurator [data-w]');
       const h = scope.querySelector('murelle-configurator [data-h]');
@@ -71,15 +85,52 @@ if (!customElements.get('murelle-motifs')) {
       if (h && h.value && h.checkValidity()) url.searchParams.set('hauteur', h.value);
       return url.pathname + url.search;
     }
+
+    page(href) {
+      if (!this.pages.has(href)) {
+        const p = fetch(href, { credentials: 'same-origin' }).then((r) => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.text();
+        });
+        p.catch(() => this.pages.delete(href));
+        this.pages.set(href, p);
+      }
+      return this.pages.get(href);
+    }
+
     prefetch(href) {
       const c = navigator.connection;
-      if ((c && c.saveData) || this.prefetched.has(href)) return;
-      this.prefetched.add(href);
-      const link = document.createElement('link');
-      link.rel = 'prefetch';
-      link.as = 'document';
-      link.href = href;
-      document.head.appendChild(link);
+      if (c && c.saveData) return;
+      this.page(href).catch(() => {});
+    }
+
+    async select(e) {
+      const a = e.currentTarget;
+      if (a === this.current) { e.preventDefault(); return; }
+      a.href = this.buildUrl(a);
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button > 0) return;
+      e.preventDefault();
+      const href = a.getAttribute('href');
+      this.pending = true;
+      this.links.forEach((l) => l.classList.toggle('is-selected', l === a));
+      this.classList.add('is-loading');
+      this.show(a);
+      try {
+        const html = await this.page(href);
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const main = document.querySelector('main');
+        const newMain = doc.querySelector('main');
+        if (!main || !newMain || !newMain.querySelector('murelle-motifs')) throw new Error('Fiche inattendue');
+        doc.querySelector('overflow-list[defer]')?.removeAttribute('defer');
+        history.replaceState(history.state, '', href);
+        morph(main, newMain);
+        if (doc.title) document.title = doc.title;
+        main.querySelectorAll(REINIT).forEach((el) => el.replaceWith(el.cloneNode(true)));
+        const selected = document.querySelector('murelle-motifs a.m-motif[aria-current]');
+        if (selected) selected.focus({ preventScroll: true });
+      } catch (err) {
+        window.location.assign(href);
+      }
     }
   }
   customElements.define('murelle-motifs', MurelleMotifs);
