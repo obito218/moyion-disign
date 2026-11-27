@@ -255,3 +255,9 @@ Décisions de l'utilisateur : collection « Chambre enfant et bébé » laissée
 - **Icônes réseaux sociaux** génériques (facebook.com, instagram.com, youtube.com, tiktok.com, x.com) retirées du pied de page (thème « Horizon – Gammes »).
 - Non faisable par les outils (à faire par l'utilisateur) : format de devise « 37,00 € » (Paramètres > Général) et titre / méta-description de l'accueil (Boutique en ligne > Préférences).
 - Repéré, non modifié : bouton « Submit » en anglais sur la page Contact ; page Contact sans adresse, téléphone ni e-mail.
+
+## 26. « Chambre enfant et bébé » supprimée (27 novembre 2026)
+- Demande de l'utilisateur : supprimer la section chambre enfant. La dépublication étant refusée par l'outil (sécurité), la **collection a été supprimée** (`collectionDelete`, irréversible) ; les 6 motifs enfants archivés restent dans Produits > Archivés (sans cette collection).
+- Menu principal : entrée « Chambre d'enfant » retirée (Accueil, Forêt et sous-bois, Tropical et jungle, Design, Tous les motifs, Contact).
+- Accueil (thème « Horizon – Gammes ») : carte retirée, section « Quatre univers » renommée « Nos univers » (3 cartes). Vérifié en capture ordinateur et mobile.
+- Effet Google : plus de catégorie vide dans la navigation.
