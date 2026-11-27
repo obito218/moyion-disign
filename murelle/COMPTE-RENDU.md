@@ -241,3 +241,7 @@ Demande : retirer tous les papiers peints sans photo. Décisions (QCM) : archive
 - Motif à plat (5e image du chat) non ajouté à la galerie (consigne « exclusivement les 4 images ») ; copie conservée dans `murelle/visuels/jardin-des-brumes/` avec les copies du chat des 4 images.
 - Vérifié : médias et ordre (requête), nombre d'images des autres produits inchangé, fiche ordinateur (grande image, 2 côte à côte, grande image) et mobile (carrousel 4 points), configurateur Signature 400 × 270 → 10,8 m², facturé 11 m², 495 € ; collection « Tropical et jungle » ordinateur et mobile (1 motif).
 - Limites : 767 px de large, un peu doux en grand écran ; mises en situation générées (le motif réel est celui du fichier à plat). Défauts existants signalés, non corrigés : bandeau de collection « 1 MOTIFS » (pluriel fixe), collection sans image de bannière.
+
+## 24. Formation « Module 3 » lue (27 novembre 2026)
+- Contenu payant de l'utilisateur : transcrit et lu uniquement sur son Mac (outil local, rien publié). Skill privée `methode-google-murelle` et notes conservées sur le Mac (`~/Downloads/MURELLE-transcription/`), **volontairement absentes de ce dépôt public**.
+- Actions MURELLE identifiées (détail dans la skill privée) : collection vide, icônes sociales génériques, format de devise « 37,00 € », délais de livraison, pages FAQ et Notre histoire, paiements, e-mail pro, SEO (title/méta, H1, descriptions uniques), images ≥ 1000 px, ordre de lancement Search Console → GMC → Ads.
