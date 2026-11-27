@@ -324,3 +324,10 @@ Décisions de l'utilisateur : collection « Chambre enfant et bébé » laissée
   3. **Navigation** : menu `footer` renommé « Navigation » : Accueil, Forêt et sous-bois, Tropical et jungle, Design, Tous les motifs, Questions fréquentes, Contact (« Rechercher » retiré, déjà dans l'en-tête).
   4. **La lettre MURELLE** : titre, texte et champ d'inscription regroupés.
 - CSS (`assets/murelle.css`) : colonnes alignées en haut, lien « Page contact » sans soulignement (souligné au survol), titre « Nous contacter » aligné sur les titres de menus (ordinateur). Vérifié en capture ordinateur et mobile.
+
+## 34. Élégance Botanique : photos d'ambiance remplacées (27 novembre 2026)
+- Fiche existante identifiée : `gid://shopify/Product/16016564093268`, `/products/elegance-botanique` (aucun doublon). Motif vérifié : la gravure fournie (arbres, montagnes, village au bord de l'eau) est celle de l'ancienne photo « 03 salon » ; différente de Brume d'autrefois.
+- Avant : 3 photos d'ambiance (3 salons, 1254 × 1254 et 780 × 790), aucun motif à plat. Après : les 4 PNG d'origine du Mac (`01-salon-`, `02-salle-a-manger-`, `03-chambre-`, `04-hall-entree-elegance-botanique.png`, 768 × 512) envoyés tels quels, dans cet ordre, textes alternatifs descriptifs. Les 3 anciennes images sont détachées de la fiche mais conservées dans Contenu > Fichiers.
+- Inchangés (vérifiés) : nom, adresse, prix 37 / 45 / 53 €, description, titre SEO, étiquette, collections (Page d'accueil, Forêt et sous-bois, Nos motifs du moment), configurateur (Signature 400 × 270 → 10,8 m², facturé 11 m², 495 €). Brume d'autrefois garde ses 5 images.
+- Effet hors fiche : la vignette d'Élégance Botanique dans les collections et sur l'accueil montre désormais le nouveau salon.
+- Gravure à plat fournie (1672 × 941) non ajoutée (« les quatre nouvelles images ») ; copie conservée dans `murelle/visuels/elegance-botanique/2026-11-27/`. Défauts des fichiers fournis, non corrigés : liserés clairs de 1 px sur certains bords.
